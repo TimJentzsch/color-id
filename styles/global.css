@@ -162,6 +162,7 @@ a:hover {
 #color-input-container {
   display: flex;
   flex-flow: row nowrap;
+  align-items: center;
   gap: 5px;
   height: 30px;
 }
@@ -180,7 +181,7 @@ a:hover {
   border-color: var(--primary);
 }
 
-#color-submission {
+#color-submission, #color-random {
   background-color: var(--surface);
   color: var(--on-surface);
   border: solid var(--line) 1px;
@@ -189,7 +190,7 @@ a:hover {
   padding: 2px 5px;
 }
 
-#color-submission:hover {
+#color-submission:hover, #color-random:hover {
   border-color: var(--primary);
   color: var(--primary);
   cursor: pointer;

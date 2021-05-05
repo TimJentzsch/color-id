@@ -1,6 +1,6 @@
 // Constants
 const PROJECT_NAME = "color-id";
-const PROJECT_VERSION = "0.0.1";
+const PROJECT_VERSION = "0.0.2";
 const PROJECT_AUTHOR = "Tim Jentzsch";
 const PROJECT_SOURCE = "https://github.com/TimJentzsch/color-id";
 
@@ -73,6 +73,14 @@ const ColorIDApp = {
         updatePrimaryColor(rgb);
       }
     },
+
+    /** Selects a new random color. */
+    randomColor() {
+      const randomColor = culori.random();
+      const hex = culori.formatHex(randomColor);
+      this.colorInput = hex;
+      this.identifyColor();
+    }
   },
 };
 
