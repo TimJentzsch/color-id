@@ -4,6 +4,21 @@ const PROJECT_VERSION = "0.0.1";
 const PROJECT_AUTHOR = "Tim Jentzsch";
 const PROJECT_SOURCE = "https://github.com/TimJentzsch/color-id";
 
+/** Updates the primary color for the whole page. */
+function updatePrimaryColor(input) {
+  const hsl = culori.hsl(input);
+  if (!hsl) {
+    return;
+  }
+  // Ensure that the contrast is high enough
+  if (hsl.l < 0.8) {
+    hsl.l = 0.8;
+  }
+  const hex = culori.formatHex(hsl);
+  // Update the CSS variable
+  document.documentElement.style.setProperty("--primary", hex);
+}
+
 /** Gets the clostest colors to the input color. */
 function getNearestColors(input) {
   const colors = Object.keys(culori.colorsNamed)
@@ -29,7 +44,9 @@ const ColorIDApp = {
       hex,
       style: `background-color: ${hex};`,
     };
-    const nearestColors = getNearestColors(hex);
+    const nearestColors = getNearestColors(randomColor);
+
+    updatePrimaryColor(randomColor);
 
     return {
       name: PROJECT_NAME,
@@ -45,14 +62,15 @@ const ColorIDApp = {
   methods: {
     /** Identifies the given color input string. */
     identifyColor() {
-      const rgb = culori.converter("rgb")(this.colorInput);
+      const rgb = culori.rgb(this.colorInput);
       if (rgb) {
         const hex = culori.formatHex(rgb);
         this.searchColor = {
           hex,
           style: `background-color: ${hex};`,
         };
-        this.nearestColors = getNearestColors(hex);
+        this.nearestColors = getNearestColors(rgb);
+        updatePrimaryColor(rgb);
       }
     },
   },
