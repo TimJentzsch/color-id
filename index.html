@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>color-id</title>
 
+    <link rel="shortcut icon" type="image/svg+xml" href="images/favicon.svg"/>
     <link
       rel="stylesheet"
       type="text/css"
@@ -54,11 +55,22 @@
       </div>
     </header>
     <div id="body-container">
-      <form id="color-input-form" v-on:submit="onSubmitColorForm">
-        <input id="color-input" type="text" placeholder="Color" autofocus/>
-        <input type="submit" value="identify"/>
-      </form>
-      <div>
+      <div id="search-container">
+        <form id="color-input-form" v-on:submit="identifyColor">
+          <div class="color-box" v-bind:style="searchColor.style"></div>
+          <div id="color-input-container">
+            <input
+              id="color-input"
+              v-model="colorInput"
+              type="text"
+              placeholder="#ffaaff"
+              autofocus
+            />
+            <input id="color-submission" type="submit" value="identify" />
+          </div>
+        </form>
+      </div>
+      <div id="suggestion-container">
         <div id="color-suggestion-list">
           <div class="color-suggestion" v-for="color in nearestColors">
             <div class="color-box" v-bind:style="color.style"></div>

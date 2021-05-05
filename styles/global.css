@@ -105,6 +105,12 @@ a:hover {
   text-decoration-color: var(--primary);
 }
 
+#suggestion-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
 #color-suggestion-list {
   display: flex;
   flex-flow: row wrap;
@@ -120,6 +126,7 @@ a:hover {
 
   background-color: var(--surface);
   border-radius: 5px;
+  border: solid var(--line) 1px;
   overflow: hidden;
 }
 
@@ -137,5 +144,53 @@ a:hover {
 }
 
 .color-hex {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
+}
+
+#search-container {
+  display: flex;
+  justify-content: center;
+}
+
+#color-input-form {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 10px;
+}
+
+#color-input-container {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 5px;
+  height: 30px;
+}
+
+#color-input {
+  background-color: var(--background);
+  padding: 2px 5px;
+  color: var(--on-background);
+  outline: none;
+  border: solid var(--line) 1px;
+  border-radius: 5px;
+}
+
+#color-input:focus {
+  background-color: var(--surface);
+  border-color: var(--primary);
+}
+
+#color-submission {
+  background-color: var(--surface);
+  color: var(--on-surface);
+  border: solid var(--line) 1px;
+  border-radius: 5px;
+  outline: none;
+  padding: 2px 5px;
+}
+
+#color-submission:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  cursor: pointer;
 }
