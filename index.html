@@ -54,10 +54,17 @@
       </div>
     </header>
     <div id="body-container">
-      <form id="color-input-form">
+      <form id="color-input-form" v-on:submit="onSubmitColorForm">
         <input id="color-input" type="text" placeholder="Color" autofocus/>
         <input type="submit" value="identify"/>
       </form>
+      <div>
+        <ol>
+          <li v-for="color in nearestColors">
+            {{ color }}
+          </li>
+        </ol>
+      </div>
     </div>
     <footer>
       <div id="footer-content">

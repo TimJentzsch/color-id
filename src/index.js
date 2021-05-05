@@ -11,41 +11,49 @@ const ColorIDApp = {
       version: PROJECT_VERSION,
       author: PROJECT_AUTHOR,
       source: PROJECT_SOURCE,
+      nearestColors: [],
     };
+  },
+  methods: {
+    /** Identifies the given color input string. */
+    identifyColor(input) {
+      const colors = Object.keys(culori.colorsNamed);
+      const getNearestColors = culori.nearest(
+        colors,
+        culori.differenceCiede2000()
+      );
+
+      this.nearestColors = getNearestColors(input, 5);
+    },
+
+    /** Handles the submission of the identification form. */
+    onSubmitColorForm() {
+      const colorInput = document.getElementById("color-input");
+      if (colorInput) {
+        const color = colorInput.value;
+        this.identifyColor(color);
+      } else {
+        console.error("Color input not found!");
+      }
+      // Make sure that the page isn't reloaded
+      return false;
+    },
   },
 };
 
 const app = Vue.createApp(ColorIDApp);
 
-/** Identifies the given color input string. */
-function identifyColor(input) {
-  const colors = Object.keys(culori.colorsNamed);
-  const getNearestColors = culori.nearest(colors, culori.differenceCiede2000());
-
-  const nearestColors = getNearestColors(input, 5);
-  console.info(JSON.stringify(nearestColors));
-}
-
-/** Handles the submission of the identification form. */
-function onSubmitColorForm() {
-  const colorInput = document.getElementById("color-input");
-  if (colorInput) {
-    const color = colorInput.value;
-    identifyColor(color);
-  } else {
-    console.error("Color input not found!");
-  }
-  // Make sure that the page isn't reloaded
-  return false;
-}
-
 // Load the Vue app and register event listeners
 document.addEventListener("DOMContentLoaded", () => {
+  // Load the Vue app
   app.mount("#app");
 
+  // Make sure that the page isn't reloaded when the color form is submitted
   const colorForm = document.getElementById("color-input-form");
   if (colorForm) {
-    colorForm.onsubmit = onSubmitColorForm;
+    colorForm.onsubmit = () => {
+      return false;
+    };
   } else {
     console.error("Color form not found!");
   }
