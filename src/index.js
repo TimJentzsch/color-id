@@ -1,8 +1,20 @@
 // Constants
 const PROJECT_NAME = "color-id";
-const PROJECT_VERSION = "0.0.3";
+const PROJECT_VERSION = "0.0.4";
 const PROJECT_AUTHOR = "Tim Jentzsch";
 const PROJECT_SOURCE = "https://github.com/TimJentzsch/color-id";
+
+/** Updates the URL query parameter and the history if necessary. */
+function updateURL(colorHex, updateHistory) {
+  const data = { color: colorHex };
+  const queryParam = `?color=${encodeURI(colorHex.replace("#", ""))}`;
+
+  if (updateHistory) {
+    history.pushState(data, PROJECT_NAME, queryParam);
+  } else {
+    history.replaceState(data, PROJECT_NAME, queryParam);
+  }
+}
 
 /** Updates the primary color for the whole page. */
 function updatePrimaryColor(input) {
@@ -37,23 +49,53 @@ function getNearestColors(input) {
 
 const ColorIDApp = {
   data() {
-    // Start with a random color
-    const randomColor = culori.random();
-    const hex = culori.formatHex(randomColor);
+    // Update color when user moves through history
+    window.addEventListener("popstate", (ev) => {
+      if (!ev.state || !ev.state.color) {
+        return;
+      }
+
+      this.colorInput = ev.state.color;
+      this.identifyColor(false);
+    });
+
+    let color = culori.random();
+    let colorInput = culori.formatHex(color);
+    let randomedColor = true;
+
+    // Check if a color is already specified (otherwise use random color)
+    const queryString = window.location.search;
+    const colorParam = new URLSearchParams(queryString).get("color");
+    console.debug(`Color: ${colorParam}`)
+    if (colorParam) {
+      parsedColor = culori.rgb(colorParam);
+      if (parsedColor) {
+        color = parsedColor;
+        colorInput = colorParam;
+        randomedColor = false;
+      }
+    }
+
+    const hex = culori.formatHex(color);
+
+    if (randomedColor) {
+      updateURL(hex, false);
+    }
+
     const searchColor = {
       hex,
       style: `background-color: ${hex};`,
     };
-    const nearestColors = getNearestColors(randomColor);
+    const nearestColors = getNearestColors(color);
 
-    updatePrimaryColor(randomColor);
+    updatePrimaryColor(color);
 
     return {
       name: PROJECT_NAME,
       version: PROJECT_VERSION,
       author: PROJECT_AUTHOR,
       source: PROJECT_SOURCE,
-      colorInput: hex,
+      colorInput,
       inputPlaceholder: hex,
       searchColor,
       nearestColors,
@@ -62,10 +104,13 @@ const ColorIDApp = {
 
   methods: {
     /** Identifies the given color input string. */
-    identifyColor() {
+    identifyColor(updateHistory = true) {
       const rgb = culori.rgb(this.colorInput);
       if (rgb) {
         const hex = culori.formatHex(rgb);
+        if (updateHistory) {
+          updateURL(this.colorInput, true);
+        }
         this.searchColor = {
           hex,
           style: `background-color: ${hex};`,
