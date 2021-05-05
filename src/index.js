@@ -1,6 +1,6 @@
 // Constants
 const PROJECT_NAME = "color-id";
-const PROJECT_VERSION = "0.0.2";
+const PROJECT_VERSION = "0.0.3";
 const PROJECT_AUTHOR = "Tim Jentzsch";
 const PROJECT_SOURCE = "https://github.com/TimJentzsch/color-id";
 
@@ -80,7 +80,7 @@ const ColorIDApp = {
       const hex = culori.formatHex(randomColor);
       this.colorInput = hex;
       this.identifyColor();
-    }
+    },
   },
 };
 
@@ -99,5 +99,17 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   } else {
     console.error("Color form not found!");
+  }
+
+  const colorInput = document.getElementById("color-input");
+  if (colorInput) {
+    // Select all color input when focusing
+    colorInput.addEventListener("focus", () => {
+      colorInput.select();
+    });
+    // Autofocus color input
+    colorInput.focus();
+  } else {
+    console.error("Color input not found!");
   }
 });
