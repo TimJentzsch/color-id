@@ -54,6 +54,7 @@ const ColorIDApp = {
       author: PROJECT_AUTHOR,
       source: PROJECT_SOURCE,
       colorInput: hex,
+      inputPlaceholder: hex,
       searchColor,
       nearestColors,
     };
