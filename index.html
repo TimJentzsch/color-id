@@ -1,0 +1,68 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self' 'unsafe-eval' https://unpkg.com/vue@3.0.11 https://unpkg.com/culori@0.18.2;"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>color-id</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="styles/colors.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="styles/global.css"
+    />
+
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/vue@3.0.11"
+      integrity="sha384-MEjJ07I/SLnb0PgyCIWKX5JtRELbplt6ecAPNT9eEI0mq8dGm9met0SpBoJsdYzt"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/culori@0.18.2"
+      integrity="sha384-B4WKs7Zni3RWlUhCM586jJuihrr0oY+BSaqA03ie0O6Bx+yY287+1fb6jduoVgi7"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="src/index.js"></script>
+  </head>
+  <body id="app">
+    <header>
+      <div id="header-content">
+        <a id="header-link" href="index.html">
+          <img id="header-icon" src="images/logo.svg" alt="color-id icon" />
+          <h1>{{ name }}</h1>
+        </a>
+        <a v-bind:href="source" title="Check out the project on GitHub">
+          <img
+            width="35px"
+            height="35px"
+            src="images/github-icon.png"
+            alt="GitHub icon"
+          />
+        </a>
+      </div>
+    </header>
+    <div id="body-container"></div>
+    <footer>
+      <div id="footer-content">
+        <p id="footer-copyright" class="footer-text">
+          <strong>{{ name }}</strong>, v{{ version }}, &#xa9; 2021 {{ author
+          }}<br />
+          This project is available open source on
+          <a v-bind:href="source">GitHub</a>.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

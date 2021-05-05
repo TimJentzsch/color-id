@@ -1,0 +1,18 @@
+:root {
+  --primary: #80cbc4;
+  --primary-variant: #4c968f;
+  --on-primary: #000000;
+
+  --background: #121212;
+  --on-background: #ffffff;
+
+  --surface: rgba(255, 255, 255, 0.08);
+  --on-surface: #ffffff;
+
+  --error: #cf6679;
+  --on-error: #000000;
+
+  --on-disabled: #cccccc;
+  --on-footer: #999;
+  --disclaimer: #80cbc411;
+}
