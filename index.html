@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'none'; style-src 'self'; img-src 'self'; script-src 'self' 'unsafe-eval' https://unpkg.com/vue@3.0.11 https://unpkg.com/culori@0.18.2;"
+      content="default-src 'none'; style-src 'self'; img-src 'self'; script-src 'self' 'unsafe-eval' https://unpkg.com/vue@3.0.11/dist/vue.global.prod.js https://unpkg.com/culori@0.18.2/build/culori.umd.js;"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>color-id</title>
@@ -23,15 +23,23 @@
       href="styles/global.css"
     />
 
+    <!-- VUE FOR DEVELOPMENT --
     <script
       type="text/javascript"
-      src="https://unpkg.com/vue@3.0.11"
+      src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"
       integrity="sha384-MEjJ07I/SLnb0PgyCIWKX5JtRELbplt6ecAPNT9eEI0mq8dGm9met0SpBoJsdYzt"
+      crossorigin="anonymous"
+    ></script>
+    -->
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/vue@3.0.11/dist/vue.global.prod.js"
+      integrity="sha384-RoYKiz86LLByaDkyg6pnB/EPSDmSxj0r+RP4zHQiGWlv7EdJMl4iiHNhMyBWiBqb"
       crossorigin="anonymous"
     ></script>
     <script
       type="text/javascript"
-      src="https://unpkg.com/culori@0.18.2"
+      src="https://unpkg.com/culori@0.18.2/build/culori.umd.js"
       integrity="sha384-B4WKs7Zni3RWlUhCM586jJuihrr0oY+BSaqA03ie0O6Bx+yY287+1fb6jduoVgi7"
       crossorigin="anonymous"
     ></script>
