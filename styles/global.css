@@ -194,3 +194,8 @@ a:hover {
   color: var(--primary);
   cursor: pointer;
 }
+
+#main-color-box {
+  border-radius: 5px;
+  border: solid var(--line) 1px;
+}

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>color-id</title>
 
-    <link rel="shortcut icon" type="image/svg+xml" href="images/logo.svg"/>
+    <link rel="shortcut icon" type="image/svg+xml" href="images/logo.svg" />
     <link
       rel="stylesheet"
       type="text/css"
@@ -57,7 +57,11 @@
     <div id="body-container">
       <div id="search-container">
         <form id="color-input-form" v-on:submit="identifyColor">
-          <div class="color-box" v-bind:style="searchColor.style"></div>
+          <div
+            id="main-color-box"
+            class="color-box"
+            v-bind:style="searchColor.style"
+          ></div>
           <div id="color-input-container">
             <input
               id="color-input"
