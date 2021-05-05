@@ -59,11 +59,15 @@
         <input type="submit" value="identify"/>
       </form>
       <div>
-        <ol>
-          <li v-for="color in nearestColors">
-            {{ color }}
-          </li>
-        </ol>
+        <div id="color-suggestion-list">
+          <div class="color-suggestion" v-for="color in nearestColors">
+            <div class="color-box" v-bind:style="color.style"></div>
+            <div class="color-info">
+              <div class="color-name">{{ color.name }}</div>
+              <div class="color-hex">{{ color.hex }}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <footer>

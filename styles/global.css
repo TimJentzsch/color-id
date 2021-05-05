@@ -104,3 +104,38 @@ a:hover {
   text-decoration: underline;
   text-decoration-color: var(--primary);
 }
+
+#color-suggestion-list {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5px;
+}
+
+.color-suggestion {
+  min-width: 170px;
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  background-color: var(--surface);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.color-box {
+  width: 45px;
+  height: 45px;
+}
+
+.color-info {
+  padding: 0px 7px;
+}
+
+.color-name {
+  font-weight: bold;
+}
+
+.color-hex {
+  font-family: 'Courier New', Courier, monospace;
+}

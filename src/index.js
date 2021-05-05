@@ -23,7 +23,13 @@ const ColorIDApp = {
         culori.differenceCiede2000()
       );
 
-      this.nearestColors = getNearestColors(input, 5);
+      this.nearestColors = getNearestColors(input, 5).map((name) => {
+        return {
+          name,
+          hex: culori.formatHex(name),
+          style: `background-color: ${name};`,
+        };
+      });
     },
 
     /** Handles the submission of the identification form. */
