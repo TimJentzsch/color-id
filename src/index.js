@@ -16,6 +16,26 @@ function updateURL(colorHex, updateHistory) {
   }
 }
 
+/** Converts an RGB color to a CYMK color. */
+function rgbToCmyk(rgb) {
+  const {r, g, b, alpha} = rgb;
+  const k = 1 - Math.max(r, g, b);
+  const invK = 1 - k;
+  const c = k === 1 ? 0 : (invK - r) / invK;
+  const m = k === 1 ? 0 : (invK - g) / invK;
+  const y = k === 1 ? 0 : (invK - b) / invK;
+
+  return {
+    mode: "cmyk",
+    c,
+    m,
+    y,
+    k,
+    alpha,
+  }
+}
+
+/** Gets the representation of the color needed to display it. */
 function getColorRepresentation(color) {
   const hex = culori.formatHex(color);
   const style = `background-color: ${hex};`;
@@ -44,6 +64,15 @@ function getColorRepresentation(color) {
     v: `width: ${hsv.v * 100}%`,
   }
 
+  const cmyk = rgbToCmyk(rgb);
+  const cmykStr = `cmyk(${Math.round(cmyk.c * 100)}%, ${Math.round(cmyk.m * 100)}%, ${Math.round(cmyk.y * 100)}%, ${Math.round(cmyk.k * 100)}%)`;
+  const cmykStyle = {
+    c: `width: ${cmyk.c * 100}%`,
+    m: `width: ${cmyk.m * 100}%`,
+    y: `width: ${cmyk.y * 100}%`,
+    k: `width: ${cmyk.k * 100}%`,
+  }
+
   return {
     hex,
     style,
@@ -53,6 +82,8 @@ function getColorRepresentation(color) {
     hslStyle,
     hsvStr,
     hsvStyle,
+    cmykStr,
+    cmykStyle,
   };
 }
 

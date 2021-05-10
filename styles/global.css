@@ -259,10 +259,27 @@ a:hover {
   background-color: rgb(183, 232, 255);
 }
 
+.cyan-bar {
+  background-color: rgb(155, 255, 255);
+}
+
+.magenta-bar {
+  background-color: rgb(253, 167, 253);
+}
+
+.yellow-bar {
+  background-color: rgb(255, 255, 159);
+}
+
+.black-bar {
+  background-color: rgb(173, 173, 173);
+}
+
 #composition-container {
   display: flex;
   flex-flow: row;
   justify-content: space-around;
+  align-items: center;
 }
 
 figcaption {

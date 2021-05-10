@@ -165,6 +165,36 @@
             </div>
           </div>
         </figure>
+        <!-- CMYK -->
+        <figure id="cmyk-figure">
+          <figcaption>{{searchColor.cmykStr}}</figcaption>
+          <div id="cmyk-diagram" class="bar-diagram">
+            <div class="attribute-labels">
+              <div class="attribute-label">cyan</div>
+              <div class="attribute-label">magenta</div>
+              <div class="attribute-label">yellow</div>
+              <div class="attribute-label">black</div>
+            </div>
+            <div class="attribute-bars">
+              <div
+                class="cyan-bar attribute-bar"
+                v-bind:style="searchColor.cmykStyle.c"
+              ></div>
+              <div
+                class="magenta-bar attribute-bar"
+                v-bind:style="searchColor.cmykStyle.m"
+              ></div>
+              <div
+                class="yellow-bar attribute-bar"
+                v-bind:style="searchColor.cmykStyle.y"
+              ></div>
+              <div
+                class="black-bar attribute-bar"
+                v-bind:style="searchColor.cmykStyle.k"
+              ></div>
+            </div>
+          </div>
+        </figure>
       </div>
       <h2>Color Names</h2>
       <div id="suggestion-container">
