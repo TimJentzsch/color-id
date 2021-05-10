@@ -79,10 +79,94 @@
             />
             <input id="color-submission" type="submit" value="identify" />
             <span>&nbsp;or&nbsp;</span>
-            <input id="color-random" type="button" value="random" v-on:click="randomColor"/>
+            <input
+              id="color-random"
+              type="button"
+              value="random"
+              v-on:click="randomColor"
+            />
           </div>
         </form>
       </div>
+      <h2>Color Composition</h2>
+      <div id="composition-container">
+        <!-- RGB -->
+        <figure id="rgb-figure">
+          <figcaption>{{searchColor.rgbStr}}</figcaption>
+          <div id="rgb-diagram" class="bar-diagram">
+            <div class="attribute-labels">
+              <div class="attribute-label">red</div>
+              <div class="attribute-label">green</div>
+              <div class="attribute-label">blue</div>
+            </div>
+            <div class="attribute-bars">
+              <div
+                class="red-bar attribute-bar"
+                v-bind:style="searchColor.rgbStyle.r"
+              ></div>
+              <div
+                class="green-bar attribute-bar"
+                v-bind:style="searchColor.rgbStyle.g"
+              ></div>
+              <div
+                class="blue-bar attribute-bar"
+                v-bind:style="searchColor.rgbStyle.b"
+              ></div>
+            </div>
+          </div>
+        </figure>
+        <!-- HSL -->
+        <figure id="hsl-figure">
+          <figcaption>{{searchColor.hslStr}}</figcaption>
+          <div id="hsl-diagram" class="bar-diagram">
+            <div class="attribute-labels">
+              <div class="attribute-label">hue</div>
+              <div class="attribute-label">saturation</div>
+              <div class="attribute-label">lightness</div>
+            </div>
+            <div class="attribute-bars">
+              <div
+                class="hue-bar attribute-bar"
+                v-bind:style="searchColor.hslStyle.h"
+              ></div>
+              <div
+                class="saturation-bar attribute-bar" 
+                v-bind:style="searchColor.hslStyle.s"
+              ></div>
+              <div
+                class="lightness-bar attribute-bar"
+                v-bind:style="searchColor.hslStyle.l"
+              ></div>
+            </div>
+          </div>
+        </figure>
+        <!-- HSV -->
+        <figure id="hsv-figure">
+          <figcaption>{{searchColor.hsvStr}}</figcaption>
+          <div id="hsv-diagram" class="bar-diagram">
+            <div class="attribute-labels">
+              <div class="attribute-label">hue</div>
+              <div class="attribute-label">saturation</div>
+              <div class="attribute-label">value</div>
+            </div>
+            <div class="attribute-bars">
+              <div
+                class="hue-bar attribute-bar"
+                v-bind:style="searchColor.hsvStyle.h"
+              ></div>
+              <div
+                class="saturation-bar attribute-bar"
+                v-bind:style="searchColor.hsvStyle.s"
+              ></div>
+              <div
+                class="value-bar attribute-bar"
+                v-bind:style="searchColor.hsvStyle.v"
+              ></div>
+            </div>
+          </div>
+        </figure>
+      </div>
+      <h2>Color Names</h2>
       <div id="suggestion-container">
         <div id="color-suggestion-list">
           <div class="color-suggestion" v-for="color in nearestColors">

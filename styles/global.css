@@ -22,6 +22,10 @@ footer {
   flex-grow: 0;
 }
 
+h2 {
+  color: var(--primary);
+}
+
 #body-container {
   flex-grow: 1;
   width: 100%;
@@ -199,4 +203,70 @@ a:hover {
 #main-color-box {
   border-radius: 5px;
   border: solid var(--line) 1px;
+}
+
+.bar-diagram {
+  display: flex;
+  flex-flow: row;
+  justify-content: left;
+  gap: 5px;
+}
+
+.attribute-labels, .attribute-bars {
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
+}
+
+.attribute-bars {
+  width: 120px;
+  border: solid var(--line) 1px;
+}
+
+.attribute-bar, .attribute-label {
+  height: 20px;
+}
+
+.attribute-label {
+  text-align: right;
+}
+
+.red-bar {
+  background-color: rgb(255, 159, 159);
+}
+
+.green-bar {
+  background-color: rgb(148, 255, 148);
+}
+
+.blue-bar {
+  background-color: rgb(155, 155, 255);
+}
+
+.hue-bar {
+  background-color: rgb(159, 255, 202);
+}
+
+.saturation-bar {
+  background-color: rgb(255, 148, 210);
+}
+
+.lightness-bar {
+  background-color: rgb(253, 252, 199);
+}
+
+.value-bar {
+  background-color: rgb(183, 232, 255);
+}
+
+#composition-container {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+}
+
+figcaption {
+  text-align: center;
+  font-weight: bold;
+  padding: 5px;
 }

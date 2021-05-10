@@ -16,6 +16,46 @@ function updateURL(colorHex, updateHistory) {
   }
 }
 
+function getColorRepresentation(color) {
+  const hex = culori.formatHex(color);
+  const style = `background-color: ${hex};`;
+
+  const rgb = culori.rgb(color);
+  const rgbStr = `rgb(${Math.round(rgb.r * 255)}, ${Math.round(rgb.g * 255)}, ${Math.round(rgb.b * 255)})`;
+  const rgbStyle = {
+    r: `width: ${rgb.r * 100}%`,
+    g: `width: ${rgb.g * 100}%`,
+    b: `width: ${rgb.b * 100}%`,
+  };
+
+  const hsl = culori.hsl(color);
+  const hslStr = `hsl(${Math.round(hsl.h)}, ${Math.round(hsl.s * 100)}%, ${Math.round(hsl.l * 100)}%)`;
+  const hslStyle = {
+    h: `width: ${hsl.h / 3.6}%`,
+    s: `width: ${hsl.s * 100}%`,
+    l: `width: ${hsl.l * 100}%`,
+  }
+
+  const hsv = culori.hsv(color);
+  const hsvStr = `hsv(${Math.round(hsv.h)}, ${Math.round(hsv.s * 100)}%, ${Math.round(hsv.v * 100)}%)`;
+  const hsvStyle = {
+    h: `width: ${hsv.h / 3.6}%`,
+    s: `width: ${hsv.s * 100}%`,
+    v: `width: ${hsv.v * 100}%`,
+  }
+
+  return {
+    hex,
+    style,
+    rgbStr,
+    rgbStyle,
+    hslStr,
+    hslStyle,
+    hsvStr,
+    hsvStyle,
+  };
+}
+
 /** Updates the primary color for the whole page. */
 function updatePrimaryColor(input) {
   const hsl = culori.hsl(input);
@@ -59,36 +99,32 @@ const ColorIDApp = {
       this.identifyColor(false);
     });
 
-    let color = culori.random();
-    let colorInput = culori.formatHex(color);
+    let rgb = culori.random();
+    let colorInput = culori.formatHex(rgb);
     let randomedColor = true;
 
     // Check if a color is already specified (otherwise use random color)
     const queryString = window.location.search;
     const colorParam = new URLSearchParams(queryString).get("color");
-    console.debug(`Color: ${colorParam}`)
     if (colorParam) {
       parsedColor = culori.rgb(colorParam);
       if (parsedColor) {
-        color = parsedColor;
+        rgb = parsedColor;
         colorInput = colorParam;
         randomedColor = false;
       }
     }
 
-    const hex = culori.formatHex(color);
+    const hex = culori.formatHex(rgb);
 
     if (randomedColor) {
       updateURL(hex, false);
     }
 
-    const searchColor = {
-      hex,
-      style: `background-color: ${hex};`,
-    };
-    const nearestColors = getNearestColors(color);
+    const searchColor = getColorRepresentation(rgb);
+    const nearestColors = getNearestColors(rgb);
 
-    updatePrimaryColor(color);
+    updatePrimaryColor(rgb);
 
     return {
       name: PROJECT_NAME,
@@ -111,10 +147,7 @@ const ColorIDApp = {
         if (updateHistory) {
           updateURL(this.colorInput, true);
         }
-        this.searchColor = {
-          hex,
-          style: `background-color: ${hex};`,
-        };
+        this.searchColor = getColorRepresentation(rgb);
         this.nearestColors = getNearestColors(rgb);
         updatePrimaryColor(rgb);
       }
