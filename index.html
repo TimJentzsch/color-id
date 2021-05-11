@@ -88,7 +88,7 @@
           </div>
         </form>
       </div>
-      <h2>Color Composition</h2>
+      <h2>Color Composition of <span class="color-hex">{{searchColor.hex}}</span></h2>
       <div id="composition-container">
         <!-- RGB -->
         <figure id="rgb-figure">
@@ -202,7 +202,7 @@
           </div>
         </figure>
       </div>
-      <h2>Color Names</h2>
+      <h2>Color Names of <span class="color-hex">{{searchColor.hex}}</span></h2>
       <div id="suggestion-container">
         <div id="color-suggestion-list">
           <div class="color-suggestion" v-for="color in nearestColors">
