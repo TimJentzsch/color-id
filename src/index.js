@@ -1,6 +1,6 @@
 // Constants
 const PROJECT_NAME = "color-id";
-const PROJECT_VERSION = "0.1.2";
+const PROJECT_VERSION = "0.1.3";
 const PROJECT_AUTHOR = "Tim Jentzsch";
 const PROJECT_SOURCE = "https://github.com/TimJentzsch/color-id";
 
