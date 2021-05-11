@@ -125,12 +125,15 @@
               <div class="attribute-label">lightness</div>
             </div>
             <div class="attribute-bars">
+              <div class="hue-bar-container attribute-bar">
+                <div
+                  class="hue-positioner"
+                  v-bind:style="searchColor.hslStyle.h"
+                ></div>
+                <div class="hue-marker"></div>
+              </div>
               <div
-                class="hue-bar attribute-bar"
-                v-bind:style="searchColor.hslStyle.h"
-              ></div>
-              <div
-                class="saturation-bar attribute-bar" 
+                class="saturation-bar attribute-bar"
                 v-bind:style="searchColor.hslStyle.s"
               ></div>
               <div
@@ -150,10 +153,13 @@
               <div class="attribute-label">value</div>
             </div>
             <div class="attribute-bars">
-              <div
-                class="hue-bar attribute-bar"
-                v-bind:style="searchColor.hsvStyle.h"
-              ></div>
+              <div class="hue-bar-container attribute-bar">
+                <div
+                  class="hue-positioner"
+                  v-bind:style="searchColor.hslStyle.h"
+                ></div>
+                <div class="hue-marker"></div>
+              </div>
               <div
                 class="saturation-bar attribute-bar"
                 v-bind:style="searchColor.hsvStyle.s"

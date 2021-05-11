@@ -49,17 +49,19 @@ function getColorRepresentation(color) {
   };
 
   const hsl = culori.hsl(color);
-  const hslStr = `hsl(${Math.round(hsl.h)}, ${Math.round(hsl.s * 100)}%, ${Math.round(hsl.l * 100)}%)`;
+  // Black and white don't have a unique hue, just set it to 0
+  const h = hsl.h  !== undefined ? hsl.h : 0;
+  const hslStr = `hsl(${Math.round(h)}, ${Math.round(hsl.s * 100)}%, ${Math.round(hsl.l * 100)}%)`;
   const hslStyle = {
-    h: `width: ${hsl.h / 3.6}%`,
+    h: `width: ${h / 3.6}%`,
     s: `width: ${hsl.s * 100}%`,
     l: `width: ${hsl.l * 100}%`,
   }
 
   const hsv = culori.hsv(color);
-  const hsvStr = `hsv(${Math.round(hsv.h)}, ${Math.round(hsv.s * 100)}%, ${Math.round(hsv.v * 100)}%)`;
+  const hsvStr = `hsv(${Math.round(h)}, ${Math.round(hsv.s * 100)}%, ${Math.round(hsv.v * 100)}%)`;
   const hsvStyle = {
-    h: `width: ${hsv.h / 3.6}%`,
+    h: `width: ${h / 3.6}%`,
     s: `width: ${hsv.s * 100}%`,
     v: `width: ${hsv.v * 100}%`,
   }
