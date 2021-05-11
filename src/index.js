@@ -1,8 +1,16 @@
 // Constants
 const PROJECT_NAME = "color-id";
-const PROJECT_VERSION = "0.1.4";
+const PROJECT_VERSION = "0.1.5";
 const PROJECT_AUTHOR = "Tim Jentzsch";
 const PROJECT_SOURCE = "https://github.com/TimJentzsch/color-id";
+
+const NAMED_COLORS = Object.keys(culori.colorsNamed).map((name) => {
+  const hex = culori.formatHex(name);
+  return {
+    name,
+    hex,
+  };
+});
 
 /** Updates the URL query parameter and the history if necessary. */
 function updateURL(colorHex, updateHistory) {
@@ -39,6 +47,11 @@ function rgbToCmyk(rgb) {
 function getColorRepresentation(color) {
   const hex = culori.formatHex(color);
   const style = `background-color: ${hex};`;
+
+  const namedColor = NAMED_COLORS.find((namedColor) => {
+    return namedColor.hex === hex;
+  });
+  const name = namedColor ? namedColor.name : null;
 
   const rgb = culori.rgb(color);
   const rgbStr = `rgb(${Math.round(rgb.r * 255)}, ${Math.round(
@@ -86,6 +99,7 @@ function getColorRepresentation(color) {
   return {
     hex,
     style,
+    name,
     rgbStr,
     rgbStyle,
     hslStr,
@@ -108,12 +122,12 @@ function updatePrimaryColor(input) {
   const lightColor = {
     ...hsl,
     l: hsl.l < 0.8 ? 0.8 : hsl.l,
-  }
+  };
   // Used in the light theme
   const darkColor = {
     ...hsl,
     l: hsl.l > 0.4 ? 0.4 : hsl.l,
-  }
+  };
 
   const lightHex = culori.formatHex(lightColor);
   const darkHex = culori.formatHex(darkColor);

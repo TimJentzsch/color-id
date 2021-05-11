@@ -136,6 +136,10 @@ a:hover {
   overflow: hidden;
 }
 
+.main-color-box {
+  border: solid var(--primary) 1px;
+}
+
 .color-box {
   width: 45px;
   height: 45px;
@@ -206,9 +210,11 @@ a:hover {
   cursor: pointer;
 }
 
-#main-color-box {
-  border-radius: 5px;
-  border: solid var(--line) 1px;
+#display-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #composition-container {

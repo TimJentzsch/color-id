@@ -46,6 +46,7 @@
     <script type="text/javascript" src="src/index.js"></script>
   </head>
   <body id="app">
+    <!-- Header -->
     <header>
       <div id="header-content">
         <a id="header-link" href="index.html">
@@ -63,32 +64,39 @@
       </div>
     </header>
     <div id="body-container">
+      <!-- Color search -->
       <div id="search-container">
         <form id="color-input-form" v-on:submit="identifyColor">
-          <div
-            id="main-color-box"
-            class="color-box"
-            v-bind:style="searchColor.style"
-          ></div>
-          <div id="color-input-container">
-            <input
-              id="color-input"
-              v-model="colorInput"
-              type="text"
-              v-bind:placeholder="inputPlaceholder"
-            />
-            <input id="color-submission" type="submit" value="identify" />
-            <span>&nbsp;or&nbsp;</span>
-            <input
-              id="color-random"
-              type="button"
-              value="random"
-              v-on:click="randomColor"
-            />
-          </div>
+          <input
+            id="color-input"
+            v-model="colorInput"
+            type="text"
+            v-bind:placeholder="inputPlaceholder"
+          />
+          <input id="color-submission" type="submit" value="identify" />
+          <span>&nbsp;or&nbsp;</span>
+          <input
+            id="color-random"
+            type="button"
+            value="random"
+            v-on:click="randomColor"
+          />
         </form>
       </div>
-      <h2>Color Composition of <span class="color-hex">{{searchColor.hex}}</span></h2>
+      <!-- Color display -->
+      <div id="display-container">
+        <div class="color-suggestion main-color-box">
+          <div class="color-box" v-bind:style="searchColor.style"></div>
+          <div class="color-info">
+            <div class="color-name" v-if="searchColor.name">{{ searchColor.name }}</div>
+            <div class="color-hex">{{ searchColor.hex }}</div>
+          </div>
+        </div>
+      </div>
+      <!-- Color composition -->
+      <h2>
+        Color Composition of <span class="color-hex">{{searchColor.hex}}</span>
+      </h2>
       <div id="composition-container">
         <!-- RGB -->
         <figure id="rgb-figure">
@@ -202,7 +210,8 @@
           </div>
         </figure>
       </div>
-      <h2>Color Names of <span class="color-hex">{{searchColor.hex}}</span></h2>
+      <!-- Color name -->
+      <h2>Color Names for <span class="color-hex">{{searchColor.hex}}</span></h2>
       <div id="suggestion-container">
         <div id="color-suggestion-list">
           <div class="color-suggestion" v-for="color in nearestColors">
@@ -215,6 +224,7 @@
         </div>
       </div>
     </div>
+    <!-- Footer -->
     <footer>
       <div id="footer-content">
         <p id="footer-copyright" class="footer-text">
