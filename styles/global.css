@@ -178,7 +178,7 @@ a:hover {
   height: 30px;
 }
 
-#color-input {
+input[type="text"] {
   background-color: var(--background);
   padding: 2px 5px;
   color: var(--on-background);
@@ -187,13 +187,13 @@ a:hover {
   border-radius: 5px;
 }
 
-#color-input:focus {
+input[type="text"]:focus {
   background-color: var(--surface);
   border-color: var(--primary);
 }
 
-#color-submission,
-#color-random {
+input[type="submit"],
+input[type="button"] {
   background-color: var(--surface);
   color: var(--on-surface);
   border: var(--surface-border);
@@ -203,8 +203,8 @@ a:hover {
   padding: 2px 5px;
 }
 
-#color-submission:hover,
-#color-random:hover {
+input[type="submit"]:hover,
+input[type="button"]:hover {
   border-color: var(--primary);
   color: var(--primary);
   cursor: pointer;
@@ -217,7 +217,8 @@ a:hover {
   align-items: center;
 }
 
-#composition-container {
+#composition-container,
+#contrast-container {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
@@ -283,6 +284,52 @@ figcaption {
   text-align: center;
   font-weight: bold;
   padding: 5px;
+}
+
+.contrast-content {
+  display: flex;
+  flex-flow: row;
+}
+
+.contrast-preview {
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 7px;
+}
+
+.as-text-preview, .as-bg-preview {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.large-preview, .small-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.primary {
+  color: var(--primary);
+}
+
+.large-preview {
+  font-size: 18px;
+}
+.small-preview {
+  font-size: 12px;
+}
+
+.passed {
+  color: var(--passed);
+}
+.failed {
+  color: var(--failed);
 }
 
 /* Diagram bars */

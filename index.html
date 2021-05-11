@@ -88,7 +88,9 @@
         <div class="color-suggestion main-color-box">
           <div class="color-box" v-bind:style="searchColor.style"></div>
           <div class="color-info">
-            <div class="color-name" v-if="searchColor.name">{{ searchColor.name }}</div>
+            <div class="color-name" v-if="searchColor.name">
+              {{ searchColor.name }}
+            </div>
             <div class="color-hex">{{ searchColor.hex }}</div>
           </div>
         </div>
@@ -211,7 +213,9 @@
         </figure>
       </div>
       <!-- Color name -->
-      <h2>Color Names for <span class="color-hex">{{searchColor.hex}}</span></h2>
+      <h2>
+        Color Names for <span class="color-hex">{{searchColor.hex}}</span>
+      </h2>
       <div id="suggestion-container">
         <div id="color-suggestion-list">
           <div class="color-suggestion" v-for="color in nearestColors">
@@ -222,6 +226,70 @@
             </div>
           </div>
         </div>
+      </div>
+      <h2>
+        Accessibility of <span class="color-hex">{{searchColor.hex}}</span>
+      </h2>
+      <div id="contrast-container">
+        <div class="general-contrast-info">
+          <span class="color-hex primary">{{searchColor.hex}}</span> should be
+          used with a <strong>{{wcag.suggestion}}</strong> color.
+
+          <form id="wcag-input-form" v-on:submit="setWcagColor">
+            <label for="wcag-input">Choose another color: </label>
+            <input
+              id="wcag-input"
+              v-model="wcagInput"
+              type="text"
+              placeholder="#232323"
+            />&nbsp;
+            <input id="wcag-submission" type="submit" value="choose" />
+            <span>&nbsp;or&nbsp;</span>
+            <input
+              id="wcag-auto"
+              type="button"
+              value="auto"
+              v-on:click="wcagAuto"
+            />
+          </form>
+        </div>
+        <figure>
+          <figcaption></figcaption>
+          <div class="contrast-content">
+            <div class="contrast-preview">
+              <div class="as-text-preview" v-bind:style="wcag.asTextStyle">
+                <div class="large-preview">Sample Large</div>
+                <div class="small-preview">Sample Small</div>
+              </div>
+              <div class="as-bg-preview" v-bind:style="wcag.asBgStyle">
+                <div class="large-preview">Sample Large</div>
+                <div class="small-preview">Sample Small</div>
+              </div>
+            </div>
+            <div class="contrast-info">
+              <div class="contrast-suggestion"></div>
+              <div class="">
+                <strong>{{wcag.contrast}}</strong> Contrast ratio
+              </div>
+              <div class="contrast-result">
+                <span class="passed" v-if="wcag.aaLarge">✓ WCAG AA (large text)</span>
+                <span class="failed" v-else>✗ WCAG AA (large text)</span>
+              </div>
+              <div class="contrast-result">
+                <span class="passed" v-if="wcag.aa">✓ WCAG AA</span>
+                <span class="failed" v-else>✗ WCAG AA</span>
+              </div>
+              <div class="contrast-result">
+                <span class="passed" v-if="wcag.aaaLarge">✓ WCAG AAA (large text)</span>
+                <span class="failed" v-else>✗ WCAG AAA (large text)</span>
+              </div>
+              <div class="contrast-result">
+                <span class="passed" v-if="wcag.aaa">✓ WCAG AAA</span>
+                <span class="failed" v-else>✗ WCAG AAA</span>
+              </div>
+            </div>
+          </div>
+        </figure>
       </div>
     </div>
     <!-- Footer -->

@@ -1,16 +1,20 @@
 // Constants
 const PROJECT_NAME = "color-id";
-const PROJECT_VERSION = "0.1.5";
+const PROJECT_VERSION = "0.2.0";
 const PROJECT_AUTHOR = "Tim Jentzsch";
 const PROJECT_SOURCE = "https://github.com/TimJentzsch/color-id";
 
-const NAMED_COLORS = Object.keys(culori.colorsNamed).map((name) => {
-  const hex = culori.formatHex(name);
-  return {
-    name,
-    hex,
-  };
-});
+const NAMED_COLORS = Object.keys(culori.colorsNamed)
+  // Exclude duplicate colors
+  .filter((name) => !name.includes("gray"))
+  // Calculate color hex
+  .map((name) => {
+    const hex = culori.formatHex(name);
+    return {
+      name,
+      hex,
+    };
+  });
 
 /** Updates the URL query parameter and the history if necessary. */
 function updateURL(colorHex, updateHistory) {
@@ -40,6 +44,40 @@ function rgbToCmyk(rgb) {
     y,
     k,
     alpha,
+  };
+}
+
+/** Get all contrast information with another color. */
+function getWcagObj(color, other) {
+  const hex = culori.formatHex(color);
+  const otherColor = culori.rgb(other);
+  const otherHex = culori.formatHex(otherColor);
+
+  const asTextStyle = `color: ${hex}; background-color: ${otherHex};`;
+  const asBgStyle = `color: ${otherHex}; background-color: ${hex};`;
+
+  // See https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast
+  const contrast = culori.wcagContrast(color, otherColor);
+  const aaLarge = contrast >= 3;
+  const aa = contrast >= 4.5;
+  const aaaLarge = contrast >= 4.5;
+  const aaa = contrast >= 7;
+
+  const suggestion =
+    culori.wcagContrast(color, "white") > culori.wcagContrast(color, "black")
+      ? "light"
+      : "dark";
+
+  return {
+    otherHex,
+    contrast: contrast.toFixed(2),
+    asTextStyle,
+    asBgStyle,
+    aaLarge,
+    aa,
+    aaaLarge,
+    aaa,
+    suggestion,
   };
 }
 
@@ -100,12 +138,16 @@ function getColorRepresentation(color) {
     hex,
     style,
     name,
+    rgb,
     rgbStr,
     rgbStyle,
+    hsl,
     hslStr,
     hslStyle,
+    hsv,
     hsvStr,
     hsvStyle,
+    cmyk,
     cmykStr,
     cmykStyle,
   };
@@ -138,9 +180,7 @@ function updatePrimaryColor(input) {
 
 /** Gets the clostest colors to the input color. */
 function getNearestColors(input) {
-  const colors = Object.keys(culori.colorsNamed)
-    // Exclude duplicate colors
-    .filter((name) => !name.includes("gray"));
+  const colors = NAMED_COLORS.map((color) => color.name);
   const nearest = culori.nearest(colors, culori.differenceCiede2000());
 
   return nearest(input, 5).map((name) => {
@@ -189,6 +229,10 @@ const ColorIDApp = {
     const searchColor = getColorRepresentation(rgb);
     const nearestColors = getNearestColors(rgb);
 
+    const wcagOther = "#232323";
+    const wcagInput = wcagOther;
+    const wcag = getWcagObj(rgb, wcagOther);
+
     updatePrimaryColor(rgb);
 
     return {
@@ -200,6 +244,9 @@ const ColorIDApp = {
       inputPlaceholder: hex,
       searchColor,
       nearestColors,
+      wcagInput,
+      wcagOther,
+      wcag,
     };
   },
 
@@ -213,6 +260,7 @@ const ColorIDApp = {
         }
         this.searchColor = getColorRepresentation(color);
         this.nearestColors = getNearestColors(color);
+        this.wcag = getWcagObj(color, this.wcagOther);
         updatePrimaryColor(color);
       }
     },
@@ -223,6 +271,28 @@ const ColorIDApp = {
       const hex = culori.formatHex(randomColor);
       this.colorInput = hex;
       this.identifyColor();
+    },
+
+    /** Sets the other color for WCAG contrast calculations. */
+    setWcagColor() {
+      const wcagOther = culori.parse(this.wcagInput);
+      if (!wcagOther) {
+        console.warn(`Invalid color: ${JSON.stringify(this.wcagInput)}`);
+        return;
+      }
+      this.wcagOther = culori.formatHex(wcagOther);
+      this.wcag = getWcagObj(this.searchColor.rgb, wcagOther);
+    },
+
+    /** Automatically set the other WCAG color. */
+    wcagAuto() {
+      if (this.wcag.suggestion === "dark") {
+        this.wcagInput = "#000000";
+      } else {
+        this.wcagInput = "#ffffff";
+      }
+
+      this.setWcagColor();
     },
   },
 };
@@ -242,6 +312,16 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   } else {
     console.error("Color form not found!");
+  }
+
+  // Make sure that the page isn't reloaded when the WCAG form is submitted
+  const wcagForm = document.getElementById("wcag-input-form");
+  if (wcagForm) {
+    wcagForm.onsubmit = () => {
+      return false;
+    };
+  } else {
+    console.error("WCAG form not found!");
   }
 
   const colorInput = document.getElementById("color-input");

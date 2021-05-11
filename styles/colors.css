@@ -17,9 +17,6 @@
   --surface-shadow: none;
   --on-surface: #ffffff;
 
-  --error: #cf6679;
-  --on-error: #000000;
-
   --on-disabled: #cccccc;
   --on-footer: #999;
   --disclaimer: #80cbc411;
@@ -52,6 +49,9 @@
   --magenta: rgb(253, 167, 253);
   --yellow: rgb(255, 255, 159);
   --black: rgb(173, 173, 173);
+
+  --passed: var(--green);
+  --failed: var(--red);
 }
 
 @media (prefers-color-scheme: light) {
