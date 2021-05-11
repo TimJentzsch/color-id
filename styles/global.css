@@ -58,6 +58,7 @@ h2 {
 
 header {
   background-color: var(--surface);
+  box-shadow: var(--surface-shadow);
   color: var(--primary);
   text-decoration-color: var(--primary);
 }
@@ -130,13 +131,15 @@ a:hover {
 
   background-color: var(--surface);
   border-radius: 5px;
-  border: solid var(--line) 1px;
+  border: var(--surface-border);
+  box-shadow: var(--surface-shadow);
   overflow: hidden;
 }
 
 .color-box {
   width: 45px;
   height: 45px;
+  border-right: solid var(--line) 1px;
 }
 
 .color-info {
@@ -185,16 +188,19 @@ a:hover {
   border-color: var(--primary);
 }
 
-#color-submission, #color-random {
+#color-submission,
+#color-random {
   background-color: var(--surface);
   color: var(--on-surface);
-  border: solid var(--line) 1px;
+  border: var(--surface-border);
+  box-shadow: var(--surface-shadow);
   border-radius: 5px;
   outline: none;
   padding: 2px 5px;
 }
 
-#color-submission:hover, #color-random:hover {
+#color-submission:hover,
+#color-random:hover {
   border-color: var(--primary);
   color: var(--primary);
   cursor: pointer;
@@ -205,6 +211,13 @@ a:hover {
   border: solid var(--line) 1px;
 }
 
+#composition-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .bar-diagram {
   display: flex;
   flex-flow: row;
@@ -212,7 +225,8 @@ a:hover {
   gap: 5px;
 }
 
-.attribute-labels, .attribute-bars {
+.attribute-labels,
+.attribute-bars {
   display: flex;
   flex-flow: column;
   gap: 5px;
@@ -220,27 +234,17 @@ a:hover {
 
 .attribute-bars {
   width: 120px;
-  border: solid var(--line) 1px;
+  border: var(--surface-border);
+  box-shadow: var(--surface-shadow);
 }
 
-.attribute-bar, .attribute-label {
+.attribute-bar,
+.attribute-label {
   height: 20px;
 }
 
 .attribute-label {
   text-align: right;
-}
-
-.red-bar {
-  background-color: rgb(255, 159, 159);
-}
-
-.green-bar {
-  background-color: rgb(148, 255, 148);
-}
-
-.blue-bar {
-  background-color: rgb(155, 155, 255);
 }
 
 .hue-bar-container {
@@ -249,7 +253,7 @@ a:hover {
   flex-flow: row nowrap;
   justify-content: start;
 
-  background: linear-gradient(to right, hsl(0, 100%, 80%), hsl(120, 100%, 80%), hsl(240, 100%, 80%), hsl(360, 100%, 80%));
+  background: var(--hue);
 }
 
 .hue-positioner {
@@ -265,47 +269,40 @@ a:hover {
   outline: solid var(--on-surface) 1px;
 }
 
-.hue-bar {
-  background-color: rgb(159, 255, 202);
-}
-
-.saturation-bar {
-  background-color: rgb(255, 148, 210);
-}
-
-.lightness-bar {
-  background-color: rgb(253, 252, 199);
-}
-
-.value-bar {
-  background-color: rgb(183, 232, 255);
-}
-
-.cyan-bar {
-  background-color: rgb(155, 255, 255);
-}
-
-.magenta-bar {
-  background-color: rgb(253, 167, 253);
-}
-
-.yellow-bar {
-  background-color: rgb(255, 255, 159);
-}
-
-.black-bar {
-  background-color: rgb(173, 173, 173);
-}
-
-#composition-container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  align-items: center;
-}
-
 figcaption {
   text-align: center;
   font-weight: bold;
   padding: 5px;
+}
+
+/* Diagram bars */
+.red-bar {
+  background-color: var(--red);
+}
+.green-bar {
+  background-color: var(--green);
+}
+.blue-bar {
+  background-color: var(--blue);
+}
+.saturation-bar {
+  background-color: var(--saturation);
+}
+.lightness-bar {
+  background-color: var(--lightness);
+}
+.value-bar {
+  background-color: var(--value);
+}
+.cyan-bar {
+  background-color: var(--cyan);
+}
+.magenta-bar {
+  background-color: var(--magenta);
+}
+.yellow-bar {
+  background-color: var(--yellow);
+}
+.black-bar {
+  background-color: var(--black);
 }

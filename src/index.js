@@ -1,6 +1,6 @@
 // Constants
 const PROJECT_NAME = "color-id";
-const PROJECT_VERSION = "0.1.0";
+const PROJECT_VERSION = "0.1.1";
 const PROJECT_AUTHOR = "Tim Jentzsch";
 const PROJECT_SOURCE = "https://github.com/TimJentzsch/color-id";
 
@@ -18,7 +18,7 @@ function updateURL(colorHex, updateHistory) {
 
 /** Converts an RGB color to a CYMK color. */
 function rgbToCmyk(rgb) {
-  const {r, g, b, alpha} = rgb;
+  const { r, g, b, alpha } = rgb;
   const k = 1 - Math.max(r, g, b);
   const invK = 1 - k;
   const c = k === 1 ? 0 : (invK - r) / invK;
@@ -32,7 +32,7 @@ function rgbToCmyk(rgb) {
     y,
     k,
     alpha,
-  }
+  };
 }
 
 /** Gets the representation of the color needed to display it. */
@@ -41,7 +41,9 @@ function getColorRepresentation(color) {
   const style = `background-color: ${hex};`;
 
   const rgb = culori.rgb(color);
-  const rgbStr = `rgb(${Math.round(rgb.r * 255)}, ${Math.round(rgb.g * 255)}, ${Math.round(rgb.b * 255)})`;
+  const rgbStr = `rgb(${Math.round(rgb.r * 255)}, ${Math.round(
+    rgb.g * 255
+  )}, ${Math.round(rgb.b * 255)})`;
   const rgbStyle = {
     r: `width: ${rgb.r * 100}%`,
     g: `width: ${rgb.g * 100}%`,
@@ -50,30 +52,36 @@ function getColorRepresentation(color) {
 
   const hsl = culori.hsl(color);
   // Black and white don't have a unique hue, just set it to 0
-  const h = hsl.h  !== undefined ? hsl.h : 0;
-  const hslStr = `hsl(${Math.round(h)}, ${Math.round(hsl.s * 100)}%, ${Math.round(hsl.l * 100)}%)`;
+  const h = hsl.h !== undefined ? hsl.h : 0;
+  const hslStr = `hsl(${Math.round(h)}, ${Math.round(
+    hsl.s * 100
+  )}%, ${Math.round(hsl.l * 100)}%)`;
   const hslStyle = {
     h: `width: ${h / 3.6}%`,
     s: `width: ${hsl.s * 100}%`,
     l: `width: ${hsl.l * 100}%`,
-  }
+  };
 
   const hsv = culori.hsv(color);
-  const hsvStr = `hsv(${Math.round(h)}, ${Math.round(hsv.s * 100)}%, ${Math.round(hsv.v * 100)}%)`;
+  const hsvStr = `hsv(${Math.round(h)}, ${Math.round(
+    hsv.s * 100
+  )}%, ${Math.round(hsv.v * 100)}%)`;
   const hsvStyle = {
     h: `width: ${h / 3.6}%`,
     s: `width: ${hsv.s * 100}%`,
     v: `width: ${hsv.v * 100}%`,
-  }
+  };
 
   const cmyk = rgbToCmyk(rgb);
-  const cmykStr = `cmyk(${Math.round(cmyk.c * 100)}%, ${Math.round(cmyk.m * 100)}%, ${Math.round(cmyk.y * 100)}%, ${Math.round(cmyk.k * 100)}%)`;
+  const cmykStr = `cmyk(${Math.round(cmyk.c * 100)}%, ${Math.round(
+    cmyk.m * 100
+  )}%, ${Math.round(cmyk.y * 100)}%, ${Math.round(cmyk.k * 100)}%)`;
   const cmykStyle = {
     c: `width: ${cmyk.c * 100}%`,
     m: `width: ${cmyk.m * 100}%`,
     y: `width: ${cmyk.y * 100}%`,
     k: `width: ${cmyk.k * 100}%`,
-  }
+  };
 
   return {
     hex,
@@ -95,10 +103,21 @@ function updatePrimaryColor(input) {
   if (!hsl) {
     return;
   }
-  // Ensure that the contrast is high enough
-  if (hsl.l < 0.8) {
-    hsl.l = 0.8;
+
+  // Detect color theme
+  const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+  if (darkThemeMq.matches) {
+    // Ensure that the contrast is high enough (make it light)
+    if (hsl.l < 0.8) {
+      hsl.l = 0.8;
+    }
+  } else {
+    // Ensure that the contrast is high enough (make it dark)
+    if (hsl.l > 0.2) {
+      hsl.l = 0.2;
+    }
   }
+
   const hex = culori.formatHex(hsl);
   // Update the CSS variable
   document.documentElement.style.setProperty("--primary", hex);
