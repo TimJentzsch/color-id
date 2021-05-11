@@ -247,6 +247,10 @@ a:hover {
   text-align: right;
 }
 
+.attribute-bar {
+  box-shadow: var(--surface-shadow);
+}
+
 .hue-bar-container {
   width: 100%;
   display: flex;

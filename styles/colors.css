@@ -1,5 +1,9 @@
 :root {
-  --primary: white;
+  /* These get changed dynamically according to the current color. */
+  --primary-light: white;
+  --primary-dark: black;
+
+  --primary: var(--primary-light);
   --primary-variant: white;
   --on-primary: #000000;
 
@@ -43,7 +47,7 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --primary: black;
+    --primary: var(--primary-dark);
     --primary-variant: black;
     --on-primary: white;
 

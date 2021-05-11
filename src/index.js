@@ -1,6 +1,6 @@
 // Constants
 const PROJECT_NAME = "color-id";
-const PROJECT_VERSION = "0.1.1";
+const PROJECT_VERSION = "0.1.2";
 const PROJECT_AUTHOR = "Tim Jentzsch";
 const PROJECT_SOURCE = "https://github.com/TimJentzsch/color-id";
 
@@ -104,23 +104,22 @@ function updatePrimaryColor(input) {
     return;
   }
 
-  // Detect color theme
-  const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-  if (darkThemeMq.matches) {
-    // Ensure that the contrast is high enough (make it light)
-    if (hsl.l < 0.8) {
-      hsl.l = 0.8;
-    }
-  } else {
-    // Ensure that the contrast is high enough (make it dark)
-    if (hsl.l > 0.2) {
-      hsl.l = 0.2;
-    }
+  // Used in the dark theme
+  const lightColor = {
+    ...hsl,
+    l: hsl.l < 0.8 ? 0.8 : hsl.l,
+  }
+  // Used in the light theme
+  const darkColor = {
+    ...hsl,
+    l: hsl.l > 0.4 ? 0.4 : hsl.l,
   }
 
-  const hex = culori.formatHex(hsl);
-  // Update the CSS variable
-  document.documentElement.style.setProperty("--primary", hex);
+  const lightHex = culori.formatHex(lightColor);
+  const darkHex = culori.formatHex(darkColor);
+  // Update the CSS variables
+  document.documentElement.style.setProperty("--primary-light", lightHex);
+  document.documentElement.style.setProperty("--primary-dark", darkHex);
 }
 
 /** Gets the clostest colors to the input color. */
