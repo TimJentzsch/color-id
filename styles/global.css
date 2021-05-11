@@ -291,6 +291,26 @@ figcaption {
   flex-flow: row;
 }
 
+.inline-color {
+  display: inline-flex;
+  flex-flow: row;
+  align-items: center;
+  border: var(--surface-border);
+  box-shadow: var(--surface-shadow);
+  background-color: var(--surface);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.inline-color-hex {
+  padding: 2px 5px;
+}
+
+.inline-color-box {
+  width: 20px;
+  height: 20px;
+}
+
 .contrast-preview {
   text-align: center;
   display: flex;
@@ -325,10 +345,10 @@ figcaption {
   font-size: 12px;
 }
 
-.passed {
+.passed .contrast-label {
   color: var(--passed);
 }
-.failed {
+.failed .contrast-label {
   color: var(--failed);
 }
 

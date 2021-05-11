@@ -47,6 +47,61 @@ function rgbToCmyk(rgb) {
   };
 }
 
+/** Makes a color suggestion to improve the contrast to the given target. */
+function getWcagSuggestion(color, other, contrastTarget) {
+  const hsl = culori.hsl(color);
+  const otherHsl = culori.hsl(other);
+
+  let change;
+
+  if (otherHsl.l > 0.5) {
+    // The color is bright, decrease the lightness
+    change = -0.05;
+    if (hsl.l > otherHsl.l) {
+      hsl.l = otherHsl.l;
+    }
+  } else {
+    // The color is dark, increase the lightness
+    change = 0.05;
+    if (hsl.l < otherHsl.l) {
+      hsl.l = otherHsl.l;
+    }
+  }
+
+  while (hsl.l <= 1 && hsl.l >= 0) {
+    const contrast = culori.wcagContrast(hsl, otherHsl);
+
+    if (contrast >= contrastTarget) {
+      break;
+    }
+
+    hsl.l += change;
+  }
+
+  // Make sure to not exceed the lightness
+  hsl.l = Math.min(1, Math.max(0, hsl.l));
+  const hex = culori.formatHex(hsl);
+  return {
+    hex,
+    style: `background-color: ${hex};`,
+  };
+}
+
+/** Get the object representing a WCAG standard. */
+function getWcagStandard(name, contrastTarget, color, other) {
+  const contrast = culori.wcagContrast(color, other);
+  const passed = contrast >= contrastTarget;
+  const improvement = passed
+    ? undefined
+    : getWcagSuggestion(color, other, contrastTarget);
+
+  return {
+    name,
+    passed,
+    improvement,
+  };
+}
+
 /** Get all contrast information with another color. */
 function getWcagObj(color, other) {
   const hex = culori.formatHex(color);
@@ -58,10 +113,12 @@ function getWcagObj(color, other) {
 
   // See https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast
   const contrast = culori.wcagContrast(color, otherColor);
-  const aaLarge = contrast >= 3;
-  const aa = contrast >= 4.5;
-  const aaaLarge = contrast >= 4.5;
-  const aaa = contrast >= 7;
+  const standards = [
+    getWcagStandard("WCAG AA (large text)", 3.0, color, otherColor),
+    getWcagStandard("WCAG AA", 4.5, color, otherColor),
+    getWcagStandard("WCAG AAA (large text)", 4.5, color, otherColor),
+    getWcagStandard("WCAG AAA", 7.0, color, otherColor),
+  ];
 
   const suggestion =
     culori.wcagContrast(color, "white") > culori.wcagContrast(color, "black")
@@ -73,10 +130,7 @@ function getWcagObj(color, other) {
     contrast: contrast.toFixed(2),
     asTextStyle,
     asBgStyle,
-    aaLarge,
-    aa,
-    aaaLarge,
-    aaa,
+    standards,
     suggestion,
   };
 }

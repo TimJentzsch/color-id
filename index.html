@@ -227,6 +227,7 @@
           </div>
         </div>
       </div>
+      <!-- Accessibility -->
       <h2>
         Accessibility of <span class="color-hex">{{searchColor.hex}}</span>
       </h2>
@@ -267,25 +268,29 @@
               </div>
             </div>
             <div class="contrast-info">
-              <div class="contrast-suggestion"></div>
-              <div class="">
+              <div class="contrast-ratio">
                 <strong>{{wcag.contrast}}</strong> Contrast ratio
               </div>
-              <div class="contrast-result">
-                <span class="passed" v-if="wcag.aaLarge">✓ WCAG AA (large text)</span>
-                <span class="failed" v-else>✗ WCAG AA (large text)</span>
-              </div>
-              <div class="contrast-result">
-                <span class="passed" v-if="wcag.aa">✓ WCAG AA</span>
-                <span class="failed" v-else>✗ WCAG AA</span>
-              </div>
-              <div class="contrast-result">
-                <span class="passed" v-if="wcag.aaaLarge">✓ WCAG AAA (large text)</span>
-                <span class="failed" v-else>✗ WCAG AAA (large text)</span>
-              </div>
-              <div class="contrast-result">
-                <span class="passed" v-if="wcag.aaa">✓ WCAG AAA</span>
-                <span class="failed" v-else>✗ WCAG AAA</span>
+              <div class="contrast-result" v-for="standard of wcag.standards">
+                <div class="passed" v-if="standard.passed">
+                  <span class="contrast-label">✓ {{standard.name}}</span>
+                </div>
+                <div class="failed" v-else>
+                  <span class="contrast-label">✗ {{standard.name}}</span>
+                  <div class="contrast-improvement">
+                    Use
+                    <div class="inline-color">
+                      <div
+                        class="inline-color-box"
+                        v-bind:style="standard.improvement.style"
+                      ></div>
+                      <div class="inline-color-hex color-hex">
+                        {{standard.improvement.hex}}
+                      </div>
+                    </div>
+                    instead.
+                  </div>
+                </div>
               </div>
             </div>
           </div>
