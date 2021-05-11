@@ -1,6 +1,6 @@
 // Constants
 const PROJECT_NAME = "color-id";
-const PROJECT_VERSION = "0.1.3";
+const PROJECT_VERSION = "0.1.4";
 const PROJECT_AUTHOR = "Tim Jentzsch";
 const PROJECT_SOURCE = "https://github.com/TimJentzsch/color-id";
 
@@ -192,15 +192,14 @@ const ColorIDApp = {
   methods: {
     /** Identifies the given color input string. */
     identifyColor(updateHistory = true) {
-      const rgb = culori.rgb(this.colorInput);
-      if (rgb) {
-        const hex = culori.formatHex(rgb);
+      const color = culori.parse(this.colorInput);
+      if (color) {
         if (updateHistory) {
           updateURL(this.colorInput, true);
         }
-        this.searchColor = getColorRepresentation(rgb);
-        this.nearestColors = getNearestColors(rgb);
-        updatePrimaryColor(rgb);
+        this.searchColor = getColorRepresentation(color);
+        this.nearestColors = getNearestColors(color);
+        updatePrimaryColor(color);
       }
     },
 
