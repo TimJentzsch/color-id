@@ -1,6 +1,6 @@
 // Constants
 const PROJECT_NAME = "color-id";
-const PROJECT_VERSION = "0.2.0";
+const PROJECT_VERSION = "0.2.1";
 const PROJECT_AUTHOR = "Tim Jentzsch";
 const PROJECT_SOURCE = "https://github.com/TimJentzsch/color-id";
 
@@ -107,6 +107,7 @@ function getWcagObj(color, other) {
   const hex = culori.formatHex(color);
   const otherColor = culori.rgb(other);
   const otherHex = culori.formatHex(otherColor);
+  const otherStyle = `background-color: ${otherHex};`;
 
   const asTextStyle = `color: ${hex}; background-color: ${otherHex};`;
   const asBgStyle = `color: ${otherHex}; background-color: ${hex};`;
@@ -127,6 +128,7 @@ function getWcagObj(color, other) {
 
   return {
     otherHex,
+    otherStyle,
     contrast: contrast.toFixed(2),
     asTextStyle,
     asBgStyle,
@@ -283,8 +285,8 @@ const ColorIDApp = {
     const searchColor = getColorRepresentation(rgb);
     const nearestColors = getNearestColors(rgb);
 
-    const wcagOther = "#232323";
-    const wcagInput = wcagOther;
+    const wcagInput = "#232323";
+    const wcagOther = wcagInput;
     const wcag = getWcagObj(rgb, wcagOther);
 
     updatePrimaryColor(rgb);
@@ -334,7 +336,7 @@ const ColorIDApp = {
         console.warn(`Invalid color: ${JSON.stringify(this.wcagInput)}`);
         return;
       }
-      this.wcagOther = culori.formatHex(wcagOther);
+      this.wcagOther = wcagOther;
       this.wcag = getWcagObj(this.searchColor.rgb, wcagOther);
     },
 

@@ -24,6 +24,7 @@ footer {
 
 h2 {
   color: var(--primary);
+  margin-top: 7px;
 }
 
 #body-container {
@@ -161,13 +162,6 @@ a:hover {
 #search-container {
   display: flex;
   justify-content: center;
-}
-
-#color-input-form {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  gap: 10px;
 }
 
 #color-input-container {
@@ -311,6 +305,13 @@ figcaption {
   height: 20px;
 }
 
+.general-contrast-info {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 10px;
+}
+
 .contrast-preview {
   text-align: center;
   display: flex;
@@ -320,14 +321,46 @@ figcaption {
   margin-right: 7px;
 }
 
-.as-text-preview, .as-bg-preview {
+.contrast-result-list {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+}
+
+.contrast-result-container {
+  display: flex;
+  flex-flow: row;
+  gap: 7px;
+  align-items: center;
+}
+
+.contrast-result {
+  min-width: 170px;
+}
+
+.contrast-improvement,
+.other-color-suggestion {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  gap: 3px;
+}
+
+.contrast-improvement {
+  min-width: 170px;
+}
+
+.as-text-preview,
+.as-bg-preview {
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
 }
 
-.large-preview, .small-preview {
+.large-preview,
+.small-preview {
   display: flex;
   justify-content: center;
   align-items: center;

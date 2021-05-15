@@ -45,6 +45,7 @@
     ></script>
     <script type="text/javascript" src="src/index.js"></script>
   </head>
+  <!---------------------------- BODY ---------------------------->
   <body id="app">
     <!-- Header -->
     <header>
@@ -64,17 +65,18 @@
       </div>
     </header>
     <div id="body-container">
-      <!-- Color search -->
+      <!-- Input form -->
       <div id="search-container">
         <form id="color-input-form" v-on:submit="identifyColor">
+          <label for="color-input">Choose a color to identify:</label><br />
           <input
             id="color-input"
             v-model="colorInput"
             type="text"
             v-bind:placeholder="inputPlaceholder"
-          />
+          />&nbsp;
           <input id="color-submission" type="submit" value="identify" />
-          <span>&nbsp;or&nbsp;</span>
+          <span>&nbsp;&nbsp;or&nbsp;&nbsp;</span>
           <input
             id="color-random"
             type="button"
@@ -233,11 +235,19 @@
       </h2>
       <div id="contrast-container">
         <div class="general-contrast-info">
-          <span class="color-hex primary">{{searchColor.hex}}</span> should be
-          used with a <strong>{{wcag.suggestion}}</strong> color.
-
+          <div class="other-color-suggestion">
+            <div class="inline-color">
+              <div
+                class="inline-color-box"
+                v-bind:style="searchColor.style"
+              ></div>
+              <div class="inline-color-hex color-hex">{{searchColor.hex}}</div>
+            </div>
+            <span> should be used with a <strong>{{wcag.suggestion}}</strong> color.</span>
+          </div>
           <form id="wcag-input-form" v-on:submit="setWcagColor">
-            <label for="wcag-input">Choose another color: </label>
+            <label for="wcag-input">Choose a color for contrast checks: </label
+            ><br />
             <input
               id="wcag-input"
               v-model="wcagInput"
@@ -245,7 +255,7 @@
               placeholder="#232323"
             />&nbsp;
             <input id="wcag-submission" type="submit" value="choose" />
-            <span>&nbsp;or&nbsp;</span>
+            <span>&nbsp;&nbsp;or&nbsp;&nbsp;</span>
             <input
               id="wcag-auto"
               type="button"
@@ -253,31 +263,55 @@
               v-on:click="wcagAuto"
             />
           </form>
+          <div class="color-suggestion">
+            <div class="color-box" v-bind:style="wcag.otherStyle"></div>
+            <div class="color-info">
+              <div class="color-name" v-if="wcag.otherName">
+                {{ wcag.otherName }}
+              </div>
+              <div class="color-hex">{{ wcag.otherHex }}</div>
+            </div>
+          </div>
         </div>
         <figure>
-          <figcaption></figcaption>
+          <figcaption>{{wcag.contrast}} Contrast ratio</figcaption>
           <div class="contrast-content">
+            <!-- Contrast Preview -->
             <div class="contrast-preview">
               <div class="as-text-preview" v-bind:style="wcag.asTextStyle">
                 <div class="large-preview">Sample Large</div>
-                <div class="small-preview">Sample Small</div>
+                <div class="small-preview">
+                  Sample Small<br />
+                  {{searchColor.hex}} on {{wcag.otherHex}}
+                </div>
               </div>
               <div class="as-bg-preview" v-bind:style="wcag.asBgStyle">
                 <div class="large-preview">Sample Large</div>
-                <div class="small-preview">Sample Small</div>
+                <div class="small-preview">
+                  Sample Small<br />
+                  {{wcag.otherHex}} on {{searchColor.hex}}
+                </div>
               </div>
             </div>
             <div class="contrast-info">
-              <div class="contrast-ratio">
-                <strong>{{wcag.contrast}}</strong> Contrast ratio
-              </div>
-              <div class="contrast-result" v-for="standard of wcag.standards">
-                <div class="passed" v-if="standard.passed">
-                  <span class="contrast-label">✓ {{standard.name}}</span>
-                </div>
-                <div class="failed" v-else>
-                  <span class="contrast-label">✗ {{standard.name}}</span>
-                  <div class="contrast-improvement">
+              <div class="contrast-result-list">
+                <div
+                  class="contrast-result-container"
+                  v-for="standard of wcag.standards"
+                >
+                  <div class="contrast-result">
+                    <div class="passed" v-if="standard.passed">
+                      <span class="contrast-label">✓ {{standard.name}}</span>
+                    </div>
+                    <div class="failed" v-else>
+                      <span class="contrast-label">✗ {{standard.name}}</span>
+                    </div>
+                  </div>
+                  <div
+                    class="contrast-improvement"
+                    v-if="standard.passed"
+                  ></div>
+                  <div class="contrast-improvement" v-else>
                     Use
                     <div class="inline-color">
                       <div
