@@ -5,7 +5,10 @@
 <div class="outer">
 	<nav>
 		<div class="title">
-			<a href="/"><h1>{$colorName}</h1></a>
+			<a href="/">
+				<img src="/logo.svg" alt="Logo" height={30} />
+				<h1>{$colorName}</h1>
+			</a>
 			<span>Color ID</span>
 		</div>
 	</nav>
@@ -47,5 +50,11 @@
 		display: flex;
 		align-items: center;
 		gap: 20px;
+	}
+
+	.title a {
+		display: flex;
+		gap: 15px;
+		align-items: center;
 	}
 </style>
