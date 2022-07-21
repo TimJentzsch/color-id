@@ -38,9 +38,9 @@
 
 	<div class="input-box">
 		<div class="input-labels">
-			<div class="line-wrapper"><label for="rgb-r">hue</label></div>
-			<div class="line-wrapper"><label for="rgb-g">saturation</label></div>
-			<div class="line-wrapper"><label for="rgb-b">lightness</label></div>
+			<div class="line-wrapper"><label for="hsl-h">hue</label></div>
+			<div class="line-wrapper"><label for="hsl-s">saturation</label></div>
+			<div class="line-wrapper"><label for="hsl-l">lightness</label></div>
 		</div>
 		<div class="inputs">
 			<div class="line-wrapper">
