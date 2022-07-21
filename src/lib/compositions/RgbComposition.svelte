@@ -6,22 +6,30 @@
 		return num / 255.0;
 	}
 
-	function numToCssPercentage(num: number): string {
-		return `${numToPercentage(num) * 100.0}%`;
-	}
-
 	function percentageToNum(percentage: number): number {
 		return Math.round(percentage * 255.0);
 	}
 
-	let r = percentageToNum($rgbColor.r);
-	let g = percentageToNum($rgbColor.g);
-	let b = percentageToNum($rgbColor.b);
+	function getName(red: number, green: number, blue: number): string {
+		return `rgb(${red}, ${green}, ${blue})`;
+	}
+
+	$: r = percentageToNum($rgbColor.r);
+	$: g = percentageToNum($rgbColor.g);
+	$: b = percentageToNum($rgbColor.b);
 
 	$: name = `rgb(${r}, ${g}, ${b})`;
 
-	function updateColor() {
-		$colorName = name;
+	function updateColorRed(red: number) {
+		$colorName = getName(red, g, b);
+	}
+
+	function updateColorGreen(green: number) {
+		$colorName = getName(r, green, b);
+	}
+
+	function updateColorBlue(blue: number) {
+		$colorName = getName(r, g, blue);
 	}
 </script>
 
@@ -38,30 +46,30 @@
 			<CompositionSlider
 				id="rgb-r"
 				hueName="red"
-				bind:value={r}
+				value={r}
 				min={0}
 				max={255}
-				onChange={updateColor}
+				onChange={updateColorRed}
 			/>
 		</div>
 		<div class="line-wrapper">
 			<CompositionSlider
 				id="rgb-g"
 				hueName="green"
-				bind:value={g}
+				value={g}
 				min={0}
 				max={255}
-				onChange={updateColor}
+				onChange={updateColorGreen}
 			/>
 		</div>
 		<div class="line-wrapper">
 			<CompositionSlider
 				id="rgb-b"
 				hueName="blue"
-				bind:value={b}
+				value={b}
 				min={0}
 				max={255}
-				onChange={updateColor}
+				onChange={updateColorBlue}
 			/>
 		</div>
 	</div>

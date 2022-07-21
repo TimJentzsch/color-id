@@ -3,10 +3,25 @@
 	export let value: number;
 	export let min: number = 0;
 	export let max: number = 100;
-	export let onChange: (() => void) | undefined = undefined;
+	export let onChange: ((value: number) => void) | undefined = undefined;
+	export let onCompleteChange: ((value: number) => void) | undefined = undefined;
 	export let hueName: string;
 
 	$: percentage = ((value - min) / (max - min)) * 100.0;
+
+	function internalOnChange(val: number) {
+		if (onChange !== undefined) {
+			onChange(val);
+		}
+	}
+
+	$: internalOnChange(value);
+
+	function internalOnCompleteChange() {
+		if (onCompleteChange !== undefined) {
+			onCompleteChange(value);
+		}
+	}
 </script>
 
 <input
@@ -16,7 +31,7 @@
 	bind:value
 	{min}
 	{max}
-	on:change={onChange}
+	on:change={internalOnCompleteChange}
 />
 
 <style>

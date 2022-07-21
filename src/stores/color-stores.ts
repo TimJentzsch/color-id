@@ -12,7 +12,7 @@ export const color: Readable<Color> = derived(colorName, ($colorName) => {
 	const parsedColor = parse($colorName);
 
 	if (parsedColor === undefined) {
-		throw Error('Color name is not valid!');
+		throw Error(`Color name "${$colorName}" is not valid!`);
 	}
 
 	return parsedColor;
