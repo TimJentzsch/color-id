@@ -1,10 +1,12 @@
 <script lang="ts">
+	import { colorName } from '$stores/color-stores';
 </script>
 
 <div class="outer">
 	<nav>
 		<div class="title">
-			<a href="/"><h1>Color ID</h1></a>
+			<a href="/"><h1>{$colorName}</h1></a>
+			<span>Color ID</span>
 		</div>
 	</nav>
 	<div />
@@ -38,5 +40,12 @@
 	h1 {
 		margin: 0;
 		font-size: x-large;
+		font-family: 'Courier New', Courier, monospace;
+	}
+
+	.title {
+		display: flex;
+		align-items: center;
+		gap: 20px;
 	}
 </style>

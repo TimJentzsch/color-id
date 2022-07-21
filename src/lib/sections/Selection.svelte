@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { color, colorHex } from '$stores/color-stores';
-	import { parse, random } from 'culori';
+	import { colorName, colorHex } from '$stores/color-stores';
+	import { formatHex, parse, random } from 'culori';
 
 	let colorInput = $colorHex;
 
@@ -11,14 +11,14 @@
 		const parsedColor = parse(colorInput);
 
 		if (parsedColor) {
-			$color = parsedColor;
+			$colorName = colorInput;
 		}
 	}
 
 	/** Choose a new random color. */
 	function onRandomColor() {
-		$color = random();
-		colorInput = $colorHex;
+		colorInput = formatHex(random());
+		$colorName = colorInput;
 	}
 </script>
 
