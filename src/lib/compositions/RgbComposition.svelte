@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { colorName, rgbColor } from '$stores/color-stores';
+	import CompositionSlider from './CompositionSlider.svelte';
 
 	function numToPercentage(num: number): number {
 		return num / 255.0;
@@ -34,71 +35,39 @@
 	</div>
 	<div class="inputs">
 		<div class="line-wrapper">
-			<input
+			<CompositionSlider
 				id="rgb-r"
-				style="--slider-color: red; --slider-percentage: {numToCssPercentage(r)}"
-				type="range"
+				colorName="red"
 				bind:value={r}
 				min={0}
 				max={255}
-				on:change={updateColor}
+				onChange={updateColor}
 			/>
 		</div>
 		<div class="line-wrapper">
-			<input
+			<CompositionSlider
 				id="rgb-g"
-				style="--slider-color: green; --slider-percentage: {numToCssPercentage(g)}"
-				type="range"
+				colorName="green"
 				bind:value={g}
 				min={0}
 				max={255}
-				on:change={updateColor}
+				onChange={updateColor}
 			/>
 		</div>
 		<div class="line-wrapper">
-			<input
+			<CompositionSlider
 				id="rgb-b"
-				style="--slider-color: blue; --slider-percentage: {numToCssPercentage(b)}"
-				type="range"
+				colorName="blue"
 				bind:value={b}
 				min={0}
 				max={255}
-				on:change={updateColor}
+				onChange={updateColor}
 			/>
 		</div>
 	</div>
 </div>
 
 <style>
-	input[type='range'] {
-		background: transparent;
-	}
-
-	input[type='range']::-moz-range-track {
-		height: 15px;
-		cursor: col-resize;
-		background: linear-gradient(
-			to right,
-			var(--slider-color) 0%,
-			var(--slider-color) var(--slider-percentage),
-			transparent var(--slider-percentage),
-			transparent 100%
-		);
-	}
-
-	input[type='range']::-moz-range-thumb {
-		-webkit-appearance: none;
-		cursor: col-resize;
-		border: solid var(--text-color) 1px;
-		border-radius: 0;
-		background-color: black;
-		color: black;
-		width: 4px;
-		height: 15px;
-		text-align: center;
-		margin-top: -5.5px;
-	}
-
 	.input-box {
 		display: flex;
 		gap: 10px;
