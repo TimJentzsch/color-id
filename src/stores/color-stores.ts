@@ -1,15 +1,18 @@
-import { rgbToCmyk } from '$utils/color-conversion';
-import { formatHex, hsl, hsv, parse, random, rgb, type Color, type Hsl } from 'culori';
+import { colorToCulori, rgbToCmyk } from '$utils/color-conversion';
+import { parseColor } from '$utils/color-parsing';
+import type { Color } from '$utils/types';
+import { formatHex, hsl, hsv, random, rgb, type Color as CuloriColor, type Hsl } from 'culori';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 
-/** The input name of the color.
+/**
+ * The input name of the color.
  *
  * This MUST be a valid color representation!
  */
 export const colorName: Writable<string> = writable(formatHex(random()));
 
 export const color: Readable<Color> = derived(colorName, ($colorName) => {
-	const parsedColor = parse($colorName);
+	const parsedColor = parseColor($colorName);
 
 	if (parsedColor === undefined) {
 		throw Error(`Color name "${$colorName}" is not valid!`);
@@ -18,10 +21,12 @@ export const color: Readable<Color> = derived(colorName, ($colorName) => {
 	return parsedColor;
 });
 
+export const culoriColor: Readable<CuloriColor> = derived(color, ($color) => colorToCulori($color));
+
 // Color representations
-export const rgbColor = derived(color, ($color) => rgb($color));
-export const hslColor = derived(color, ($color) => hsl($color));
-export const hsvColor = derived(color, ($color) => hsv($color));
+export const rgbColor = derived(culoriColor, ($culoriColor) => rgb($culoriColor));
+export const hslColor = derived(culoriColor, ($culoriColor) => hsl($culoriColor));
+export const hsvColor = derived(culoriColor, ($culoriColor) => hsv($culoriColor));
 export const cmykColor = derived(rgbColor, ($rgbColor) => rgbToCmyk($rgbColor));
 
 // Hex color name

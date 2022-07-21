@@ -1,5 +1,6 @@
 <script>
 	import HslComposition from '$lib/compositions/HslComposition.svelte';
+	import HsvComposition from '$lib/compositions/HsvComposition.svelte';
 	import RgbComposition from '$lib/compositions/RgbComposition.svelte';
 </script>
 
@@ -7,8 +8,8 @@
 
 <div class="container">
 	<RgbComposition />
-
 	<HslComposition />
+	<HsvComposition />
 </div>
 
 <style>
