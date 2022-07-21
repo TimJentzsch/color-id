@@ -77,3 +77,16 @@ input[type='submit']:active, input[type='button']:active, button:active {
   background-color: var(--primary-color);
   color: var(--background-color);
 }
+
+/* Main page layout, push footer to bottom */
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body > div {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
