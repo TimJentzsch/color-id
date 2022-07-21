@@ -1,32 +1,5 @@
-/* Color definitions */
 :root {
-  /* These get changed dynamically according to the current color */
-  --primary-color-dark-theme: white;
-  --primary-color-light-theme: black;
-
   --max-width: 1000px;
-  
-  --background-color: #121212;
-  --surface-color: rgba(255, 255, 255, 7%);
-  --text-color: rgb(228, 228, 228);
-  --muted-color: rgb(126, 126, 126);
-  --primary-color: var(--primary-color-dark-theme);
-
-  --failure-color: rgb(255, 122, 122);
-  --success-color: rgb(118, 224, 118);
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --background-color: white;
-    --surface-color: rgba(0, 0, 0, 7%);
-    --text-color: rgb(24, 24, 24);
-    --muted-color: rgb(126, 126, 126);
-    --primary-color: var(--primary-color-light-theme);
-
-    --error-color: rgb(219, 42, 42);
-    --success-color: rgb(33, 182, 33);
-  }
 }
 
 * {
