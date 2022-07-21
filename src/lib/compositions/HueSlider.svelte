@@ -4,8 +4,6 @@
 	export let onChange: ((value: number) => void) | undefined = undefined;
 	export let onCompleteChange: ((value: number) => void) | undefined = undefined;
 
-	$: percentage = ((hue % 360) / 360) * 100.0;
-
 	function internalOnChange(val: number) {
 		if (onChange !== undefined) {
 			onChange(val);
@@ -21,7 +19,15 @@
 	}
 </script>
 
-<input {id} type="range" bind:value={hue} min={0} max={360} on:change={internalOnCompleteChange} />
+<input
+	{id}
+	type="range"
+	bind:value={hue}
+	min={0}
+	max={360}
+	step={0.5}
+	on:change={internalOnCompleteChange}
+/>
 
 <style>
 	input[type='range'] {
