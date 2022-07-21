@@ -44,7 +44,7 @@
 		</div>
 		<div class="inputs">
 			<div class="line-wrapper">
-				<HueSlider id="hsl-h" hue={h} onChange={updateHue} />
+				<HueSlider id="hsl-h" hue={h} onInput={updateHue} />
 			</div>
 			<div class="line-wrapper">
 				<CompositionSlider
@@ -53,7 +53,7 @@
 					value={s}
 					min={0}
 					max={100}
-					onChange={updateSaturation}
+					onInput={updateSaturation}
 				/>
 			</div>
 			<div class="line-wrapper">
@@ -63,7 +63,7 @@
 					value={l}
 					min={0}
 					max={100}
-					onChange={updateLightness}
+					onInput={updateLightness}
 				/>
 			</div>
 		</div>

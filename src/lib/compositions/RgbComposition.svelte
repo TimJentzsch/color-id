@@ -44,7 +44,7 @@
 					value={r}
 					min={0}
 					max={255}
-					onChange={updateColorRed}
+					onInput={updateColorRed}
 				/>
 			</div>
 			<div class="line-wrapper">
@@ -54,7 +54,7 @@
 					value={g}
 					min={0}
 					max={255}
-					onChange={updateColorGreen}
+					onInput={updateColorGreen}
 				/>
 			</div>
 			<div class="line-wrapper">
@@ -64,7 +64,7 @@
 					value={b}
 					min={0}
 					max={255}
-					onChange={updateColorBlue}
+					onInput={updateColorBlue}
 				/>
 			</div>
 		</div>

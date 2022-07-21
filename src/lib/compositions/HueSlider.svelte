@@ -1,20 +1,18 @@
 <script lang="ts">
 	export let id: string | undefined = undefined;
 	export let hue: number;
+	export let onInput: ((value: number) => void) | undefined = undefined;
 	export let onChange: ((value: number) => void) | undefined = undefined;
-	export let onCompleteChange: ((value: number) => void) | undefined = undefined;
 
-	function internalOnChange(val: number) {
-		if (onChange !== undefined) {
-			onChange(val);
+	function internalOnInput() {
+		if (onInput !== undefined) {
+			onInput(hue);
 		}
 	}
 
-	$: internalOnChange(hue);
-
-	function internalOnCompleteChange() {
-		if (onCompleteChange !== undefined) {
-			onCompleteChange(hue);
+	function internalOnChange() {
+		if (onChange !== undefined) {
+			onChange(hue);
 		}
 	}
 </script>
@@ -25,8 +23,9 @@
 	bind:value={hue}
 	min={0}
 	max={360}
-	step={0.5}
-	on:change={internalOnCompleteChange}
+	step={1}
+	on:input={internalOnInput}
+	on:change={internalOnChange}
 />
 
 <style>
