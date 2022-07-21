@@ -15,9 +15,7 @@
 			"$stores": ["src/stores"],
 			"$stores/*": ["src/stores/*"],
 			"$utils": ["src/utils"],
-			"$utils/*": ["src/utils/*"],
-			"$static": ["src/static"],
-			"$static/*": ["src/static/*"]
+			"$utils/*": ["src/utils/*"]
 		}
 	}
 }

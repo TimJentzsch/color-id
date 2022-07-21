@@ -1,7 +1,16 @@
 <script lang="ts">
+	import { browser } from '$app/env';
+
 	import Footer from '$lib/Footer.svelte';
 	import Header from '$lib/Header.svelte';
+	import { darkThemeHex, lightThemeHex } from '$stores/color-stores';
 	import '../app.css';
+
+	// Update CSS color definitions
+	$: if (browser) {
+		document.documentElement.style.setProperty('--primary-color-dark-theme', $darkThemeHex);
+		document.documentElement.style.setProperty('--primary-color-light-theme', $lightThemeHex);
+	}
 </script>
 
 <svelte:head>
