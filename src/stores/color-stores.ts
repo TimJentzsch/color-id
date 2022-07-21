@@ -1,8 +1,8 @@
 import { rgbToCmyk } from '$utils/color-conversion';
-import { formatHex, hsl, hsv, random, rgb, type Hsl } from 'culori';
-import { derived, writable, type Readable } from 'svelte/store';
+import { formatHex, hsl, hsv, random, rgb, type Color, type Hsl } from 'culori';
+import { derived, writable, type Readable, type Writable } from 'svelte/store';
 
-export const color = writable(random());
+export const color: Writable<Color> = writable(random());
 
 // Color representations
 export const rgbColor = derived(color, ($color) => rgb($color));
