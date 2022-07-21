@@ -37,7 +37,7 @@
 		<div class="line-wrapper">
 			<CompositionSlider
 				id="rgb-r"
-				colorName="red"
+				hueName="red"
 				bind:value={r}
 				min={0}
 				max={255}
@@ -47,7 +47,7 @@
 		<div class="line-wrapper">
 			<CompositionSlider
 				id="rgb-g"
-				colorName="green"
+				hueName="green"
 				bind:value={g}
 				min={0}
 				max={255}
@@ -57,7 +57,7 @@
 		<div class="line-wrapper">
 			<CompositionSlider
 				id="rgb-b"
-				colorName="blue"
+				hueName="blue"
 				bind:value={b}
 				min={0}
 				max={255}

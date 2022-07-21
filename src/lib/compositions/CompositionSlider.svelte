@@ -4,14 +4,14 @@
 	export let min: number = 0;
 	export let max: number = 100;
 	export let onChange: (() => void) | undefined = undefined;
-	export let colorName: string;
+	export let hueName: string;
 
 	$: percentage = ((value - min) / (max - min)) * 100.0;
 </script>
 
 <input
 	{id}
-	style="--slider-color: var(--{colorName}); --slider-muted-color: var(--{colorName}-muted); --slider-percentage: {percentage}%"
+	style="--slider-hue: var(--{hueName}-hue); --slider-percentage: {percentage}%"
 	type="range"
 	bind:value
 	{min}
@@ -29,20 +29,19 @@
 		cursor: col-resize;
 		background: linear-gradient(
 			to right,
-			var(--slider-color) 0%,
-			var(--slider-color) var(--slider-percentage),
-			var(--slider-muted-color) var(--slider-percentage),
-			var(--slider-muted-color) 100%
+			hsla(var(--slider-hue), 80%, var(--lightness), 1) 0%,
+			hsla(var(--slider-hue), 80%, var(--lightness), 1) var(--slider-percentage),
+			hsla(var(--slider-hue), 80%, var(--lightness), 0.4) var(--slider-percentage),
+			hsla(var(--slider-hue), 80%, var(--lightness), 0.4) 100%
 		);
 	}
 
 	input[type='range']::-moz-range-thumb {
 		-webkit-appearance: none;
 		cursor: col-resize;
-		border: solid var(--text-color) 1px;
+		border: solid var(--text-color) 2px;
 		border-radius: 0;
-		background-color: black;
-		color: black;
+		background-color: var(--background-color);
 		width: 4px;
 		height: 15px;
 		text-align: center;
