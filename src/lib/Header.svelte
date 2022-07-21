@@ -39,7 +39,7 @@
 
 	h1 {
 		margin: 0;
-		font-size: x-large;
+		font-size: xx-large;
 		font-family: 'Courier New', Courier, monospace;
 	}
 

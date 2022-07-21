@@ -43,6 +43,10 @@ h1, h2, h3 {
   color: var(--primary-color);
 }
 
+h2 {
+  font-size: larger;
+}
+
 a {
   color: var(--primary-color);
 }
