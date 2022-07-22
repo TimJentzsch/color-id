@@ -1,15 +1,29 @@
 <script lang="ts">
-	import { colorName, colorHex, colorDescription } from '$stores/color-stores';
+	import { getColorDescription } from '$utils/color-description';
+	import { formatHex, hsl, hsv, type Color, type Hsl, type Hsv, type Rgb } from 'culori';
+
+	export let name: string | undefined = undefined;
+	export let rgbColor: Rgb;
+	export let hslColor: Hsl | undefined = undefined;
+	export let hsvColor: Hsv | undefined = undefined;
+
+	$: _hsl = hslColor ?? hsl(rgbColor);
+	$: _hsv = hsvColor ?? hsv(rgbColor);
+
+	$: hex = formatHex(rgbColor);
+	$: description = getColorDescription(_hsl, _hsv);
 </script>
 
 <div class="container">
-	<div class="preview" style="--color-hex: {$colorHex}" />
+	<div class="preview" style="--color-hex: {hex}" />
 	<div class="color-names">
-		<strong class="name">{$colorName}</strong>
-		{#if $colorName !== $colorHex}
-			<span class="hex-name">{$colorHex}</span>
+		{#if name}
+			<strong class="name">{name}</strong>
 		{/if}
-		<span class="description">"{$colorDescription}"</span>
+		{#if name !== hex}
+			<span class="hex-name">{hex}</span>
+		{/if}
+		<span class="description">"{description}"</span>
 	</div>
 </div>
 

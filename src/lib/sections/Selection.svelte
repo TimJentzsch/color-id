@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ColorInputForm from '$lib/ColorInputForm.svelte';
 	import ColorPreview from '$lib/color-preview/ColorBig.svelte';
-	import { colorName } from '$stores/color-stores';
+	import { colorName, hslColor, hsvColor, rgbColor } from '$stores/color-stores';
 
 	function onColorInput(color: string) {
 		$colorName = color;
@@ -10,7 +10,7 @@
 
 <div class="container">
 	<ColorInputForm colorName={$colorName} {onColorInput} />
-	<ColorPreview />
+	<ColorPreview name={$colorName} rgbColor={$rgbColor} hslColor={$hslColor} hsvColor={$hsvColor} />
 </div>
 
 <style>

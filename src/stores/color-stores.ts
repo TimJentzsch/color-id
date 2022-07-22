@@ -33,10 +33,6 @@ export const cmykColor = derived(rgbColor, ($rgbColor) => rgbToCmyk($rgbColor));
 
 // Hex color name
 export const colorHex = derived(rgbColor, ($rgbColor) => formatHex($rgbColor));
-// Color description
-export const colorDescription = derived([hslColor, hsvColor], ([$hslColor, $hsvColor]) =>
-	getColorDescription($hslColor, $hsvColor)
-);
 
 // Similar CSS colors
 export const similarNamedColors = derived(rgbColor, ($rgbColor) =>
