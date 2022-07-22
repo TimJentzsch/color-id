@@ -1,10 +1,21 @@
 <script lang="ts">
+	import ColorMedium from '$lib/ColorMedium.svelte';
 	import LinkableHeading from '$lib/LinkableHeading.svelte';
 	import { similarNamedColors } from '$stores/color-stores';
 </script>
 
 <LinkableHeading text="Similar CSS Colors" />
 
-{#each $similarNamedColors as similarColor}
-	<div>{similarColor.name}</div>
-{/each}
+<div class="color-list">
+	{#each $similarNamedColors as { name, rgb }}
+		<ColorMedium {name} color={rgb} />
+	{/each}
+</div>
+
+<style>
+	.color-list {
+		display: flex;
+		flex-flow: row wrap;
+		gap: 10px;
+	}
+</style>
