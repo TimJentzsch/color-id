@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ColorInputForm from '$lib/ColorInputForm.svelte';
-	import ColorPreview from '$lib/ColorPreview.svelte';
+	import ColorPreview from '$lib/color-preview/ColorBig.svelte';
 	import { colorName } from '$stores/color-stores';
 
 	function onColorInput(color: string) {

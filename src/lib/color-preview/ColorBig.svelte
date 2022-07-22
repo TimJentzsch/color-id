@@ -21,6 +21,8 @@
 		background-color: var(--surface-color);
 		border: solid var(--muted-color) 1px;
 		border-radius: 5px;
+
+		min-width: 300px;
 	}
 
 	.color-box {

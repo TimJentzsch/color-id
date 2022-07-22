@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ColorMedium from '$lib/ColorMedium.svelte';
+	import ColorMedium from '$lib/color-preview/ColorMedium.svelte';
 	import LinkableHeading from '$lib/LinkableHeading.svelte';
 	import { similarNamedColors } from '$stores/color-stores';
 </script>
