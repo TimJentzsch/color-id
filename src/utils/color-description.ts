@@ -46,19 +46,28 @@ export function getColorDescription(hsl: Hsl, hsv: Hsv): string {
 	let lightness = '';
 
 	if (l <= 0.2) {
-		lightness = 'Very dark';
+		if (hueName === 'orange') {
+			hueName = 'brown';
+			lightness = 'dark';
+		} else {
+			lightness = 'very dark';
+		}
 	} else if (l <= 0.4) {
-		lightness = 'Dark';
+		if (hueName === 'orange') {
+			hueName = 'brown';
+		} else {
+			lightness = 'dark';
+		}
 	} else if (l >= 0.8) {
-		lightness = 'Very light';
+		lightness = 'very light';
 	} else if (l >= 0.6) {
-		lightness = 'Light';
+		lightness = 'light';
 	}
 
 	let saturation = '';
 
 	if (hsl.s <= 0.5) {
-		saturation = 'Pale ';
+		saturation = 'pale ';
 	}
 
 	return capitalize(`${saturation}${lightness} ${hueName}`.trim());
