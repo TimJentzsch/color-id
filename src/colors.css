@@ -18,6 +18,10 @@
   --red-hue: 0;
   --green-hue: 120;
   --blue-hue: 240;
+  --hsl-saturation-hue: 300;
+  --hsv-saturation-hue: 329;
+  --lightness-hue: 58;
+  --value-hue: 275;
 }
 
 @media (prefers-color-scheme: light) {

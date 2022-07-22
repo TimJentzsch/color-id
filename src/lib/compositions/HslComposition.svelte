@@ -49,7 +49,7 @@
 			<div class="line-wrapper">
 				<CompositionSlider
 					id="hsl-s"
-					hueName="green"
+					hueName="hsl-saturation"
 					value={s}
 					min={0}
 					max={100}
@@ -59,7 +59,7 @@
 			<div class="line-wrapper">
 				<CompositionSlider
 					id="hsl-l"
-					hueName="blue"
+					hueName="lightness"
 					value={l}
 					min={0}
 					max={100}
