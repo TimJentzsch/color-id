@@ -1,31 +1,10 @@
 <script lang="ts">
-	import { colorName, colorHex } from '$stores/color-stores';
-	import { formatHex, parse, random } from 'culori';
+	import ColorInputForm from '$lib/ColorInputForm.svelte';
+	import { colorName } from '$stores/color-stores';
 
-	let colorInput = $colorHex;
-
-	/** Set a new color based on the input. */
-	function onSubmitColorInput(ev: SubmitEvent) {
-		ev.preventDefault();
-
-		const parsedColor = parse(colorInput);
-
-		if (parsedColor) {
-			$colorName = colorInput;
-		}
-	}
-
-	/** Choose a new random color. */
-	function onRandomColor() {
-		colorInput = formatHex(random());
-		$colorName = colorInput;
+	function onColorInput(color: string) {
+		$colorName = color;
 	}
 </script>
 
-<form on:submit={onSubmitColorInput}>
-	<label for="color-input">Choose a color to identify:</label>
-	<input id="color-input" type="text" bind:value={colorInput} />
-	<input type="submit" value="identify" />
-	or
-	<input type="button" value="random" on:click={onRandomColor} />
-</form>
+<ColorInputForm colorName={$colorName} {onColorInput} />
