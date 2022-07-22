@@ -1,6 +1,7 @@
 import { colorToCulori, rgbToCmyk } from '$utils/color-conversion';
 import { getColorDescription } from '$utils/color-description';
 import { parseColor } from '$utils/color-parsing';
+import { getClosestNamedColors } from '$utils/named-colors';
 import type { Color } from '$utils/types';
 import { formatHex, hsl, hsv, random, rgb, type Color as CuloriColor, type Hsl } from 'culori';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
@@ -35,6 +36,11 @@ export const colorHex = derived(rgbColor, ($rgbColor) => formatHex($rgbColor));
 // Color description
 export const colorDescription = derived([hslColor, hsvColor], ([$hslColor, $hsvColor]) =>
 	getColorDescription($hslColor, $hsvColor)
+);
+
+// Similar CSS colors
+export const similarNamedColors = derived(rgbColor, ($rgbColor) =>
+	getClosestNamedColors($rgbColor)
 );
 
 // Theme colors
