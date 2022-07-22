@@ -34,7 +34,7 @@ input[type='text'] {
 }
 
 input[type='text']:focus {
-  border-color: var(--primary-color);
+  outline: var(--focus-outline);
 }
 
 input[type='submit'], input[type='button'], button {
@@ -66,4 +66,9 @@ body > div {
   height: 100%;
   display: flex;
   flex-flow: column;
+}
+
+/* Accessibility: Style the outline of focused elements */
+*:focus {
+  outline: var(--focus-outline);
 }

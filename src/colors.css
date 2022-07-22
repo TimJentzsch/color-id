@@ -12,6 +12,8 @@
   --failure-color: rgb(255, 122, 122);
   --success-color: rgb(118, 224, 118);
 
+  --focus-outline: solid rgb(109, 255, 255) 3px;
+
   --lightness: 70%;
 
   /* Hues for the compositions */
