@@ -1,4 +1,5 @@
 import { colorToCulori, rgbToCmyk } from '$utils/color-conversion';
+import { getColorDescription } from '$utils/color-description';
 import { parseColor } from '$utils/color-parsing';
 import type { Color } from '$utils/types';
 import { formatHex, hsl, hsv, random, rgb, type Color as CuloriColor, type Hsl } from 'culori';
@@ -31,6 +32,10 @@ export const cmykColor = derived(rgbColor, ($rgbColor) => rgbToCmyk($rgbColor));
 
 // Hex color name
 export const colorHex = derived(rgbColor, ($rgbColor) => formatHex($rgbColor));
+// Color description
+export const colorDescription = derived([hslColor, hsvColor], ([$hslColor, $hsvColor]) =>
+	getColorDescription($hslColor, $hsvColor)
+);
 
 // Theme colors
 export const darkThemeColor: Readable<Hsl> = derived(hslColor, ($hslColor) => {
