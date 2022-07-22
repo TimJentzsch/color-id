@@ -3,7 +3,7 @@
 
 	import Footer from '$lib/Footer.svelte';
 	import Header from '$lib/Header.svelte';
-	import { darkThemeHex, lightThemeHex } from '$stores/color-stores';
+	import { colorName, darkThemeHex, lightThemeHex } from '$stores/color-stores';
 	import '../colors.css';
 	import '../app.css';
 
@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<title>Color ID</title>
+	<title>Color ID - {$colorName}</title>
 </svelte:head>
 
 <header>
