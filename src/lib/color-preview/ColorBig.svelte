@@ -3,13 +3,13 @@
 </script>
 
 <div class="container">
-	<div class="color-box" style="--color-hex: {$colorHex}" />
+	<div class="preview" style="--color-hex: {$colorHex}" />
 	<div class="color-names">
-		<strong class="input-name">{$colorName}</strong>
+		<strong class="name">{$colorName}</strong>
 		{#if $colorName !== $colorHex}
 			<span class="hex-name">{$colorHex}</span>
 		{/if}
-		<span class="description">{$colorDescription}</span>
+		<span class="description">"{$colorDescription}"</span>
 	</div>
 </div>
 
@@ -25,11 +25,12 @@
 		min-width: 300px;
 	}
 
-	.color-box {
+	.preview {
 		width: 90px;
 		height: 90px;
 		background-color: var(--color-hex);
 		border-right: solid var(--muted-color) 1px;
+		border-radius: 5px 0px 0px 5px;
 	}
 
 	.color-names {
@@ -37,5 +38,10 @@
 		flex-flow: column;
 		gap: 5px;
 		padding: 10px;
+	}
+
+	.name,
+	.hex-name {
+		font-family: 'Courier New', Courier, monospace;
 	}
 </style>

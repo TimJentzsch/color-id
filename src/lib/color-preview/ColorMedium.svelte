@@ -38,6 +38,7 @@
 		height: 50px;
 		background-color: var(--color-hex);
 		border-right: solid var(--muted-color) 1px;
+		border-radius: 5px 0px 0px 5px;
 	}
 
 	.names {
@@ -45,5 +46,10 @@
 		flex-flow: column;
 		gap: 2px;
 		padding: 5px;
+	}
+
+	.name,
+	.hex-name {
+		font-family: 'Courier New', Courier, monospace;
 	}
 </style>
