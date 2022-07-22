@@ -55,5 +55,11 @@ export function getColorDescription(hsl: Hsl, hsv: Hsv): string {
 		lightness = 'Light';
 	}
 
-	return capitalize(`${lightness} ${hueName}`.trim());
+	let saturation = '';
+
+	if (hsl.s <= 0.5) {
+		saturation = 'Pale ';
+	}
+
+	return capitalize(`${saturation}${lightness} ${hueName}`.trim());
 }
