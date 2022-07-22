@@ -1,4 +1,5 @@
 import type { Hsl, Hsv } from 'culori';
+import { capitalize } from './string-utils';
 
 const HUE_NAMES: [number, string][] = [
 	[0, 'red'],
@@ -54,5 +55,5 @@ export function getColorDescription(hsl: Hsl, hsv: Hsv): string {
 		lightness = 'Light';
 	}
 
-	return `${lightness} ${hueName}`;
+	return capitalize(`${lightness} ${hueName}`.trim());
 }
