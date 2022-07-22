@@ -2,9 +2,10 @@
 	import HslComposition from '$lib/compositions/HslComposition.svelte';
 	import HsvComposition from '$lib/compositions/HsvComposition.svelte';
 	import RgbComposition from '$lib/compositions/RgbComposition.svelte';
+	import LinkableHeading from '$lib/LinkableHeading.svelte';
 </script>
 
-<h2>Composition</h2>
+<LinkableHeading text="Composition" />
 
 <div class="container">
 	<RgbComposition />

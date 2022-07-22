@@ -1,1 +1,5 @@
-<h2>Accessibility</h2>
+<script>
+	import LinkableHeading from '$lib/LinkableHeading.svelte';
+</script>
+
+<LinkableHeading text="Accessibility" />
