@@ -1,5 +1,4 @@
 import { colorToCulori, rgbToCmyk } from '$utils/color-conversion';
-import { getColorDescription } from '$utils/color-description';
 import { parseColor } from '$utils/color-parsing';
 import { getClosestNamedColors } from '$utils/named-colors';
 import type { Color } from '$utils/types';
