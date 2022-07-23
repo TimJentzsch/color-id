@@ -10,6 +10,7 @@
 </script>
 
 <div class="container">
+	<ColorBig name={$colorName} rgbColor={$rgbColor} hslColor={$hslColor} hsvColor={$hsvColor} />
 	<ColorInputForm
 		colorName={$colorName}
 		promptText="Choose a color to identify:"
@@ -17,15 +18,17 @@
 		generateColor={() => formatHex(random())}
 		{onColorInput}
 	/>
-	<ColorBig name={$colorName} rgbColor={$rgbColor} hslColor={$hslColor} hsvColor={$hsvColor} />
 </div>
 
 <style>
 	.container {
 		display: flex;
-		flex-flow: column;
+		flex-flow: row wrap;
 		align-items: center;
+		justify-content: center;
 		width: 100%;
 		gap: 30px;
+
+		margin-top: 20px;
 	}
 </style>

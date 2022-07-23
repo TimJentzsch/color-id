@@ -2,7 +2,7 @@ import { colorToCulori, rgbToCmyk } from '$utils/color-conversion';
 import { parseColor } from '$utils/color-parsing';
 import type { Color } from '$utils/types';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
-import { hsl, hsv, rgb, type Color as CuloriColor } from 'culori';
+import { formatHex, hsl, hsv, rgb, type Color as CuloriColor } from 'culori';
 
 /**
  * The input name of the color.
@@ -39,3 +39,6 @@ export const secRgbColor = derived(secCuloriColor, ($secCuloriColor) => rgb($sec
 export const secHslColor = derived(secCuloriColor, ($secCuloriColor) => hsl($secCuloriColor));
 export const secHsvColor = derived(secCuloriColor, ($secCuloriColor) => hsv($secCuloriColor));
 export const secCmykColor = derived(secRgbColor, ($rgbColor) => rgbToCmyk($rgbColor));
+
+// Hex color name
+export const secColorHex = derived(secRgbColor, ($secRgbColor) => formatHex($secRgbColor));

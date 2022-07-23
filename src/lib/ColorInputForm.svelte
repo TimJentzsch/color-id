@@ -25,7 +25,7 @@
 </script>
 
 <form on:submit={onSubmitColorInput}>
-	<label for="color-input">{promptText}</label>
+	<label for="color-input">{promptText}</label><br />
 	<input id="color-input" type="text" bind:value={colorName} />
 	<input type="submit" value="identify" />
 	or
