@@ -2,6 +2,7 @@ import { colorToCulori, rgbToCmyk } from '$utils/color-conversion';
 import { parseColor } from '$utils/color-parsing';
 import { getClosestNamedColors } from '$utils/named-colors';
 import type { Color } from '$utils/types';
+import { extractUrlQueryParamColorName } from '$utils/url-utils';
 import { formatHex, hsl, hsv, random, rgb, type Color as CuloriColor, type Hsl } from 'culori';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 
@@ -10,7 +11,9 @@ import { derived, writable, type Readable, type Writable } from 'svelte/store';
  *
  * This MUST be a valid color representation!
  */
-export const colorName: Writable<string> = writable(formatHex(random()));
+export const colorName: Writable<string> = writable(
+	extractUrlQueryParamColorName('color') || formatHex(random())
+);
 
 export const color: Readable<Color> = derived(colorName, ($colorName) => {
 	const parsedColor = parseColor($colorName);
