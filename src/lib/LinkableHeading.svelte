@@ -5,13 +5,13 @@
 
 	$: urlText = text.toLowerCase().replaceAll(' ', '-');
 
-	const id = `linkable-heading_${urlText}`;
+	$: id = `linkable-heading_${urlText}`;
 
 	/** Scroll to the given heading. */
 	function scrollToHeading(): void {
 		document
 			.getElementById(id)
-			?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
+			?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
 	}
 
 	onMount(() => {
