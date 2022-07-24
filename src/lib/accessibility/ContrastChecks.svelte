@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ColorSmall from '$lib/color-preview/ColorSmall.svelte';
 	import { formatHex, wcagContrast, type Hsl } from 'culori';
 
 	export let contrast: number;
@@ -155,9 +156,9 @@
 			{#if !result.passed}
 				<div class="check-recommendations">
 					Use
-					{formatHex(result.colorRecommendation)}
+					<ColorSmall color={result.colorRecommendation} />
 					as primary or
-					{formatHex(result.secColorRecommendation)}
+					<ColorSmall color={result.secColorRecommendation} />
 					as secondary color instead.
 				</div>
 			{/if}
@@ -187,6 +188,9 @@
 	}
 
 	.check-recommendations {
+		display: flex;
+		align-items: center;
+		gap: 5px;
 		padding-left: 20px;
 	}
 </style>
