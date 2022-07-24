@@ -18,7 +18,7 @@
 			<div class="bold">Bold text (14pt)</div>
 		</div>
 		<div class="normal-requirements">
-			<div class="small">Small text (12pt)</div>
+			<div class="small">Normal text (12pt)</div>
 		</div>
 	</div>
 </figure>

@@ -187,6 +187,10 @@
 		color: var(--failure-color);
 	}
 
+	.result {
+		font-family: 'Courier New', Courier, monospace;
+	}
+
 	.check-recommendations {
 		display: flex;
 		align-items: center;
