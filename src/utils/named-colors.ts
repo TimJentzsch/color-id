@@ -34,5 +34,5 @@ const NAMED_COLORS: NamedColor[] = Object.entries(colorsNamed)
 const getNearest = nearest(NAMED_COLORS, differenceCiede2000(), (c) => c.lab65);
 
 export function getClosestNamedColors(color: CuloriColor): NamedColor[] {
-	return getNearest(color, 5);
+	return getNearest(color, 8);
 }

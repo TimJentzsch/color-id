@@ -16,6 +16,8 @@
 	.color-list {
 		display: flex;
 		flex-flow: row wrap;
+		align-items: center;
+		justify-content: center;
 		gap: 10px;
 	}
 </style>
