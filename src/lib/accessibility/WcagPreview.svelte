@@ -7,7 +7,7 @@
 
 <figure>
 	<figcaption>
-		<span class="name">{foregroundName}</span> on <span class="name">{backgroundName}</span>
+		<strong class="name">{foregroundName}</strong> on <strong class="name">{backgroundName}</strong>
 	</figcaption>
 	<div
 		class="container"
@@ -22,10 +22,12 @@
 	figure {
 		display: flex;
 		flex-flow: column;
-		gap: 10px;
 		align-items: center;
+		gap: 10px;
 		margin: 0;
+		min-width: 250px;
 	}
+
 	.container {
 		display: flex;
 		flex-flow: column;
