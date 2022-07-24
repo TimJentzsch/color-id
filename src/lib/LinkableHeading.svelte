@@ -11,7 +11,7 @@
 	function scrollToHeading(): void {
 		document
 			.getElementById(id)
-			?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+			?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
 	}
 
 	onMount(() => {
@@ -24,7 +24,7 @@
 	});
 </script>
 
-<a {id} href="#{urlText}"><h2>{text}</h2></a>
+<a {id} on:click={scrollToHeading} href="#{urlText}"><h2>{text}</h2></a>
 
 <style>
 	a {
