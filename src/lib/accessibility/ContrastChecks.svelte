@@ -21,24 +21,29 @@
 
 	interface WcagDefinition {
 		name: string;
+		large: boolean;
 		ratio: number;
 	}
 
 	const contrastLevels: WcagDefinition[] = [
 		{
-			name: 'WCAG AA (large text)',
+			name: 'WCAG AA',
+			large: true,
 			ratio: 3.0
 		},
 		{
 			name: 'WCAG AA',
-			ratio: 4.5
-		},
-		{
-			name: 'WCAG AAA (large text)',
+			large: false,
 			ratio: 4.5
 		},
 		{
 			name: 'WCAG AAA',
+			large: true,
+			ratio: 4.5
+		},
+		{
+			name: 'WCAG AAA',
+			large: false,
 			ratio: 7.0
 		}
 	];
@@ -139,30 +144,49 @@
 </script>
 
 <div class="contrast-checks">
-	<table>
-		<tr>
-			<th>WCAG Standard</th>
-			<th>Ratio</th>
-			<th>Passed</th>
-			<th>Better primary</th>
-			<th>Better secondary</th>
-		</tr>
-		{#each checks as { definition, result }}
-			<tr>
-				<td>{definition.name}</td>
-				<td>{definition.ratio}</td>
-				<td>{result.passed ? '✓' : '✗'}</td>
-				<td>
-					{#if result.colorRecommendation}
-						{formatHex(result.colorRecommendation)}
-					{/if}
-				</td>
-				<td>
-					{#if result.secColorRecommendation}
-						{formatHex(result.secColorRecommendation)}
-					{/if}
-				</td>
-			</tr>
-		{/each}
-	</table>
+	{#each checks as { definition, result }}
+		<div class="check-container {result.passed ? 'passed' : 'failed'}">
+			<div class="check-title">
+				<span class="result">{result.passed ? '✓ Passed' : '✗ Failed'}</span>
+				<strong class="name">{definition.name}</strong>,
+				<span class="text-size">{definition.large ? 'large' : 'normal'} text</span>
+				<span class="ratio">({definition.ratio}:1)</span>
+			</div>
+			{#if !result.passed}
+				<div class="check-recommendations">
+					Use
+					{formatHex(result.colorRecommendation)}
+					as primary or
+					{formatHex(result.secColorRecommendation)}
+					as secondary color instead.
+				</div>
+			{/if}
+		</div>
+	{/each}
 </div>
+
+<style>
+	.contrast-checks {
+		display: flex;
+		flex-flow: column;
+		gap: 10px;
+	}
+
+	.check-container {
+		display: flex;
+		flex-flow: column;
+		gap: 5px;
+	}
+
+	.check-container.passed .result {
+		color: var(--success-color);
+	}
+
+	.check-container.failed .result {
+		color: var(--failure-color);
+	}
+
+	.check-recommendations {
+		padding-left: 20px;
+	}
+</style>
