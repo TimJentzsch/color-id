@@ -59,7 +59,17 @@
 		Contrast ratio <strong>{contrast.toFixed(2)}:1</strong>
 	</div>
 
-	<ContrastChecks {contrast} hslColor={$hslColor} secHslColor={$secHslColor} />
+	<ContrastChecks
+		{contrast}
+		hslColor={$hslColor}
+		secHslColor={$secHslColor}
+		onSelectColor={(color) => {
+			$colorName = color;
+		}}
+		onSelectSecColor={(color) => {
+			$secColorName = color;
+		}}
+	/>
 </div>
 
 <style>

@@ -3,11 +3,23 @@
 
 	export let name: string | undefined = undefined;
 	export let color: Color;
+	export let onSelect: ((color: string) => void) | undefined = undefined;
 
 	$: hex = formatHex(color);
+
+	function internalOnSelect() {
+		if (onSelect !== undefined) {
+			onSelect(name || hex);
+		}
+	}
 </script>
 
-<div class="outer">
+<button
+	class="outer"
+	on:click={internalOnSelect}
+	disabled={onSelect === undefined}
+	title="Set {name || hex} as color"
+>
 	<div class="container">
 		<div class="preview" style="--color-hex: {hex}" />
 		<div class="names">
@@ -18,13 +30,16 @@
 			{/if}
 		</div>
 	</div>
-</div>
+</button>
 
 <style>
 	.outer {
 		display: inline-block;
 
 		font-size: small;
+
+		border: none;
+		padding: 0;
 	}
 
 	.container {

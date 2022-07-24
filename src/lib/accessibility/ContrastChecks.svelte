@@ -5,6 +5,8 @@
 	export let contrast: number;
 	export let hslColor: Hsl;
 	export let secHslColor: Hsl;
+	export let onSelectColor: (color: string) => void;
+	export let onSelectSecColor: (color: string) => void;
 
 	const WHITE: Hsl = {
 		mode: 'hsl',
@@ -156,9 +158,9 @@
 			{#if !result.passed}
 				<div class="check-recommendations">
 					Use
-					<ColorSmall color={result.colorRecommendation} />
+					<ColorSmall color={result.colorRecommendation} onSelect={onSelectColor} />
 					as primary or
-					<ColorSmall color={result.secColorRecommendation} />
+					<ColorSmall color={result.secColorRecommendation} onSelect={onSelectSecColor} />
 					as secondary color instead.
 				</div>
 			{/if}
