@@ -10,11 +10,15 @@
 		secHsvColor,
 		secColorHex
 	} from '$stores/secondary-color-stores';
-	import { colorName, colorHex } from '$stores/color-stores';
+	import { colorName, colorHex, rgbColor, hslColor } from '$stores/color-stores';
+	import { wcagContrast } from 'culori';
+	import ContrastChecks from '$lib/accessibility/ContrastChecks.svelte';
 
 	function onColorInput(color: string) {
 		$secColorName = color;
 	}
+
+	$: contrast = wcagContrast($rgbColor, $secRgbColor);
 </script>
 
 <LinkableHeading text="Accessibility" />
@@ -50,6 +54,12 @@
 			backgroundName={$colorName}
 		/>
 	</div>
+
+	<div class="contrast">
+		Contrast ratio <strong>{contrast.toFixed(2)}:1</strong>
+	</div>
+
+	<ContrastChecks {contrast} hslColor={$hslColor} secHslColor={$secHslColor} />
 </div>
 
 <style>
