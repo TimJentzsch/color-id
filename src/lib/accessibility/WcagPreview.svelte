@@ -13,8 +13,13 @@
 		class="container"
 		style="--foreground-hex: {foregroundHex}; --background-hex: {backgroundHex}"
 	>
-		<div class="large">Sample Large</div>
-		<div class="small">Sample Small</div>
+		<div class="relaxed-requirements">
+			<div class="large">Large text (18pt)</div>
+			<div class="bold">Bold text (14pt)</div>
+		</div>
+		<div class="normal-requirements">
+			<div class="small">Small text (12pt)</div>
+		</div>
 	</div>
 </figure>
 
@@ -32,21 +37,32 @@
 		display: flex;
 		flex-flow: column;
 		align-items: center;
-		gap: 20px;
-
-		padding: 10px;
 
 		background-color: var(--background-hex);
 		color: var(--foreground-hex);
 		border: solid var(--muted-color) 1px;
 	}
 
+	.relaxed-requirements,
+	.normal-requirements {
+		display: flex;
+		flex-flow: column;
+		align-items: center;
+		gap: 5px;
+		padding: 10px;
+	}
+
 	.large {
-		font-size: larger;
+		font-size: 18pt;
+	}
+
+	.bold {
+		font-size: 14pt;
+		font-weight: bold;
 	}
 
 	.small {
-		text-align: center;
+		font-size: 12pt;
 	}
 
 	.name {
