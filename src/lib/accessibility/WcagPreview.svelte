@@ -68,4 +68,10 @@
 	.name {
 		font-family: 'Courier New', Courier, monospace;
 	}
+
+	@media only screen and (max-device-width: 480px) {
+		figure {
+			width: 100%;
+		}
+	}
 </style>

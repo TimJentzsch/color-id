@@ -19,5 +19,6 @@
 
 	* {
 		color: var(--muted-color);
+		text-align: center;
 	}
 </style>

@@ -58,4 +58,10 @@
 	.hex-name {
 		font-family: 'Courier New', Courier, monospace;
 	}
+
+	@media only screen and (max-device-width: 480px) {
+		.container {
+			width: 100%;
+		}
+	}
 </style>

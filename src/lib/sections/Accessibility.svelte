@@ -90,6 +90,7 @@
 
 	.previews {
 		display: flex;
+		flex-flow: row wrap;
 		gap: 10px;
 		align-items: center;
 	}

@@ -195,6 +195,7 @@
 
 	.check-recommendations {
 		display: flex;
+		flex-flow: row wrap;
 		align-items: center;
 		gap: 5px;
 		padding-left: 20px;

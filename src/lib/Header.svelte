@@ -9,7 +9,7 @@
 				<img src="/logo.svg" alt="Logo" height={30} />
 				<h1>{$colorName}</h1>
 			</a>
-			<span>Color ID</span>
+			<span class="site-name">Color ID</span>
 		</div>
 	</nav>
 	<div />
@@ -56,5 +56,15 @@
 		display: flex;
 		gap: 15px;
 		align-items: center;
+	}
+
+	@media only screen and (max-device-width: 480px) {
+		.site-name {
+			display: none;
+		}
+
+		.title h1 {
+			font-size: x-large;
+		}
 	}
 </style>
