@@ -6,6 +6,10 @@ export function setUrlHash(hash: string) {
 }
 
 export function setUrlQueryParams(params: Record<string, string | undefined>, pushHistory = true) {
+	if (!browser) {
+		return;
+	}
+
 	const query = Object.entries(params)
 		.filter((entry) => entry[1] !== undefined)
 		.map(([key, value]) => {
@@ -31,6 +35,10 @@ export function updateUrlQueryParams(
 	params: Record<string, string | undefined>,
 	pushHistory = true
 ) {
+	if (!browser) {
+		return;
+	}
+
 	const oldParams = new URLSearchParams(window.location.search);
 
 	const newParams: Record<string, string | undefined> = {};
