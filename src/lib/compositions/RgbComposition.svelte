@@ -14,16 +14,16 @@
 	$: g = percentageToNum($rgbColor.g);
 	$: b = percentageToNum($rgbColor.b);
 
-	function updateColorRed(red: number) {
-		$colorName = getName(red, g, b);
+	function updateRed(red: number, updateUrl = true) {
+		colorName.set(getName(red, g, b), updateUrl);
 	}
 
-	function updateColorGreen(green: number) {
-		$colorName = getName(r, green, b);
+	function updateGreen(green: number, updateUrl = true) {
+		colorName.set(getName(r, green, b), updateUrl);
 	}
 
-	function updateColorBlue(blue: number) {
-		$colorName = getName(r, g, blue);
+	function updateBlue(blue: number, updateUrl = true) {
+		colorName.set(getName(r, g, blue), updateUrl);
 	}
 </script>
 
@@ -44,7 +44,8 @@
 					value={r}
 					min={0}
 					max={255}
-					onInput={updateColorRed}
+					onInput={(value) => updateRed(value, false)}
+					onChange={updateRed}
 				/>
 			</div>
 			<div class="line-wrapper">
@@ -54,7 +55,8 @@
 					value={g}
 					min={0}
 					max={255}
-					onInput={updateColorGreen}
+					onInput={(value) => updateGreen(value, false)}
+					onChange={updateGreen}
 				/>
 			</div>
 			<div class="line-wrapper">
@@ -64,7 +66,8 @@
 					value={b}
 					min={0}
 					max={255}
-					onInput={updateColorBlue}
+					onInput={(value) => updateBlue(value, false)}
+					onChange={updateBlue}
 				/>
 			</div>
 		</div>

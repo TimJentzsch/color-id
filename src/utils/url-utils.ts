@@ -5,7 +5,7 @@ export function setUrlHash(hash: string) {
 	window.location.hash = hash;
 }
 
-export function setUrlQueryParams(params: Record<string, string | undefined>) {
+export function setUrlQueryParams(params: Record<string, string | undefined>, pushHistory = true) {
 	const query = Object.entries(params)
 		.filter((entry) => entry[1] !== undefined)
 		.map(([key, value]) => {
@@ -19,7 +19,31 @@ export function setUrlQueryParams(params: Record<string, string | undefined>) {
 	const loc = window.location;
 
 	const url = `?${query}${loc.hash}`;
-	history.replaceState(params, 'Color ID', url);
+
+	if (pushHistory) {
+		history.pushState(params, 'Color ID', url);
+	} else {
+		history.replaceState(params, 'Color ID', url);
+	}
+}
+
+export function updateUrlQueryParams(
+	params: Record<string, string | undefined>,
+	pushHistory = true
+) {
+	const oldParams = new URLSearchParams(window.location.search);
+
+	const newParams: Record<string, string | undefined> = {};
+
+	for (const [key, value] of oldParams) {
+		newParams[key] = value;
+	}
+
+	for (const [key, value] of Object.entries(params)) {
+		newParams[key] = value;
+	}
+
+	setUrlQueryParams(newParams, pushHistory);
 }
 
 export function extractUrlQueryParamColorName(key: string): string | undefined {

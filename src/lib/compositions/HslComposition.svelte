@@ -20,16 +20,16 @@
 	$: s = percentageToNum($hslColor.s);
 	$: l = percentageToNum($hslColor.l);
 
-	function updateHue(hue: number) {
-		$colorName = getName(hue, s, l);
+	function updateHue(hue: number, updateUrl = true) {
+		colorName.set(getName(hue, s, l), updateUrl);
 	}
 
-	function updateSaturation(saturation: number) {
-		$colorName = getName(h, saturation, l);
+	function updateSaturation(saturation: number, updateUrl = true) {
+		colorName.set(getName(h, saturation, l), updateUrl);
 	}
 
-	function updateLightness(lightness: number) {
-		$colorName = getName(h, s, lightness);
+	function updateLightness(lightness: number, updateUrl = true) {
+		colorName.set(getName(h, s, lightness), updateUrl);
 	}
 </script>
 
@@ -44,7 +44,12 @@
 		</div>
 		<div class="inputs">
 			<div class="line-wrapper">
-				<HueSlider id="hsl-h" hue={h} onInput={updateHue} />
+				<HueSlider
+					id="hsl-h"
+					hue={h}
+					onChange={updateHue}
+					onInput={(value) => updateHue(value, false)}
+				/>
 			</div>
 			<div class="line-wrapper">
 				<CompositionSlider
@@ -53,7 +58,8 @@
 					value={s}
 					min={0}
 					max={100}
-					onInput={updateSaturation}
+					onChange={updateSaturation}
+					onInput={(value) => updateSaturation(value, false)}
 				/>
 			</div>
 			<div class="line-wrapper">
@@ -63,7 +69,8 @@
 					value={l}
 					min={0}
 					max={100}
-					onInput={updateLightness}
+					onChange={updateLightness}
+					onInput={(value) => updateLightness(value, false)}
 				/>
 			</div>
 		</div>

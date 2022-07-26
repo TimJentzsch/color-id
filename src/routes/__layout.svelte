@@ -2,9 +2,7 @@
 	import { browser } from '$app/env';
 	import Footer from '$lib/Footer.svelte';
 	import Header from '$lib/Header.svelte';
-	import { secColorName } from '$stores/secondary-color-stores';
 	import { colorName, darkThemeHex, lightThemeHex } from '$stores/color-stores';
-	import { setUrlQueryParams } from '$utils/url-utils';
 	import '../colors.css';
 	import '../app.css';
 
@@ -12,12 +10,6 @@
 	$: if (browser) {
 		document.documentElement.style.setProperty('--primary-color-dark-theme', $darkThemeHex);
 		document.documentElement.style.setProperty('--primary-color-light-theme', $lightThemeHex);
-	}
-
-	// Update URL params
-	$: if (browser) {
-		const secondary = $secColorName !== 'auto' ? $secColorName : undefined;
-		setUrlQueryParams({ color: $colorName, secondary });
 	}
 </script>
 
