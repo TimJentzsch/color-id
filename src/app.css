@@ -1,0 +1,74 @@
+:root {
+  --max-width: 1000px;
+}
+
+* {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Default styles */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+h1, h2, h3 {
+  color: var(--primary-color);
+}
+
+h2 {
+  font-size: larger;
+}
+
+a {
+  color: var(--primary-color);
+}
+
+input[type='text'] {
+  background-color: transparent;
+  color: var(--text-color);
+  padding: 5px 7px;
+  outline: none;
+  border: solid var(--muted-color) 1px;
+  border-radius: 5px;
+}
+
+input[type='text']:focus {
+  outline: var(--focus-outline);
+}
+
+input[type='submit'], input[type='button'], button {
+  background: transparent;
+  color: var(--text-color);
+  padding: 5px 7px;
+  border-radius: 5px;
+  border: solid var(--muted-color) 1px;
+}
+
+input[type='submit']:hover, input[type='button']:hover, button:hover {
+  border-color: var(--primary-color);
+  cursor: pointer;
+}
+
+input[type='submit']:active, input[type='button']:active, button:active {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
+/* Main page layout, push footer to bottom */
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body > div {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+/* Accessibility: Style the outline of focused elements */
+*:focus {
+  outline: var(--focus-outline);
+}
