@@ -2,8 +2,9 @@ import { colorToCulori, rgbToCmyk } from '$utils/color-conversion';
 import { parseColor } from '$utils/color-parsing';
 import type { Color } from '$utils/types';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
-import { formatHex, hsl, hsv, rgb, type Color as CuloriColor } from 'culori';
+import { formatHex, hsl, hsv, rgb, wcagContrast, type Color as CuloriColor } from 'culori';
 import { extractUrlQueryParamColorName, updateUrlQueryParams } from '$utils/url-utils';
+import { hslColor } from './color-stores';
 
 function createSecColorName(): Writable<string> {
 	const { subscribe, set, update } = writable(extractUrlQueryParamColorName('secondary') || 'auto');
@@ -31,23 +32,27 @@ function createSecColorName(): Writable<string> {
  */
 export const secColorName = createSecColorName();
 
-export const secColor: Readable<Color> = derived(secColorName, ($secColorName) => {
-	let colorName = $secColorName;
+export const secColor: Readable<Color> = derived(
+	[secColorName, hslColor],
+	([$secColorName, $hslColor]) => {
+		let colorName = $secColorName;
 
-	// Automatically select a color for good contrast
-	if (colorName === 'auto') {
-		// TODO: Do this properly
-		colorName = 'black';
+		// Automatically select a color for good contrast
+		if (colorName === 'auto') {
+			const blackContrast = wcagContrast('black', $hslColor);
+			const whiteContrast = wcagContrast('white', $hslColor);
+			colorName = blackContrast >= whiteContrast ? 'black' : 'white';
+		}
+
+		const parsedColor = parseColor(colorName);
+
+		if (parsedColor === undefined) {
+			throw Error(`Color name "${$secColorName}" is not valid!`);
+		}
+
+		return parsedColor;
 	}
-
-	const parsedColor = parseColor(colorName);
-
-	if (parsedColor === undefined) {
-		throw Error(`Color name "${$secColorName}" is not valid!`);
-	}
-
-	return parsedColor;
-});
+);
 
 export const secCuloriColor: Readable<CuloriColor> = derived(secColor, ($secColor) => {
 	return colorToCulori($secColor);
