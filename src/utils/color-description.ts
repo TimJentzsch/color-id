@@ -2,13 +2,13 @@ import type { Hsl, Hsv } from 'culori';
 import { capitalize } from './string-utils';
 
 const HUE_NAMES: [number, string][] = [
-	[0, 'red'],
-	[39, 'orange'],
-	[60, 'yellow'],
-	[120, 'green'],
-	[180, 'cyan'],
+	[23, 'red'],
+	[47, 'orange'],
+	[63, 'yellow'],
+	[141, 'green'],
+	[193, 'turquoise'],
 	[240, 'blue'],
-	[300, 'purple'],
+	[327, 'purple'],
 	[360, 'red']
 ];
 
@@ -32,14 +32,12 @@ export function getColorDescription(hsl: Hsl, hsv: Hsv): string {
 	}
 
 	let hueName = 'unknown';
-	let hueDistance = Number.MAX_VALUE;
 
+	// Find the name for the hue
 	for (const [curHue, curName] of HUE_NAMES) {
-		const distance = Math.abs(curHue - h);
-
-		if (distance < hueDistance) {
+		if (curHue >= h) {
 			hueName = curName;
-			hueDistance = distance;
+			break;
 		}
 	}
 
@@ -49,12 +47,17 @@ export function getColorDescription(hsl: Hsl, hsv: Hsv): string {
 		if (hueName === 'orange') {
 			hueName = 'brown';
 			lightness = 'dark';
+		} else if (hueName === 'turquoise') {
+			hueName = 'teal';
+			lightness = 'dark';
 		} else {
 			lightness = 'very dark';
 		}
 	} else if (l <= 0.4) {
 		if (hueName === 'orange') {
 			hueName = 'brown';
+		} else if (hueName === 'turquoise') {
+			hueName = 'teal';
 		} else {
 			lightness = 'dark';
 		}
