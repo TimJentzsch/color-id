@@ -3,7 +3,25 @@ import { parseColor } from '$utils/color-parsing';
 import type { Color } from '$utils/types';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { formatHex, hsl, hsv, rgb, type Color as CuloriColor } from 'culori';
-import { extractUrlQueryParamColorName } from '$utils/url-utils';
+import { extractUrlQueryParamColorName, updateUrlQueryParams } from '$utils/url-utils';
+
+function createSecColorName(): Writable<string> {
+	const { subscribe, set, update } = writable(extractUrlQueryParamColorName('secondary') || 'auto');
+
+	function newSet(value: string, updateUrl = true) {
+		if (updateUrl) {
+			const secondary = value === 'auto' ? undefined : value;
+			updateUrlQueryParams({ secondary });
+		}
+		set(value);
+	}
+
+	return {
+		subscribe,
+		set: newSet,
+		update
+	};
+}
 
 /**
  * The input name of the color.
@@ -11,9 +29,7 @@ import { extractUrlQueryParamColorName } from '$utils/url-utils';
  * This MUST be a valid color representation!
  * This can also be "auto" to calculate a fitting color automatically.
  */
-export const secColorName: Writable<string> = writable(
-	extractUrlQueryParamColorName('secondary') || 'auto'
-);
+export const secColorName = createSecColorName();
 
 export const secColor: Readable<Color> = derived(secColorName, ($secColorName) => {
 	let colorName = $secColorName;

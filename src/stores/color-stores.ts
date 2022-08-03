@@ -4,9 +4,9 @@ import { getClosestNamedColors } from '$utils/named-colors';
 import type { Color } from '$utils/types';
 import { extractUrlQueryParamColorName, updateUrlQueryParams } from '$utils/url-utils';
 import { formatHex, hsl, hsv, random, rgb, type Color as CuloriColor, type Hsl } from 'culori';
-import { derived, writable, type Readable } from 'svelte/store';
+import { derived, writable, type Readable, type Writable } from 'svelte/store';
 
-function createColorName() {
+function createColorName(): Writable<string> {
 	const { subscribe, set, update } = writable(
 		extractUrlQueryParamColorName('color') || formatHex(random())
 	);
