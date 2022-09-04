@@ -16,7 +16,7 @@ This is especially useful for color-deficient users.
 View the composition of the color in different color spaces.
 Move around the sliders to experiment with different colors.
 
-![Screenshot of the color composition feature. It shows the composition in the RGB, HSL and HSV color spaces. Each of the parameters can be modified with a slider.](images/color-identification.jpg)
+![Screenshot of the color composition feature. It shows the composition in the RGB, HSL and HSV color spaces. Each of the parameters can be modified with a slider.](images/color-composition.jpg)
 
 ### Similar CSS Colors
 
