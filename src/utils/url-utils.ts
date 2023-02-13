@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/environment';
 import { parseColor } from './color-parsing';
 
 export function setUrlHash(hash: string) {
