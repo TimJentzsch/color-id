@@ -54,12 +54,19 @@ export function updateUrlQueryParams(
 	setUrlQueryParams(newParams, pushHistory);
 }
 
-export function extractUrlQueryParamColorName(key: string): string | undefined {
+export function extractUrlQueryParamColorNameFromWindow(key: string): string | undefined {
 	if (!browser) {
 		return undefined;
 	}
 
 	const params = new URLSearchParams(window.location.search);
+	return extractUrlQueryParamColorName(key, params);
+}
+
+export function extractUrlQueryParamColorName(
+	key: string,
+	params: URLSearchParams
+): string | undefined {
 	const value = params.get(key);
 
 	// Check if parameter exists

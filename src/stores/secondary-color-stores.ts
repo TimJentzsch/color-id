@@ -3,11 +3,12 @@ import { parseColor } from '$utils/color-parsing';
 import type { Color } from '$utils/types';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { formatHex, hsl, hsv, rgb, wcagContrast, type Color as CuloriColor } from 'culori';
-import { extractUrlQueryParamColorName, updateUrlQueryParams } from '$utils/url-utils';
+import { updateUrlQueryParams } from '$utils/url-utils';
 import { hslColor } from './color-stores';
 
 function createSecColorName(): Writable<string> {
-	const { subscribe, set, update } = writable(extractUrlQueryParamColorName('secondary') || 'auto');
+	// The default might be overwritten on load
+	const { subscribe, set, update } = writable('auto');
 
 	function newSet(value: string, updateUrl = true) {
 		if (updateUrl) {

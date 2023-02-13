@@ -2,14 +2,13 @@ import { colorToCulori, rgbToCmyk } from '$utils/color-conversion';
 import { parseColor } from '$utils/color-parsing';
 import { getClosestNamedColors } from '$utils/named-colors';
 import type { Color } from '$utils/types';
-import { extractUrlQueryParamColorName, updateUrlQueryParams } from '$utils/url-utils';
-import { formatHex, hsl, hsv, random, rgb, type Color as CuloriColor, type Hsl } from 'culori';
+import { updateUrlQueryParams } from '$utils/url-utils';
+import { formatHex, hsl, hsv, rgb, type Color as CuloriColor, type Hsl } from 'culori';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 
 function createColorName(): Writable<string> {
-	const { subscribe, set, update } = writable(
-		extractUrlQueryParamColorName('color') || formatHex(random())
-	);
+	// The default will be overwritten on load
+	const { subscribe, set, update } = writable('white');
 
 	function newSet(value: string, updateUrl = true) {
 		if (updateUrl) {
