@@ -70,7 +70,7 @@
 		result: WcagResult;
 	}
 
-	const lightnessSteps = 0.05;
+	const lightnessSteps = 0.005;
 
 	function findBetterColor(comparisonColor: Hsl, changingColor: Hsl, targetContrast: number) {
 		const whiteContrast = wcagContrast(comparisonColor, WHITE);
