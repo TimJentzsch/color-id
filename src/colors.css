@@ -1,42 +1,42 @@
 :root {
-  /* These get changed dynamically according to the current color */
-  --primary-color-dark-theme: white;
-  --primary-color-light-theme: black;
-  
-  --background-color: #121212;
-  --surface-color: rgba(255, 255, 255, 7%);
-  --text-color: rgb(228, 228, 228);
-  --muted-color: rgb(126, 126, 126);
-  --primary-color: var(--primary-color-dark-theme);
+	/* These get changed dynamically according to the current color */
+	--primary-color-dark-theme: white;
+	--primary-color-light-theme: black;
 
-  --failure-color: rgb(255, 122, 122);
-  --success-color: rgb(118, 224, 118);
+	--background-color: #121212;
+	--surface-color: rgba(255, 255, 255, 7%);
+	--text-color: rgb(228, 228, 228);
+	--muted-color: rgb(126, 126, 126);
+	--primary-color: var(--primary-color-dark-theme);
 
-  --focus-outline: solid rgb(109, 255, 255) 3px;
+	--failure-color: rgb(255, 122, 122);
+	--success-color: rgb(118, 224, 118);
 
-  --lightness: 70%;
+	--focus-outline: solid rgb(109, 255, 255) 3px;
 
-  /* Hues for the compositions */
-  --red-hue: 0;
-  --green-hue: 120;
-  --blue-hue: 240;
-  --hsl-saturation-hue: 300;
-  --hsv-saturation-hue: 329;
-  --lightness-hue: 58;
-  --value-hue: 275;
+	--lightness: 70%;
+
+	/* Hues for the compositions */
+	--red-hue: 0;
+	--green-hue: 120;
+	--blue-hue: 240;
+	--hsl-saturation-hue: 300;
+	--hsv-saturation-hue: 329;
+	--lightness-hue: 58;
+	--value-hue: 275;
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    --background-color: white;
-    --surface-color: rgba(0, 0, 0, 7%);
-    --text-color: rgb(24, 24, 24);
-    --muted-color: rgb(126, 126, 126);
-    --primary-color: var(--primary-color-light-theme);
+	:root {
+		--background-color: white;
+		--surface-color: rgba(0, 0, 0, 7%);
+		--text-color: rgb(24, 24, 24);
+		--muted-color: rgb(126, 126, 126);
+		--primary-color: var(--primary-color-light-theme);
 
-    --error-color: rgb(219, 42, 42);
-    --success-color: rgb(33, 182, 33);
+		--error-color: rgb(219, 42, 42);
+		--success-color: rgb(33, 182, 33);
 
-    --lightness: 50%;
-  }
+		--lightness: 50%;
+	}
 }
