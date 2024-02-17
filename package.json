@@ -17,6 +17,7 @@
 		"@playwright/test": "^1.22.2",
 		"@sveltejs/adapter-node": "^1.2.0",
 		"@sveltejs/kit": "^1.5.0",
+		"@types/culori": "^2.1.0",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"eslint": "^8.28.0",
@@ -33,6 +34,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"culori": "github:bijela-gora/culori#d810061"
+		"culori": "^4.0.1"
 	}
 }
