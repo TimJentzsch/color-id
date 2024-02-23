@@ -16,7 +16,7 @@ function percentageValues(a: number, b: number, c: number, d?: number): string {
 	return `${aPerc}%, ${bPerc}%, ${cPerc}%, ${dPerc}`;
 }
 
-function createColorStore(initialName: string) {
+export function createColorStore(initialName: string) {
 	let name = $state(initialName);
 
 	// Internal color representation
