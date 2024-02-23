@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	export let text: string;
+	const { text } = $props<{ text: string }>();
 
-	$: urlText = text.toLowerCase().replaceAll(' ', '-');
+	const urlText = $derived(text.toLowerCase().replaceAll(' ', '-'));
 
-	$: id = `linkable-heading_${urlText}`;
+	const id = $derived(`linkable-heading_${urlText}`);
 
 	/** Scroll to the given heading. */
 	function scrollToHeading(): void {

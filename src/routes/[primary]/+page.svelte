@@ -7,10 +7,10 @@
 	let { data } = $props();
 </script>
 
-<Selection />
+<Selection primary={data.primary} />
 
-<Composition />
+<Composition primary={data.primary} />
 
 <SvgNames />
 
-<Accessibility />
+<Accessibility primary={data.primary} secondary={data.secondary} />

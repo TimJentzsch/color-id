@@ -1,40 +1,26 @@
 <script lang="ts">
-	import { colorName, hsvColor } from '$stores/color-stores';
+	import type { PrimaryColor } from '$stores/color-store.svelte';
+	import { hsvName } from '$utils/color-name';
 	import CompositionSlider from './CompositionSlider.svelte';
 	import HueSlider from './HueSlider.svelte';
 
-	function percentageToNum(percentage: number): number {
-		return Math.round(percentage * 100.0);
-	}
-
-	function getName(hue: number, saturation: number, value: number): string {
-		return `hsv(${hue}, ${saturation}%, ${value}%)`;
-	}
-
-	let h = 0.0;
-
-	$: if ($hsvColor.h) {
-		h = Math.round($hsvColor.h);
-	}
-
-	$: s = percentageToNum($hsvColor.s);
-	$: v = percentageToNum($hsvColor.v);
+	const { primary } = $props<{ primary: PrimaryColor }>();
 
 	function updateHue(hue: number, updateUrl = true) {
-		colorName.set(getName(hue, s, v), updateUrl);
+		primary.hsv.h = hue;
 	}
 
 	function updateSaturation(saturation: number, updateUrl = true) {
-		colorName.set(getName(h, saturation, v), updateUrl);
+		primary.hsv.s = saturation;
 	}
 
 	function updateValue(value: number, updateUrl = true) {
-		colorName.set(getName(h, s, value), updateUrl);
+		primary.hsv.v = value;
 	}
 </script>
 
 <div class="container">
-	<span>{getName(h, s, v)}</span>
+	<span>{hsvName(primary.hsv)}</span>
 
 	<div class="input-box">
 		<div class="input-labels">
@@ -46,7 +32,7 @@
 			<div class="line-wrapper">
 				<HueSlider
 					id="hsv-h"
-					hue={h}
+					hue={primary.hsv.h ?? 0}
 					onChange={updateHue}
 					onInput={(value) => updateHue(value, false)}
 				/>
@@ -55,7 +41,7 @@
 				<CompositionSlider
 					id="hsv-s"
 					hueName="hsv-saturation"
-					value={s}
+					value={primary.hsv.s}
 					min={0}
 					max={100}
 					onChange={updateSaturation}
@@ -66,7 +52,7 @@
 				<CompositionSlider
 					id="hsv-v"
 					hueName="value"
-					value={v}
+					value={primary.hsv.v}
 					min={0}
 					max={100}
 					onChange={updateValue}

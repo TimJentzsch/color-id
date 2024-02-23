@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { formatHex, type Color } from 'culori';
 
-	export let name: string | undefined = undefined;
-	export let color: Color;
+	const { name = undefined, color } = $props<{ name?: string; color: Color }>();
 
-	$: hex = formatHex(color);
+	const hex = $derived(formatHex(color));
 </script>
 
 <div class="outer">

@@ -1,13 +1,15 @@
 <script lang="ts">
-	export let id: string | undefined = undefined;
-	export let value: number;
-	export let min: number = 0;
-	export let max: number = 100;
-	export let onInput: ((value: number) => void) | undefined = undefined;
-	export let onChange: ((value: number) => void) | undefined = undefined;
-	export let hueName: string;
+	let { id, value, min, max, onInput, onChange, hueName } = $props<{
+		id?: string;
+		value: number;
+		min: number;
+		max: number;
+		onInput?: (value: number) => void;
+		onChange?: (value: number) => void;
+		hueName: string;
+	}>();
 
-	$: percentage = ((value - min) / (max - min)) * 100.0;
+	const percentage = $derived(((value - min) / (max - min)) * 100.0);
 
 	function internalOnInput() {
 		if (onInput !== undefined) {

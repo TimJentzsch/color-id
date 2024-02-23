@@ -1,8 +1,10 @@
 <script lang="ts">
-	export let id: string | undefined = undefined;
-	export let hue: number;
-	export let onInput: ((value: number) => void) | undefined = undefined;
-	export let onChange: ((value: number) => void) | undefined = undefined;
+	let { id, hue, onInput, onChange } = $props<{
+		id?: string;
+		hue: number;
+		onInput?: (value: number) => void;
+		onChange?: (value: number) => void;
+	}>();
 
 	function internalOnInput() {
 		if (onInput !== undefined) {

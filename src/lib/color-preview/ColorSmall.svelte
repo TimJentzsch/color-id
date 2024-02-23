@@ -1,11 +1,17 @@
 <script lang="ts">
 	import { formatHex, type Color } from 'culori';
 
-	export let name: string | undefined = undefined;
-	export let color: Color;
-	export let onSelect: ((color: string) => void) | undefined = undefined;
+	const {
+		name = undefined,
+		color,
+		onSelect
+	} = $props<{
+		name?: string;
+		color: Color;
+		onSelect?: (color: string) => void;
+	}>();
 
-	$: hex = formatHex(color);
+	const hex = $derived(formatHex(color));
 
 	function internalOnSelect() {
 		if (onSelect !== undefined) {

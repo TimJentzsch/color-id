@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { colorName } from '$stores/color-stores';
+	import type { PrimaryColor } from '$stores/color-store.svelte';
+
+	const { primary } = $props<{ primary: PrimaryColor }>();
 </script>
 
 <div class="outer">
@@ -7,7 +9,7 @@
 		<div class="title">
 			<a href="/">
 				<img src="/logo.svg" alt="Logo" height={30} />
-				<h1>{$colorName}</h1>
+				<h1>{primary.name}</h1>
 			</a>
 			<span class="site-name">Color ID</span>
 		</div>

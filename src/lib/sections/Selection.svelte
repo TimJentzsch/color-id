@@ -1,18 +1,25 @@
 <script lang="ts">
 	import ColorInputForm from '$lib/ColorInputForm.svelte';
 	import ColorBig from '$lib/color-preview/ColorBig.svelte';
-	import { colorName, hslColor, hsvColor, rgbColor } from '$stores/color-stores';
+	import type { PrimaryColor } from '$stores/color-store.svelte';
 	import { formatHex, random } from 'culori';
 
+	const { primary } = $props<{ primary: PrimaryColor }>();
+
 	function onColorInput(color: string) {
-		$colorName = color;
+		primary.name = color;
 	}
 </script>
 
 <div class="container">
-	<ColorBig name={$colorName} rgbColor={$rgbColor} hslColor={$hslColor} hsvColor={$hsvColor} />
+	<ColorBig
+		name={primary.name}
+		rgbColor={primary.rgb}
+		hslColor={primary.hsl}
+		hsvColor={primary.hsv}
+	/>
 	<ColorInputForm
-		colorName={$colorName}
+		colorName={primary.name}
 		promptText="Choose a color to identify:"
 		generateButtonText="random"
 		generateColor={() => formatHex(random())}

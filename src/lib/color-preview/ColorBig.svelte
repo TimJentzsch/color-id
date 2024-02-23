@@ -2,16 +2,23 @@
 	import { getColorDescription } from '$utils/color-description';
 	import { formatHex, hsl, hsv, type Color, type Hsl, type Hsv, type Rgb } from 'culori';
 
-	export let name: string | undefined = undefined;
-	export let rgbColor: Rgb;
-	export let hslColor: Hsl | undefined = undefined;
-	export let hsvColor: Hsv | undefined = undefined;
+	const {
+		name = undefined,
+		rgbColor,
+		hslColor = undefined,
+		hsvColor = undefined
+	} = $props<{
+		name: string | undefined;
+		rgbColor: Rgb;
+		hslColor: Hsl | undefined;
+		hsvColor: Hsv | undefined;
+	}>();
 
-	$: _hsl = hslColor ?? hsl(rgbColor);
-	$: _hsv = hsvColor ?? hsv(rgbColor);
+	const _hsl = $derived(hslColor ?? hsl(rgbColor));
+	const _hsv = $derived(hsvColor ?? hsv(rgbColor));
 
-	$: hex = formatHex(rgbColor);
-	$: description = getColorDescription(_hsl, _hsv);
+	const hex = $derived(formatHex(rgbColor));
+	const description = $derived(getColorDescription(_hsl, _hsv));
 </script>
 
 <div class="container">

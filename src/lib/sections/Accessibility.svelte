@@ -3,22 +3,17 @@
 	import ColorBig from '$lib/color-preview/ColorBig.svelte';
 	import ColorInputForm from '$lib/ColorInputForm.svelte';
 	import LinkableHeading from '$lib/LinkableHeading.svelte';
-	import {
-		secColorName,
-		secRgbColor,
-		secHslColor,
-		secHsvColor,
-		secColorHex
-	} from '$stores/secondary-color-stores';
-	import { colorName, colorHex, rgbColor, hslColor } from '$stores/color-stores';
 	import { wcagContrast } from 'culori';
 	import ContrastChecks from '$lib/accessibility/ContrastChecks.svelte';
+	import type { PrimaryColor, SecondaryColor } from '$stores/color-store.svelte';
+
+	const { primary, secondary } = $props<{ primary: PrimaryColor; secondary: SecondaryColor }>();
 
 	function onColorInput(color: string) {
-		$secColorName = color;
+		secondary.name = color;
 	}
 
-	$: contrast = wcagContrast($rgbColor, $secRgbColor);
+	const contrast = $derived(wcagContrast(primary.rgb, secondary.rgb));
 </script>
 
 <LinkableHeading text="Accessibility" />
@@ -26,13 +21,13 @@
 <div class="container">
 	<div class="input">
 		<ColorBig
-			name={$secColorName}
-			rgbColor={$secRgbColor}
-			hslColor={$secHslColor}
-			hsvColor={$secHsvColor}
+			name={secondary.name}
+			rgbColor={secondary.rgb}
+			hslColor={secondary.hsl}
+			hsvColor={secondary.hsv}
 		/>
 		<ColorInputForm
-			colorName={$secColorName}
+			colorName={secondary.name}
 			promptText="Choose a color for contrast checks:"
 			generateButtonText="auto"
 			generateColor={() => 'auto'}
@@ -42,16 +37,16 @@
 
 	<div class="previews">
 		<WcagPreview
-			foregroundHex={$colorHex}
-			foregroundName={$colorName}
-			backgroundHex={$secColorHex}
-			backgroundName={$secColorName}
+			foregroundHex={primary.hex}
+			foregroundName={primary.name}
+			backgroundHex={secondary.hex}
+			backgroundName={secondary.name}
 		/>
 		<WcagPreview
-			foregroundHex={$secColorHex}
-			foregroundName={$secColorName}
-			backgroundHex={$colorHex}
-			backgroundName={$colorName}
+			foregroundHex={secondary.hex}
+			foregroundName={secondary.name}
+			backgroundHex={primary.hex}
+			backgroundName={primary.name}
 		/>
 	</div>
 
@@ -61,13 +56,13 @@
 
 	<ContrastChecks
 		{contrast}
-		hslColor={$hslColor}
-		secHslColor={$secHslColor}
+		hslColor={primary.hsl}
+		secHslColor={secondary.hsl}
 		onSelectColor={(color) => {
-			$colorName = color;
+			primary.name = color;
 		}}
 		onSelectSecColor={(color) => {
-			$secColorName = color;
+			secondary.name = color;
 		}}
 	/>
 </div>

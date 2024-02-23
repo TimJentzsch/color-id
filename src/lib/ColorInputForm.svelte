@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { parseColor } from '$utils/color-parsing';
 
-	export let colorName: string;
-	export let promptText: string;
-	export let generateButtonText: string;
-	export let generateColor: () => string;
-	export let onColorInput: (color: string) => void;
+	let { colorName, promptText, generateButtonText, generateColor, onColorInput } = $props<{
+		colorName: string;
+		promptText: string;
+		generateButtonText: string;
+		generateColor: () => string;
+		onColorInput: (color: string) => void;
+	}>();
 
 	const id = crypto.randomUUID();
 

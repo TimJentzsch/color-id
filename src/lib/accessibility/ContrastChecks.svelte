@@ -2,11 +2,13 @@
 	import ColorSmall from '$lib/color-preview/ColorSmall.svelte';
 	import { formatHex, wcagContrast, type Hsl } from 'culori';
 
-	export let contrast: number;
-	export let hslColor: Hsl;
-	export let secHslColor: Hsl;
-	export let onSelectColor: (color: string) => void;
-	export let onSelectSecColor: (color: string) => void;
+	const { contrast, hslColor, secHslColor, onSelectColor, onSelectSecColor } = $props<{
+		contrast: number;
+		hslColor: Hsl;
+		secHslColor: Hsl;
+		onSelectColor: (color: string) => void;
+		onSelectSecColor: (color: string) => void;
+	}>();
 
 	const WHITE: Hsl = {
 		mode: 'hsl',
@@ -118,32 +120,34 @@
 		return curColor;
 	}
 
-	$: checks = contrastLevels.map((definition) => {
-		const passed = contrast >= definition.ratio;
+	const checks = $derived(
+		contrastLevels.map((definition) => {
+			const passed = contrast >= definition.ratio;
 
-		if (passed) {
+			if (passed) {
+				return {
+					definition,
+					result: {
+						passed,
+						colorRecommendation: undefined,
+						secColorRecommendation: undefined
+					}
+				};
+			}
+
+			const colorRecommendation = findBetterColor(secHslColor, hslColor, definition.ratio);
+			const secColorRecommendation = findBetterColor(hslColor, secHslColor, definition.ratio);
+
 			return {
 				definition,
 				result: {
 					passed,
-					colorRecommendation: undefined,
-					secColorRecommendation: undefined
+					colorRecommendation,
+					secColorRecommendation
 				}
 			};
-		}
-
-		const colorRecommendation = findBetterColor(secHslColor, hslColor, definition.ratio);
-		const secColorRecommendation = findBetterColor(hslColor, secHslColor, definition.ratio);
-
-		return {
-			definition,
-			result: {
-				passed,
-				colorRecommendation,
-				secColorRecommendation
-			}
-		};
-	});
+		})
+	);
 </script>
 
 <div class="contrast-checks">

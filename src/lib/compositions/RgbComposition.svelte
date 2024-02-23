@@ -1,34 +1,33 @@
 <script lang="ts">
-	import { colorName, rgbColor } from '$stores/color-stores';
+	import type { PrimaryColor } from '$stores/color-store.svelte';
+	import { rgbName } from '$utils/color-name';
 	import CompositionSlider from './CompositionSlider.svelte';
+
+	const { primary } = $props<{ primary: PrimaryColor }>();
 
 	function percentageToNum(percentage: number): number {
 		return Math.round(percentage * 255.0);
 	}
 
-	function getName(red: number, green: number, blue: number): string {
-		return `rgb(${red}, ${green}, ${blue})`;
-	}
-
-	$: r = percentageToNum($rgbColor.r);
-	$: g = percentageToNum($rgbColor.g);
-	$: b = percentageToNum($rgbColor.b);
+	const r = $derived(percentageToNum(primary.rgb.r));
+	const g = $derived(percentageToNum(primary.rgb.g));
+	const b = $derived(percentageToNum(primary.rgb.b));
 
 	function updateRed(red: number, updateUrl = true) {
-		colorName.set(getName(red, g, b), updateUrl);
+		primary.rgb.r = red;
 	}
 
 	function updateGreen(green: number, updateUrl = true) {
-		colorName.set(getName(r, green, b), updateUrl);
+		primary.rgb.g = green;
 	}
 
 	function updateBlue(blue: number, updateUrl = true) {
-		colorName.set(getName(r, g, blue), updateUrl);
+		primary.rgb.b = blue;
 	}
 </script>
 
 <div class="container">
-	<span>{getName(r, g, b)}</span>
+	<span>{rgbName(primary.rgb)}</span>
 
 	<div class="input-box">
 		<div class="input-labels">

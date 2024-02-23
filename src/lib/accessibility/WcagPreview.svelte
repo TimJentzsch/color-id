@@ -1,8 +1,10 @@
 <script lang="ts">
-	export let foregroundHex: string;
-	export let foregroundName: string;
-	export let backgroundHex: string;
-	export let backgroundName: string;
+	const { foregroundHex, foregroundName, backgroundHex, backgroundName } = $props<{
+		foregroundHex: string;
+		foregroundName: string;
+		backgroundHex: string;
+		backgroundName: string;
+	}>();
 </script>
 
 <figure>

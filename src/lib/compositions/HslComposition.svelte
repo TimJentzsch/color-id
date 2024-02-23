@@ -1,40 +1,26 @@
 <script lang="ts">
-	import { colorName, hslColor } from '$stores/color-stores';
+	import type { PrimaryColor } from '$stores/color-store.svelte';
+	import { hslName } from '$utils/color-name';
 	import CompositionSlider from './CompositionSlider.svelte';
 	import HueSlider from './HueSlider.svelte';
 
-	function percentageToNum(percentage: number): number {
-		return Math.round(percentage * 100.0);
-	}
-
-	function getName(hue: number, saturation: number, lightness: number): string {
-		return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-	}
-
-	let h = 0.0;
-
-	$: if ($hslColor.h) {
-		h = Math.round($hslColor.h);
-	}
-
-	$: s = percentageToNum($hslColor.s);
-	$: l = percentageToNum($hslColor.l);
+	const { primary } = $props<{ primary: PrimaryColor }>();
 
 	function updateHue(hue: number, updateUrl = true) {
-		colorName.set(getName(hue, s, l), updateUrl);
+		primary.hsl.h = hue;
 	}
 
 	function updateSaturation(saturation: number, updateUrl = true) {
-		colorName.set(getName(h, saturation, l), updateUrl);
+		primary.hsl.s = saturation;
 	}
 
 	function updateLightness(lightness: number, updateUrl = true) {
-		colorName.set(getName(h, s, lightness), updateUrl);
+		primary.hsl.l = lightness;
 	}
 </script>
 
 <div class="container">
-	<span>{getName(h, s, l)}</span>
+	<span>{hslName(primary.hsl)}</span>
 
 	<div class="input-box">
 		<div class="input-labels">
@@ -46,7 +32,7 @@
 			<div class="line-wrapper">
 				<HueSlider
 					id="hsl-h"
-					hue={h}
+					hue={primary.hsl.h ?? 0}
 					onChange={updateHue}
 					onInput={(value) => updateHue(value, false)}
 				/>
@@ -55,7 +41,7 @@
 				<CompositionSlider
 					id="hsl-s"
 					hueName="hsl-saturation"
-					value={s}
+					value={primary.hsl.s}
 					min={0}
 					max={100}
 					onChange={updateSaturation}
@@ -66,7 +52,7 @@
 				<CompositionSlider
 					id="hsl-l"
 					hueName="lightness"
-					value={l}
+					value={primary.hsl.l}
 					min={0}
 					max={100}
 					onChange={updateLightness}
