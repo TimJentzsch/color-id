@@ -1,23 +1,37 @@
-FROM node:20
+# Build step
+FROM node:22-alpine AS build
+WORKDIR /app
 
+RUN corepack enable
+
+COPY package*.json .
+COPY pnpm-lock.yaml .
+COPY pnpm-workspace.yaml .
+RUN pnpm install --frozen-lockfile
+
+COPY . .
+RUN pnpm run build
+RUN pnpm prune --prod --ignore-scripts
+
+# Deployment step
+FROM node:22-alpine
 # <https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#labelling-container-images>
 LABEL org.opencontainers.image.source=https://github.com/TimJentzsch/color-id
 
-WORKDIR /usr/src/app
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+  adduser -S nodejs -u 1001 -G nodejs
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+WORKDIR /app
 
-# Install dependencies
-RUN npm ci
+COPY --from=build /app/build build/
+COPY --from=build /app/node_modules ./node_modules
+COPY package.json pnpm-lock.yaml ./
 
-# Bundle app source
-COPY . .
+# Use non-root user
+RUN chown -R nodejs:nodejs .
+USER nodejs
 
-# Build app
-RUN npm run build
-
-# Launch app
+EXPOSE 3000
+ENV NODE_ENV=production
 CMD [ "node", "build" ]
