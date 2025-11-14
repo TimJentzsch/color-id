@@ -6,11 +6,12 @@ RUN corepack enable
 
 COPY package*.json .
 COPY pnpm-lock.yaml .
+COPY pnpm-workspace.yaml .
 RUN pnpm install --frozen-lockfile
 
 COPY . .
 RUN pnpm run build
-RUN pnpm prune --prod
+RUN pnpm prune --prod --ignore-scripts
 
 # Deployment step
 FROM node:22-alpine
@@ -24,6 +25,7 @@ RUN addgroup -g 1001 -S nodejs && \
 WORKDIR /app
 
 COPY --from=build /app/build build/
+COPY --from=build /app/node_modules ./node_modules
 COPY package.json pnpm-lock.yaml ./
 
 # Use non-root user
