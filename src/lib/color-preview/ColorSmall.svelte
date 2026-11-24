@@ -21,7 +21,7 @@
 	title="Set {name || hex} as color"
 >
 	<div class="container">
-		<div class="preview" style="--color-hex: {hex}" />
+		<div class="preview" style="--color-hex: {hex}"></div>
 		<div class="names">
 			{#if name}
 				<strong class="name">{name}</strong>

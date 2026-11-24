@@ -12,7 +12,7 @@
 			<span class="site-name">Color ID</span>
 		</div>
 	</nav>
-	<div />
+	<div></div>
 </div>
 
 <style>
