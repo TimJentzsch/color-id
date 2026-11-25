@@ -1,9 +1,9 @@
-import { colorToCulori, rgbToCmyk } from '$utils/color-conversion';
-import { parseColor } from '$utils/color-parsing';
-import type { Color } from '$utils/types';
+import { colorToCulori, rgbToCmyk } from '#utils/color-conversion.js';
+import { parseColor } from '#utils/color-parsing.js';
+import type { Color } from '#utils/types.js';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 import { formatHex, hsl, hsv, rgb, wcagContrast, type Color as CuloriColor } from 'culori';
-import { extractUrlQueryParamColorName, updateUrlQueryParams } from '$utils/url-utils';
+import { extractUrlQueryParamColorName, updateUrlQueryParams } from '#utils/url-utils.js';
 import { hslColor } from './color-stores';
 
 function createSecColorName(): Writable<string> {

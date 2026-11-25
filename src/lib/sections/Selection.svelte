@@ -1,7 +1,7 @@
 <script lang="ts">
-	import ColorInputForm from '$lib/ColorInputForm.svelte';
-	import ColorBig from '$lib/color-preview/ColorBig.svelte';
-	import { colorName, hslColor, hsvColor, rgbColor } from '$stores/color-stores';
+	import ColorInputForm from '#lib/ColorInputForm.svelte';
+	import ColorBig from '#lib/color-preview/ColorBig.svelte';
+	import { colorName, hslColor, hsvColor, rgbColor } from '#stores/color-stores.js';
 	import { formatHex, random } from 'culori';
 
 	function onColorInput(color: string) {

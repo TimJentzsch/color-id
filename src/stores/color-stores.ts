@@ -1,12 +1,20 @@
-import { colorToCulori, rgbToCmyk } from '$utils/color-conversion';
-import { parseColor } from '$utils/color-parsing';
-import { getClosestNamedColors } from '$utils/named-colors';
-import type { Color } from '$utils/types';
-import { extractUrlQueryParamColorName, updateUrlQueryParams } from '$utils/url-utils';
+import { colorToCulori, rgbToCmyk } from '#utils/color-conversion.js';
+import { parseColor } from '#utils/color-parsing.js';
+import { getClosestNamedColors } from '#utils/named-colors.js';
+import type { Color } from '#utils/types.js';
+import { extractUrlQueryParamColorName, updateUrlQueryParams } from '#utils/url-utils.js';
 import { formatHex, hsl, hsv, random, rgb, type Color as CuloriColor, type Hsl } from 'culori';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 
-function createColorName(): Writable<string> {
+/**
+ * A writable store whose `set` can optionally skip updating the URL query parameter.
+ */
+export interface ColorNameStore extends Readable<string> {
+	set(value: string, updateUrl?: boolean): void;
+	update: Writable<string>['update'];
+}
+
+function createColorName(): ColorNameStore {
 	const { subscribe, set, update } = writable(
 		extractUrlQueryParamColorName('color') || formatHex(random())
 	);

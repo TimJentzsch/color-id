@@ -1,15 +1,13 @@
+import adapter from '@sveltejs/adapter-node';
 import { sveltekit } from '@sveltejs/kit/vite';
-import path from 'path';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import { defineConfig } from 'vite';
 
-/** @type {import('vite').UserConfig} */
-const config = {
-	plugins: [sveltekit()],
-	resolve: {
-		alias: {
-			$stores: path.resolve('./src/stores'),
-			$utils: path.resolve('./src/utils')
-		}
-	}
-};
-
-export default config;
+export default defineConfig({
+	plugins: [
+		sveltekit({
+			preprocess: vitePreprocess(),
+			adapter: adapter()
+		})
+	]
+});

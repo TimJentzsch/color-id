@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { colorName } from '$stores/color-stores';
+	import { resolve } from '$app/paths';
+	import { colorName } from '#stores/color-stores.js';
 </script>
 
 <div class="outer">
 	<nav>
 		<div class="title">
-			<a href="/">
+			<a href={resolve('/')}>
 				<img src="/logo.svg" alt="Logo" height={30} />
 				<h1>{$colorName}</h1>
 			</a>

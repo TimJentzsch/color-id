@@ -1,18 +1,18 @@
 <script lang="ts">
-	import WcagPreview from '$lib/accessibility/WcagPreview.svelte';
-	import ColorBig from '$lib/color-preview/ColorBig.svelte';
-	import ColorInputForm from '$lib/ColorInputForm.svelte';
-	import LinkableHeading from '$lib/LinkableHeading.svelte';
+	import WcagPreview from '#lib/accessibility/WcagPreview.svelte';
+	import ColorBig from '#lib/color-preview/ColorBig.svelte';
+	import ColorInputForm from '#lib/ColorInputForm.svelte';
+	import LinkableHeading from '#lib/LinkableHeading.svelte';
 	import {
 		secColorName,
 		secRgbColor,
 		secHslColor,
 		secHsvColor,
 		secColorHex
-	} from '$stores/secondary-color-stores';
-	import { colorName, colorHex, rgbColor, hslColor } from '$stores/color-stores';
+	} from '#stores/secondary-color-stores.js';
+	import { colorName, colorHex, rgbColor, hslColor } from '#stores/color-stores.js';
 	import { wcagContrast } from 'culori';
-	import ContrastChecks from '$lib/accessibility/ContrastChecks.svelte';
+	import ContrastChecks from '#lib/accessibility/ContrastChecks.svelte';
 
 	function onColorInput(color: string) {
 		$secColorName = color;

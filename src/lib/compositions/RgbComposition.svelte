@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { colorName, rgbColor } from '$stores/color-stores';
+	import { colorName, rgbColor } from '#stores/color-stores.js';
 	import CompositionSlider from './CompositionSlider.svelte';
 
 	function percentageToNum(percentage: number): number {
