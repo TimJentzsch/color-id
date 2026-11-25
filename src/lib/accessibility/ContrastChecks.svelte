@@ -1,6 +1,6 @@
 <script lang="ts">
-	import ColorSmall from '$lib/color-preview/ColorSmall.svelte';
-	import { formatHex, wcagContrast, type Hsl } from 'culori';
+	import ColorSmall from '#lib/color-preview/ColorSmall.svelte';
+	import { wcagContrast, type Hsl } from 'culori';
 
 	export let contrast: number;
 	export let hslColor: Hsl;
@@ -118,7 +118,7 @@
 		return curColor;
 	}
 
-	$: checks = contrastLevels.map((definition) => {
+	$: checks = contrastLevels.map((definition): WcagCheck => {
 		const passed = contrast >= definition.ratio;
 
 		if (passed) {
@@ -147,7 +147,7 @@
 </script>
 
 <div class="contrast-checks">
-	{#each checks as { definition, result }}
+	{#each checks as { definition, result } (`${definition.name}-${definition.large}`)}
 		<div class="check-container {result.passed ? 'passed' : 'failed'}">
 			<div class="check-title">
 				<span class="result">{result.passed ? '✓ Passed' : '✗ Failed'}</span>

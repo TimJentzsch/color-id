@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { parseColor } from '$utils/color-parsing';
+	import { parseColor } from '#utils/color-parsing.js';
 
 	export let colorName: string;
 	export let promptText: string;

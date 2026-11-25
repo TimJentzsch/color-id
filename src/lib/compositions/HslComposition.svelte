@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { colorName, hslColor } from '$stores/color-stores';
+	import { colorName, hslColor } from '#stores/color-stores.js';
 	import CompositionSlider from './CompositionSlider.svelte';
 	import HueSlider from './HueSlider.svelte';
 

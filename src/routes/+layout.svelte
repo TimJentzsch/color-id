@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import Footer from '$lib/Footer.svelte';
-	import Header from '$lib/Header.svelte';
-	import { colorName, darkThemeHex, lightThemeHex } from '$stores/color-stores';
+	import { browser } from '$app/env';
+	import Footer from '#lib/Footer.svelte';
+	import Header from '#lib/Header.svelte';
+	import { colorName, darkThemeHex, lightThemeHex } from '#stores/color-stores.js';
 	import '../colors.css';
 	import '../app.css';
 

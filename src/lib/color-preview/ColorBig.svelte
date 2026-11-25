@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { getColorDescription } from '$utils/color-description';
-	import { formatHex, hsl, hsv, type Color, type Hsl, type Hsv, type Rgb } from 'culori';
+	import { getColorDescription } from '#utils/color-description.js';
+	import { formatHex, hsl, hsv, type Hsl, type Hsv, type Rgb } from 'culori';
 
 	export let name: string | undefined = undefined;
 	export let rgbColor: Rgb;

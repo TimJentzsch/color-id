@@ -1,8 +1,8 @@
 <script>
-	import HslComposition from '$lib/compositions/HslComposition.svelte';
-	import HsvComposition from '$lib/compositions/HsvComposition.svelte';
-	import RgbComposition from '$lib/compositions/RgbComposition.svelte';
-	import LinkableHeading from '$lib/LinkableHeading.svelte';
+	import HslComposition from '#lib/compositions/HslComposition.svelte';
+	import HsvComposition from '#lib/compositions/HsvComposition.svelte';
+	import RgbComposition from '#lib/compositions/RgbComposition.svelte';
+	import LinkableHeading from '#lib/LinkableHeading.svelte';
 </script>
 
 <LinkableHeading text="Composition" />
