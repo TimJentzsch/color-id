@@ -7,7 +7,6 @@
 		secColorName,
 		secRgbColor,
 		secHslColor,
-		secHsvColor,
 		secColorHex
 	} from '#stores/secondary-color-stores.js';
 	import { colorName, colorHex, rgbColor, hslColor } from '#stores/color-stores.js';
@@ -25,12 +24,7 @@
 
 <div class="container">
 	<div class="input">
-		<ColorBig
-			name={$secColorName}
-			rgbColor={$secRgbColor}
-			hslColor={$secHslColor}
-			hsvColor={$secHsvColor}
-		/>
+		<ColorBig name={$secColorName} rgbColor={$secRgbColor} />
 		<ColorInputForm
 			colorName={$secColorName}
 			promptText="Choose a color for contrast checks:"

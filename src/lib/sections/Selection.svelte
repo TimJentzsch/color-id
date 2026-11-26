@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ColorInputForm from '#lib/ColorInputForm.svelte';
 	import ColorBig from '#lib/color-preview/ColorBig.svelte';
-	import { colorName, hslColor, hsvColor, rgbColor } from '#stores/color-stores.js';
+	import { colorName, rgbColor } from '#stores/color-stores.js';
 	import { formatHex, random } from 'culori';
 
 	function onColorInput(color: string) {
@@ -10,7 +10,7 @@
 </script>
 
 <div class="container">
-	<ColorBig name={$colorName} rgbColor={$rgbColor} hslColor={$hslColor} hsvColor={$hsvColor} />
+	<ColorBig name={$colorName} rgbColor={$rgbColor} />
 	<ColorInputForm
 		colorName={$colorName}
 		promptText="Choose a color to identify:"
