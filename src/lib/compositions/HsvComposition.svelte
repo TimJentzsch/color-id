@@ -8,7 +8,7 @@
 	}
 
 	function getName(hue: number, saturation: number, value: number): string {
-		return `hsv(${hue}, ${saturation}%, ${value}%)`;
+		return `hsv(${hue} ${saturation}% ${value}%)`;
 	}
 
 	let h = 0.0;

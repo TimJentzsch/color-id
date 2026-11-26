@@ -3,6 +3,7 @@
 	export let value: number;
 	export let min: number = 0;
 	export let max: number = 100;
+	export let step: number = 1;
 	export let onInput: ((value: number) => void) | undefined = undefined;
 	export let onChange: ((value: number) => void) | undefined = undefined;
 	export let hueName: string;
@@ -29,6 +30,7 @@
 	bind:value
 	{min}
 	{max}
+	{step}
 	on:input={internalOnInput}
 	on:change={internalOnChange}
 />

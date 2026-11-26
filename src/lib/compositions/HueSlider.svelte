@@ -1,6 +1,8 @@
 <script lang="ts">
 	export let id: string | undefined = undefined;
 	export let hue: number;
+	/** The color space whose hue wheel the track shows. */
+	export let space: 'hsl' | 'oklch' = 'hsl';
 	export let onInput: ((value: number) => void) | undefined = undefined;
 	export let onChange: ((value: number) => void) | undefined = undefined;
 
@@ -19,6 +21,7 @@
 
 <input
 	{id}
+	class:oklch={space === 'oklch'}
 	type="range"
 	bind:value={hue}
 	min={0}
@@ -47,6 +50,23 @@
 			hsl(360, 80%, var(--lightness)) 100%
 		);
 		--thumb-background: transparent;
+	}
+
+	input[type='range'].oklch {
+		--track-background: linear-gradient(
+			to right,
+			oklch(var(--lightness) 0.13 0) 0%,
+			oklch(var(--lightness) 0.13 36) 10%,
+			oklch(var(--lightness) 0.13 72) 20%,
+			oklch(var(--lightness) 0.13 108) 30%,
+			oklch(var(--lightness) 0.13 144) 40%,
+			oklch(var(--lightness) 0.13 180) 50%,
+			oklch(var(--lightness) 0.13 216) 60%,
+			oklch(var(--lightness) 0.13 252) 70%,
+			oklch(var(--lightness) 0.13 288) 80%,
+			oklch(var(--lightness) 0.13 324) 90%,
+			oklch(var(--lightness) 0.13 360) 100%
+		);
 	}
 
 	input[type='range']::-moz-range-track {

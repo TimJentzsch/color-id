@@ -7,7 +7,7 @@
 	}
 
 	function getName(red: number, green: number, blue: number): string {
-		return `rgb(${red}, ${green}, ${blue})`;
+		return `rgb(${red} ${green} ${blue})`;
 	}
 
 	$: r = percentageToNum($rgbColor.r);

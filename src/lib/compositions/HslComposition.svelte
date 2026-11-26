@@ -8,7 +8,7 @@
 	}
 
 	function getName(hue: number, saturation: number, lightness: number): string {
-		return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+		return `hsl(${hue} ${saturation}% ${lightness}%)`;
 	}
 
 	let h = 0.0;
