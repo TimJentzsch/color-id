@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { colorName, hslColor } from '#stores/color-stores.js';
-	import CompositionSlider from './CompositionSlider.svelte';
-	import HueSlider from './HueSlider.svelte';
+	import GradientSlider from './GradientSlider.svelte';
+	import { channelGradient } from '#utils/gradients.js';
 
 	function percentageToNum(percentage: number): number {
 		return Math.round(percentage * 100.0);
 	}
 
 	function getName(hue: number, saturation: number, lightness: number): string {
-		return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+		return `hsl(${hue} ${saturation}% ${lightness}%)`;
 	}
 
 	let h = 0.0;
@@ -31,6 +31,11 @@
 	function updateLightness(lightness: number, updateUrl = true) {
 		colorName.set(getName(h, s, lightness), updateUrl);
 	}
+
+	// Each track is the current color with only that slider's channel varied.
+	$: hGradient = channelGradient(0, 360, (x) => `hsl(${x} ${s}% ${l}%)`);
+	$: sGradient = channelGradient(0, 100, (x) => `hsl(${h} ${x}% ${l}%)`);
+	$: lGradient = channelGradient(0, 100, (x) => `hsl(${h} ${s}% ${x}%)`);
 </script>
 
 <div class="container">
@@ -44,17 +49,20 @@
 		</div>
 		<div class="inputs">
 			<div class="line-wrapper">
-				<HueSlider
+				<GradientSlider
 					id="hsl-h"
-					hue={h}
+					gradient={hGradient}
+					value={h}
+					min={0}
+					max={360}
 					onChange={updateHue}
 					onInput={(value) => updateHue(value, false)}
 				/>
 			</div>
 			<div class="line-wrapper">
-				<CompositionSlider
+				<GradientSlider
 					id="hsl-s"
-					hueName="hsl-saturation"
+					gradient={sGradient}
 					value={s}
 					min={0}
 					max={100}
@@ -63,9 +71,9 @@
 				/>
 			</div>
 			<div class="line-wrapper">
-				<CompositionSlider
+				<GradientSlider
 					id="hsl-l"
-					hueName="lightness"
+					gradient={lGradient}
 					value={l}
 					min={0}
 					max={100}

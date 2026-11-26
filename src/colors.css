@@ -13,17 +13,6 @@
 	--success-color: rgb(118, 224, 118);
 
 	--focus-outline: solid rgb(109, 255, 255) 3px;
-
-	--lightness: 70%;
-
-	/* Hues for the compositions */
-	--red-hue: 0;
-	--green-hue: 120;
-	--blue-hue: 240;
-	--hsl-saturation-hue: 300;
-	--hsv-saturation-hue: 329;
-	--lightness-hue: 58;
-	--value-hue: 275;
 }
 
 @media (prefers-color-scheme: light) {
@@ -36,7 +25,5 @@
 
 		--error-color: rgb(219, 42, 42);
 		--success-color: rgb(33, 182, 33);
-
-		--lightness: 50%;
 	}
 }

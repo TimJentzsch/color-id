@@ -3,7 +3,17 @@ import { parseColor } from '#utils/color-parsing.js';
 import { getClosestNamedColors } from '#utils/named-colors.js';
 import type { Color } from '#utils/types.js';
 import { extractUrlQueryParamColorName, updateUrlQueryParams } from '#utils/url-utils.js';
-import { formatHex, hsl, hsv, random, rgb, type Color as CuloriColor, type Hsl } from 'culori';
+import {
+	formatHex,
+	hsl,
+	hsv,
+	oklab,
+	oklch,
+	random,
+	rgb,
+	type Color as CuloriColor,
+	type Hsl
+} from 'culori';
 import { derived, writable, type Readable, type Writable } from 'svelte/store';
 
 /**
@@ -56,6 +66,8 @@ export const culoriColor: Readable<CuloriColor> = derived(color, ($color) => col
 export const rgbColor = derived(culoriColor, ($culoriColor) => rgb($culoriColor));
 export const hslColor = derived(culoriColor, ($culoriColor) => hsl($culoriColor));
 export const hsvColor = derived(culoriColor, ($culoriColor) => hsv($culoriColor));
+export const oklabColor = derived(culoriColor, ($culoriColor) => oklab($culoriColor));
+export const oklchColor = derived(culoriColor, ($culoriColor) => oklch($culoriColor));
 export const cmykColor = derived(rgbColor, ($rgbColor) => rgbToCmyk($rgbColor));
 
 // Hex color name

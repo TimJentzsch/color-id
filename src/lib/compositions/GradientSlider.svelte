@@ -1,29 +1,33 @@
 <script lang="ts">
 	export let id: string | undefined = undefined;
-	export let hue: number;
+	export let value: number;
+	export let min: number = 0;
+	export let max: number = 100;
+	/** A CSS gradient for the track, running from `min` on the left to `max` on the right. */
+	export let gradient: string;
 	export let onInput: ((value: number) => void) | undefined = undefined;
 	export let onChange: ((value: number) => void) | undefined = undefined;
 
 	function internalOnInput() {
 		if (onInput !== undefined) {
-			onInput(hue);
+			onInput(value);
 		}
 	}
 
 	function internalOnChange() {
 		if (onChange !== undefined) {
-			onChange(hue);
+			onChange(value);
 		}
 	}
 </script>
 
 <input
 	{id}
+	style="--track-background: {gradient}"
 	type="range"
-	bind:value={hue}
-	min={0}
-	max={360}
-	step={1}
+	bind:value
+	{min}
+	{max}
 	on:input={internalOnInput}
 	on:change={internalOnChange}
 />
@@ -31,37 +35,28 @@
 <style>
 	input[type='range'] {
 		background: transparent;
-
-		--track-background: linear-gradient(
-			to right,
-			hsl(0, 80%, var(--lightness)) 0%,
-			hsl(36, 80%, var(--lightness)) 10%,
-			hsl(72, 80%, var(--lightness)) 20%,
-			hsl(108, 80%, var(--lightness)) 30%,
-			hsl(144, 80%, var(--lightness)) 40%,
-			hsl(180, 80%, var(--lightness)) 50%,
-			hsl(216, 80%, var(--lightness)) 60%,
-			hsl(252, 80%, var(--lightness)) 70%,
-			hsl(288, 80%, var(--lightness)) 80%,
-			hsl(324, 80%, var(--lightness)) 90%,
-			hsl(360, 80%, var(--lightness)) 100%
-		);
 		--thumb-background: transparent;
+		/* A ring rather than a border, so the track size and thumb alignment stay the same */
+		--track-border: 0 0 0 1px var(--muted-color);
+		/* Matches the corner radius used elsewhere in the app */
+		--track-radius: 5px;
+		--thumb-radius: 2px;
 	}
 
 	input[type='range']::-moz-range-track {
 		height: 15px;
 		cursor: col-resize;
 		background: var(--track-background);
+		box-shadow: var(--track-border);
+		border-radius: var(--track-radius);
 	}
 
 	input[type='range']::-moz-range-thumb {
-		-webkit-appearance: none;
 		cursor: col-resize;
 		outline: solid var(--text-color) 2px;
 		border: solid var(--background-color) 2px;
-		border-radius: 0;
-		background-color: transparent;
+		border-radius: var(--thumb-radius);
+		background-color: var(--thumb-background);
 		width: 3px;
 		height: 14px;
 		text-align: center;
@@ -77,6 +72,8 @@
 		height: 15px;
 		background: var(--track-background);
 		border: none;
+		box-shadow: var(--track-border);
+		border-radius: var(--track-radius);
 	}
 
 	input[type='range']::-webkit-slider-thumb {
@@ -87,6 +84,7 @@
 		margin-top: -1px;
 		outline: solid var(--text-color) 2px;
 		border: solid var(--background-color) 2px;
+		border-radius: var(--thumb-radius);
 		background-color: var(--thumb-background);
 		text-align: center;
 	}
