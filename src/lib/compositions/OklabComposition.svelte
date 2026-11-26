@@ -2,6 +2,7 @@
 	import { colorName, oklabColor } from '#stores/color-stores.js';
 	import { clampToSrgb } from '#utils/color-conversion.js';
 	import CompositionSlider from './CompositionSlider.svelte';
+	import GradientSlider from './GradientSlider.svelte';
 
 	/** The value that CSS treats as 100% for a and b. */
 	const FULL_RANGE = 0.4;
@@ -13,6 +14,13 @@
 	function fromPercent(percentage: number): number {
 		return (percentage / 100.0) * FULL_RANGE;
 	}
+
+	// Each track sweeps one channel across its full range in Oklab.
+	// Lightness is the theme's slider lightness and the other channel is 0, so only a or b varies.
+	const aGradient =
+		'linear-gradient(to right in oklab, oklab(var(--lightness) -100% 0), oklab(var(--lightness) 100% 0))';
+	const bGradient =
+		'linear-gradient(to right in oklab, oklab(var(--lightness) 0 -100%), oklab(var(--lightness) 0 100%))';
 
 	function getName(lightness: number, a: number, b: number): string {
 		return `oklab(${lightness}% ${a}% ${b}%)`;
@@ -71,9 +79,9 @@
 				/>
 			</div>
 			<div class="line-wrapper">
-				<CompositionSlider
+				<GradientSlider
 					id="oklab-a"
-					hueName="oklab-a"
+					gradient={aGradient}
 					value={a}
 					min={-100}
 					max={100}
@@ -82,9 +90,9 @@
 				/>
 			</div>
 			<div class="line-wrapper">
-				<CompositionSlider
+				<GradientSlider
 					id="oklab-b"
-					hueName="oklab-b"
+					gradient={bGradient}
 					value={b}
 					min={-100}
 					max={100}
