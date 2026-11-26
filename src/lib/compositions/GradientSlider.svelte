@@ -36,19 +36,26 @@
 	input[type='range'] {
 		background: transparent;
 		--thumb-background: transparent;
+		/* A ring rather than a border, so the track size and thumb alignment stay the same */
+		--track-border: 0 0 0 1px var(--muted-color);
+		/* Matches the corner radius used elsewhere in the app */
+		--track-radius: 5px;
+		--thumb-radius: 2px;
 	}
 
 	input[type='range']::-moz-range-track {
 		height: 15px;
 		cursor: col-resize;
 		background: var(--track-background);
+		box-shadow: var(--track-border);
+		border-radius: var(--track-radius);
 	}
 
 	input[type='range']::-moz-range-thumb {
 		cursor: col-resize;
 		outline: solid var(--text-color) 2px;
 		border: solid var(--background-color) 2px;
-		border-radius: 0;
+		border-radius: var(--thumb-radius);
 		background-color: var(--thumb-background);
 		width: 3px;
 		height: 14px;
@@ -65,6 +72,8 @@
 		height: 15px;
 		background: var(--track-background);
 		border: none;
+		box-shadow: var(--track-border);
+		border-radius: var(--track-radius);
 	}
 
 	input[type='range']::-webkit-slider-thumb {
@@ -75,6 +84,7 @@
 		margin-top: -1px;
 		outline: solid var(--text-color) 2px;
 		border: solid var(--background-color) 2px;
+		border-radius: var(--thumb-radius);
 		background-color: var(--thumb-background);
 		text-align: center;
 	}
