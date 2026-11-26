@@ -1,4 +1,4 @@
-import { clampChroma, type Color as CuloriColor, type Oklab, type Oklch, type Rgb } from 'culori';
+import type { Color as CuloriColor, Rgb } from 'culori';
 import type { Cmyk, Color } from './types';
 
 /**
@@ -53,14 +53,4 @@ export function cymkToRgb(cymk: Cmyk): Rgb {
 		b,
 		alpha
 	};
-}
-
-/**
- * Brings an Oklab or Oklch color into the sRGB gamut.
- *
- * Only the chroma is reduced, so lightness and hue stay exactly as given.
- * Colors that are already displayable are returned unchanged.
- */
-export function clampToSrgb<T extends Oklab | Oklch>(color: T): T {
-	return clampChroma(color, 'oklch', 'rgb') as T;
 }

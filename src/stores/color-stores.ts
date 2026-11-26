@@ -4,6 +4,7 @@ import { getClosestNamedColors } from '#utils/named-colors.js';
 import type { Color } from '#utils/types.js';
 import { extractUrlQueryParamColorName, updateUrlQueryParams } from '#utils/url-utils.js';
 import {
+	clampRgb,
 	formatHex,
 	hsl,
 	hsv,
@@ -63,9 +64,15 @@ export const color: Readable<Color> = derived(colorName, ($colorName) => {
 export const culoriColor: Readable<CuloriColor> = derived(color, ($color) => colorToCulori($color));
 
 // Color representations
-export const rgbColor = derived(culoriColor, ($culoriColor) => rgb($culoriColor));
-export const hslColor = derived(culoriColor, ($culoriColor) => hsl($culoriColor));
-export const hsvColor = derived(culoriColor, ($culoriColor) => hsv($culoriColor));
+/**
+ * The color clipped to the sRGB gamut.
+ *
+ * Oklab and Oklch can describe colors outside of sRGB, so the sRGB-based representations
+ * show the closest displayable color instead.
+ */
+export const rgbColor = derived(culoriColor, ($culoriColor) => clampRgb(rgb($culoriColor)));
+export const hslColor = derived(rgbColor, ($rgbColor) => hsl($rgbColor));
+export const hsvColor = derived(rgbColor, ($rgbColor) => hsv($rgbColor));
 export const oklabColor = derived(culoriColor, ($culoriColor) => oklab($culoriColor));
 export const oklchColor = derived(culoriColor, ($culoriColor) => oklch($culoriColor));
 export const cmykColor = derived(rgbColor, ($rgbColor) => rgbToCmyk($rgbColor));
