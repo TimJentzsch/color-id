@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { colorName, oklchColor } from '#stores/color-stores.js';
-	import { clampToSrgb } from '#utils/color-conversion.js';
 	import GradientSlider from './GradientSlider.svelte';
 	import { channelGradient } from '#utils/gradients.js';
 
@@ -9,10 +8,6 @@
 
 	function toPercent(value: number): number {
 		return (value / FULL_RANGE) * 100.0;
-	}
-
-	function fromPercent(percentage: number): number {
-		return (percentage / 100.0) * FULL_RANGE;
 	}
 
 	function getName(lightness: number, chroma: number, hue: number): string {
@@ -29,14 +24,8 @@
 	$: c = Math.round(toPercent($oklchColor.c));
 
 	function setColor(lightness: number, chroma: number, hue: number, updateUrl: boolean) {
-		const clamped = clampToSrgb({
-			mode: 'oklch',
-			l: lightness / 100.0,
-			c: fromPercent(chroma),
-			h: hue
-		});
-		// Truncating keeps a clamped value from being pushed back out of the sRGB gamut.
-		colorName.set(getName(lightness, Math.trunc(toPercent(clamped.c)), hue), updateUrl);
+		// Out-of-gamut values are kept as is, so each slider only ever changes its own channel.
+		colorName.set(getName(lightness, chroma, hue), updateUrl);
 	}
 
 	function updateLightness(lightness: number, updateUrl = true) {
