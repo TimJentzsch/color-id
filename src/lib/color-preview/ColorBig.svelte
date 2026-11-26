@@ -1,17 +1,12 @@
 <script lang="ts">
 	import { getColorDescription } from '#utils/color-description.js';
-	import { formatHex, hsl, hsv, type Hsl, type Hsv, type Rgb } from 'culori';
+	import { formatHex, oklch, type Rgb } from 'culori';
 
 	export let name: string | undefined = undefined;
 	export let rgbColor: Rgb;
-	export let hslColor: Hsl | undefined = undefined;
-	export let hsvColor: Hsv | undefined = undefined;
-
-	$: _hsl = hslColor ?? hsl(rgbColor);
-	$: _hsv = hsvColor ?? hsv(rgbColor);
 
 	$: hex = formatHex(rgbColor);
-	$: description = getColorDescription(_hsl, _hsv);
+	$: description = getColorDescription(oklch(rgbColor));
 </script>
 
 <div class="container">
