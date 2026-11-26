@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { colorName, rgbColor } from '#stores/color-stores.js';
-	import CompositionSlider from './CompositionSlider.svelte';
+	import GradientSlider from './GradientSlider.svelte';
+	import { channelGradient } from '#utils/gradients.js';
 
 	function percentageToNum(percentage: number): number {
 		return Math.round(percentage * 255.0);
@@ -25,6 +26,11 @@
 	function updateBlue(blue: number, updateUrl = true) {
 		colorName.set(getName(r, g, blue), updateUrl);
 	}
+
+	// Each track is the current color with only that slider's channel varied.
+	$: rGradient = channelGradient(0, 255, (x) => `rgb(${x} ${g} ${b})`);
+	$: gGradient = channelGradient(0, 255, (x) => `rgb(${r} ${x} ${b})`);
+	$: bGradient = channelGradient(0, 255, (x) => `rgb(${r} ${g} ${x})`);
 </script>
 
 <div class="container">
@@ -38,9 +44,9 @@
 		</div>
 		<div class="inputs">
 			<div class="line-wrapper">
-				<CompositionSlider
+				<GradientSlider
 					id="rgb-r"
-					hueName="red"
+					gradient={rGradient}
 					value={r}
 					min={0}
 					max={255}
@@ -49,9 +55,9 @@
 				/>
 			</div>
 			<div class="line-wrapper">
-				<CompositionSlider
+				<GradientSlider
 					id="rgb-g"
-					hueName="green"
+					gradient={gGradient}
 					value={g}
 					min={0}
 					max={255}
@@ -60,9 +66,9 @@
 				/>
 			</div>
 			<div class="line-wrapper">
-				<CompositionSlider
+				<GradientSlider
 					id="rgb-b"
-					hueName="blue"
+					gradient={bGradient}
 					value={b}
 					min={0}
 					max={255}

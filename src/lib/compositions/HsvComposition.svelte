@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { colorName, hsvColor } from '#stores/color-stores.js';
-	import CompositionSlider from './CompositionSlider.svelte';
-	import HueSlider from './HueSlider.svelte';
+	import { channelGradient } from '#utils/gradients.js';
+	import { formatRgb } from 'culori';
+	import GradientSlider from './GradientSlider.svelte';
 
 	function percentageToNum(percentage: number): number {
 		return Math.round(percentage * 100.0);
@@ -31,6 +32,16 @@
 	function updateValue(value: number, updateUrl = true) {
 		colorName.set(getName(h, s, value), updateUrl);
 	}
+
+	// Each track is the current color with only that slider's channel varied.
+	// CSS has no hsv(), so the stops are converted to RGB.
+	function hsvToCss(hue: number, saturation: number, value: number): string {
+		return formatRgb({ mode: 'hsv', h: hue, s: saturation / 100.0, v: value / 100.0 });
+	}
+
+	$: hGradient = channelGradient(0, 360, (x) => hsvToCss(x, s, v));
+	$: sGradient = channelGradient(0, 100, (x) => hsvToCss(h, x, v));
+	$: vGradient = channelGradient(0, 100, (x) => hsvToCss(h, s, x));
 </script>
 
 <div class="container">
@@ -44,17 +55,20 @@
 		</div>
 		<div class="inputs">
 			<div class="line-wrapper">
-				<HueSlider
+				<GradientSlider
 					id="hsv-h"
-					hue={h}
+					gradient={hGradient}
+					value={h}
+					min={0}
+					max={360}
 					onChange={updateHue}
 					onInput={(value) => updateHue(value, false)}
 				/>
 			</div>
 			<div class="line-wrapper">
-				<CompositionSlider
+				<GradientSlider
 					id="hsv-s"
-					hueName="hsv-saturation"
+					gradient={sGradient}
 					value={s}
 					min={0}
 					max={100}
@@ -63,9 +77,9 @@
 				/>
 			</div>
 			<div class="line-wrapper">
-				<CompositionSlider
+				<GradientSlider
 					id="hsv-v"
-					hueName="value"
+					gradient={vGradient}
 					value={v}
 					min={0}
 					max={100}

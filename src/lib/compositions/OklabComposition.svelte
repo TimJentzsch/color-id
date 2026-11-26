@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { colorName, oklabColor } from '#stores/color-stores.js';
 	import { clampToSrgb } from '#utils/color-conversion.js';
-	import CompositionSlider from './CompositionSlider.svelte';
 	import GradientSlider from './GradientSlider.svelte';
+	import { channelGradient } from '#utils/gradients.js';
 
 	/** The value that CSS treats as 100% for a and b. */
 	const FULL_RANGE = 0.4;
@@ -14,13 +14,6 @@
 	function fromPercent(percentage: number): number {
 		return (percentage / 100.0) * FULL_RANGE;
 	}
-
-	// Each track sweeps one channel across its full range in Oklab.
-	// Lightness is the theme's slider lightness and the other channel is 0, so only a or b varies.
-	const aGradient =
-		'linear-gradient(to right in oklab, oklab(var(--lightness) -100% 0), oklab(var(--lightness) 100% 0))';
-	const bGradient =
-		'linear-gradient(to right in oklab, oklab(var(--lightness) 0 -100%), oklab(var(--lightness) 0 100%))';
 
 	function getName(lightness: number, a: number, b: number): string {
 		return `oklab(${lightness}% ${a}% ${b}%)`;
@@ -55,6 +48,11 @@
 	function updateB(newB: number, updateUrl = true) {
 		setColor(l, a, newB, updateUrl);
 	}
+
+	// Each track is the current color with only that slider's channel varied.
+	$: lGradient = channelGradient(0, 100, (x) => `oklab(${x}% ${a}% ${b}%)`);
+	$: aGradient = channelGradient(-100, 100, (x) => `oklab(${l}% ${x}% ${b}%)`);
+	$: bGradient = channelGradient(-100, 100, (x) => `oklab(${l}% ${a}% ${x}%)`);
 </script>
 
 <div class="container">
@@ -68,9 +66,9 @@
 		</div>
 		<div class="inputs">
 			<div class="line-wrapper">
-				<CompositionSlider
+				<GradientSlider
 					id="oklab-l"
-					hueName="lightness"
+					gradient={lGradient}
 					value={l}
 					min={0}
 					max={100}

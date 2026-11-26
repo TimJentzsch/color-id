@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { colorName, oklchColor } from '#stores/color-stores.js';
 	import { clampToSrgb } from '#utils/color-conversion.js';
-	import CompositionSlider from './CompositionSlider.svelte';
-	import HueSlider from './HueSlider.svelte';
+	import GradientSlider from './GradientSlider.svelte';
+	import { channelGradient } from '#utils/gradients.js';
 
 	/** The value that CSS treats as 100% for chroma. */
 	const FULL_RANGE = 0.4;
@@ -50,6 +50,11 @@
 	function updateHue(hue: number, updateUrl = true) {
 		setColor(l, c, hue, updateUrl);
 	}
+
+	// Each track is the current color with only that slider's channel varied.
+	$: lGradient = channelGradient(0, 100, (x) => `oklch(${x}% ${c}% ${h})`);
+	$: cGradient = channelGradient(0, 100, (x) => `oklch(${l}% ${x}% ${h})`);
+	$: hGradient = channelGradient(0, 360, (x) => `oklch(${l}% ${c}% ${x})`);
 </script>
 
 <div class="container">
@@ -63,9 +68,9 @@
 		</div>
 		<div class="inputs">
 			<div class="line-wrapper">
-				<CompositionSlider
+				<GradientSlider
 					id="oklch-l"
-					hueName="lightness"
+					gradient={lGradient}
 					value={l}
 					min={0}
 					max={100}
@@ -74,9 +79,9 @@
 				/>
 			</div>
 			<div class="line-wrapper">
-				<CompositionSlider
+				<GradientSlider
 					id="oklch-c"
-					hueName="chroma"
+					gradient={cGradient}
 					value={c}
 					min={0}
 					max={100}
@@ -85,10 +90,12 @@
 				/>
 			</div>
 			<div class="line-wrapper">
-				<HueSlider
+				<GradientSlider
 					id="oklch-h"
-					space="oklch"
-					hue={h}
+					gradient={hGradient}
+					value={h}
+					min={0}
+					max={360}
 					onChange={updateHue}
 					onInput={(value) => updateHue(value, false)}
 				/>
